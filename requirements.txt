@@ -1,0 +1,6 @@
+# Core dependencies for both generate.py and generate_concurrent.py
+google-genai>=0.3.0
+google-auth>=2.0.0
+
+# Note: generate_concurrent.py uses asyncio and concurrent.futures 
+# which are part of Python's standard library (Python 3.7+) 
