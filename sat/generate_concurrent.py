@@ -328,6 +328,19 @@ class ConcurrentMathTaskGenerator:
         
         return cleaned_examples
     
+    def extract_question_texts_only(self, tasks: List[Dict[str, Any]]) -> List[str]:
+        """Extract only the question text (with LaTeX) from existing generated tasks"""
+        if not tasks:
+            return []
+        
+        question_texts = []
+        for task in tasks:
+            question_text = task.get('question_text_latex', '')
+            if question_text:
+                question_texts.append(question_text)
+        
+        return question_texts
+    
     def create_generation_prompt(self, examples: List[Dict[str, Any]], skill: str, 
                                 existing_generated: List[Dict[str, Any]] = None, num_to_generate: int = 10) -> str:
         """Create a detailed prompt for generating math tasks"""
@@ -389,11 +402,15 @@ REQUIREMENTS:
    - Focus on examples that are purely text-based math problems"""
 
         if existing_generated:
-            prompt += f"""
+            question_texts = self.extract_question_texts_only(existing_generated)
+            if question_texts:
+                prompt += f"""
 
-AVOID REPETITION: You have already generated the following problems. DO NOT create similar problems:
-{json.dumps(existing_generated, indent=2)} 
+AVOID REPETITION: You have already generated problems with the following question texts. DO NOT create similar problems:
 """
+                for i, question_text in enumerate(question_texts, 1):
+                    prompt += f"{i}. {question_text}\n"
+                prompt += "\n"
 
         prompt += f"""
 
@@ -892,11 +909,15 @@ REQUIREMENTS:
 5. **{difficulty} Difficulty Level**: Ensure complexity matches the difficulty level exactly"""
 
         if existing_generated:
-            prompt += f"""
+            question_texts = self.extract_question_texts_only(existing_generated)
+            if question_texts:
+                prompt += f"""
 
-AVOID REPETITION: You have already generated the following {difficulty} problems. DO NOT create similar problems:
-{json.dumps(existing_generated, indent=2)} 
+AVOID REPETITION: You have already generated {difficulty} problems with the following question texts. DO NOT create similar problems:
 """
+                for i, question_text in enumerate(question_texts, 1):
+                    prompt += f"{i}. {question_text}\n"
+                prompt += "\n"
 
         prompt += f"""
 
