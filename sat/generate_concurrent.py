@@ -394,6 +394,19 @@ class ConcurrentMathTaskGenerator:
             self.logger.debug(f"Line-by-line extraction failed: {str(e)[:100]}")
         
         # If all methods fail, raise an exception
+        self.logger.error("=== PARSE JSON FALLBACK FAILURE ===")
+        self.logger.error(f"All JSON parsing methods failed for response:")
+        self.logger.error(f"Response length: {len(json_text)} characters")
+        self.logger.error(f"Full response content:")
+        self.logger.error("-" * 80)
+        self.logger.error(json_text)
+        self.logger.error("-" * 80)
+        
+        # Also log first and last 200 characters for quick scanning
+        if len(json_text) > 400:
+            self.logger.error(f"Response preview (first 200 chars): {json_text[:200]}...")
+            self.logger.error(f"Response preview (last 200 chars): ...{json_text[-200:]}")
+        
         raise json.JSONDecodeError("All JSON parsing methods failed", json_text, 0)
     
     def prepare_examples_for_prompt(self, tasks: List[Dict[str, Any]], num_examples: int = 25) -> List[Dict[str, Any]]:
@@ -685,15 +698,82 @@ CRITICAL LATEX ESCAPING IN JSON:
                 except json.JSONDecodeError as e:
                     error_msg = f"JSON parsing error (attempt {attempt + 1}): {e}"
                     self.logger.error(f"[{skill}] {error_msg}")
-                    self.logger.debug(f"[{skill}] Raw response (first 500 chars): {response_text[:500]}...")
-                    if len(response_text) > 500:
-                        self.logger.debug(f"[{skill}] Response length: {len(response_text)} characters")
+                    
+                    # Log the prompt that caused the error
+                    self.logger.error(f"[{skill}] === PROMPT THAT CAUSED ERROR ===")
+                    self.logger.error(f"[{skill}] Prompt length: {len(prompt)} characters")
+                    self.logger.error(f"[{skill}] Prompt content (first 500 chars): {prompt[:500]}...")
+                    if len(prompt) > 500:
+                        self.logger.error(f"[{skill}] Prompt content (last 200 chars): ...{prompt[-200:]}")
+                    
+                    # Log the full Gemini response for debugging
+                    self.logger.error(f"[{skill}] === FULL GEMINI RESPONSE (JSON Parse Error) ===")
+                    self.logger.error(f"[{skill}] Response length: {len(response_text)} characters")
+                    self.logger.error(f"[{skill}] Full response content:")
+                    self.logger.error(f"[{skill}] {'-' * 80}")
+                    self.logger.error(f"[{skill}] {response_text}")
+                    self.logger.error(f"[{skill}] {'-' * 80}")
+                    
+                    # Also log first and last 200 characters for quick scanning
+                    if len(response_text) > 400:
+                        self.logger.error(f"[{skill}] Response preview (first 200 chars): {response_text[:200]}...")
+                        self.logger.error(f"[{skill}] Response preview (last 200 chars): ...{response_text[-200:]}")
+                    
+                    # Count error type
+                    error_type = f"JSONDecodeError_{type(e).__name__}"
+                    error_counts[error_type] = error_counts.get(error_type, 0) + 1
+                    
+                except ValueError as e:
+                    error_msg = f"Value error (attempt {attempt + 1}): {e}"
+                    self.logger.error(f"[{skill}] {error_msg}")
+                    
+                    # Log the prompt that caused the error
+                    self.logger.error(f"[{skill}] === PROMPT THAT CAUSED ERROR ===")
+                    self.logger.error(f"[{skill}] Prompt length: {len(prompt)} characters")
+                    self.logger.error(f"[{skill}] Prompt content (first 500 chars): {prompt[:500]}...")
+                    if len(prompt) > 500:
+                        self.logger.error(f"[{skill}] Prompt content (last 200 chars): ...{prompt[-200:]}")
+                    
+                    # Log the full Gemini response for debugging
+                    self.logger.error(f"[{skill}] === FULL GEMINI RESPONSE (Value Error) ===")
+                    self.logger.error(f"[{skill}] Response length: {len(response_text)} characters")
+                    self.logger.error(f"[{skill}] Full response content:")
+                    self.logger.error(f"[{skill}] {'-' * 80}")
+                    self.logger.error(f"[{skill}] {response_text}")
+                    self.logger.error(f"[{skill}] {'-' * 80}")
+                    
+                    # Count error type
+                    error_type = f"ValueError_{str(e)[:50]}"
+                    error_counts[error_type] = error_counts.get(error_type, 0) + 1
+                    
                 except Exception as e:
                     error_name = type(e).__name__
                     error_message = str(e)
                     
                     error_msg = f"API execution error: {error_name}: {error_message}"
                     self.logger.error(f"[{skill}] {error_msg}")
+                    
+                    # Log the prompt that caused the error
+                    self.logger.error(f"[{skill}] === PROMPT THAT CAUSED ERROR ===")
+                    self.logger.error(f"[{skill}] Prompt length: {len(prompt)} characters")
+                    self.logger.error(f"[{skill}] Prompt content (first 500 chars): {prompt[:500]}...")
+                    if len(prompt) > 500:
+                        self.logger.error(f"[{skill}] Prompt content (last 200 chars): ...{prompt[-200:]}")
+                    
+                    # Log the full Gemini response for debugging if we have one
+                    if 'response_text' in locals() and response_text:
+                        self.logger.error(f"[{skill}] === FULL GEMINI RESPONSE (API Error) ===")
+                        self.logger.error(f"[{skill}] Response length: {len(response_text)} characters")
+                        self.logger.error(f"[{skill}] Full response content:")
+                        self.logger.error(f"[{skill}] {'-' * 80}")
+                        self.logger.error(f"[{skill}] {response_text}")
+                        self.logger.error(f"[{skill}] {'-' * 80}")
+                    else:
+                        self.logger.error(f"[{skill}] No response text available (error occurred before response)")
+                    
+                    # Count error type
+                    error_type = f"{error_name}_{error_message[:50]}"
+                    error_counts[error_type] = error_counts.get(error_type, 0) + 1
                 
                 if attempt < max_retries - 1:
                     delay = base_delay * (2 ** attempt) + random.uniform(0, 1)
@@ -702,6 +782,13 @@ CRITICAL LATEX ESCAPING IN JSON:
             
             # If we get here, all attempts failed
             self.logger.error(f"[{skill}] All {max_retries} attempts failed")
+            
+            # Log error summary
+            if error_counts:
+                self.logger.error(f"[{skill}] Error summary after {max_retries} attempts:")
+                for error_type, count in error_counts.items():
+                    self.logger.error(f"[{skill}]   - {error_type}: {count} occurrences")
+            
             return None, 0, 0, 0
     
     async def generate_tasks_for_skill(self, skill: str, examples: List[Dict[str, Any]], 
@@ -1282,6 +1369,13 @@ CRITICAL REQUIREMENTS:
             if not isinstance(task, dict):
                 warning_msg = f"Skipping non-dictionary item #{i+1}: {type(task).__name__}: {task}"
                 self.logger.warning(warning_msg)
+                
+                # Log the full problematic item for debugging
+                self.logger.error(f"=== PROBLEMATIC TASK ITEM #{i+1} ===")
+                self.logger.error(f"Type: {type(task).__name__}")
+                self.logger.error(f"Content: {repr(task)}")
+                self.logger.error(f"Full item data: {task}")
+                self.logger.error("-" * 50)
                 continue
                 
             # Clean up all string values
@@ -1301,6 +1395,22 @@ CRITICAL REQUIREMENTS:
             if missing_fields:
                 warning_msg = f"Task #{i+1} missing required fields: {', '.join(missing_fields)}. Adding defaults."
                 self.logger.warning(warning_msg)
+                
+                # Log the full problematic task for debugging
+                self.logger.error(f"=== TASK WITH MISSING FIELDS #{i+1} ===")
+                self.logger.error(f"Missing fields: {missing_fields}")
+                self.logger.error(f"Available fields: {list(cleaned_task.keys())}")
+                self.logger.error(f"Full task data:")
+                self.logger.error("-" * 50)
+                for key, value in cleaned_task.items():
+                    # Truncate very long values for readability
+                    if isinstance(value, str) and len(value) > 200:
+                        truncated_value = value[:200] + "... [TRUNCATED]"
+                    else:
+                        truncated_value = value
+                    self.logger.error(f"  {key}: {repr(truncated_value)}")
+                self.logger.error("-" * 50)
+                
                 # Add default values for missing fields
                 for field in missing_fields:
                     if field == "skill":
