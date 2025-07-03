@@ -208,14 +208,18 @@ class ConcurrentMathTaskGenerator:
         
         # Apply fixes only within JSON string values (between quotes)
         def fix_in_string(match):
-            content = match.group(1)
+            # The content of the string, without the quotes
+            content = match.group(1) 
             for pattern, replacement in critical_fixes:
                 content = re.sub(pattern, replacement, content)
-            return f'"{content}"'
-        
-        # Apply fixes to content within JSON strings
-        json_text = re.sub(r'"([^"]*(?:\\.[^"]*)*)"', fix_in_string, json_text)
-        
+            # Return the fixed content, re-wrapped in quotes
+            return f'"{content}"' # <-- FIX HERE
+
+        # This regex is a bit simple and can fail on escaped quotes. A better one is below.
+        # We will fix the one in the more comprehensive function.
+        # This function is now redundant, but let's fix it for completeness.
+        json_text = re.sub(r'"((?:\\"|[^"])*)"', fix_in_string, json_text)
+    
         return json_text
     
     def fix_json_escaping(self, json_text: str) -> str:
@@ -253,7 +257,7 @@ class ConcurrentMathTaskGenerator:
             (r'\\sigma', r'\\\\sigma'),
             (r'\\omega', r'\\\\omega'),
             (r'\\hline', r'\\\\hline'),
-            (r'\\\\\\\\', r'\\\\\\\\\\\\\\\\'),  # Fix double backslashes in tables
+            (r'(?<!\\)\\\\(?!\\)', r'\\\\\\\\'),  # Fix double backslashes in tables
         ]
         
         # Apply LaTeX-specific fixes within JSON string values
@@ -268,13 +272,15 @@ class ConcurrentMathTaskGenerator:
             # This regex looks for backslashes not followed by valid JSON escape characters
             content = re.sub(r'\\(?![\\"/bfnrtu])', r'\\\\', content)
             
+            # <<< FIX #1: RETURN THE FIXED CONTENT, WRAPPED IN QUOTES >>>
             return f'"{content}"'
         
         # Apply fixes to content within JSON strings
-        json_text = re.sub(r'"([^"]*(?:\\.[^"]*)*)"', fix_latex_in_string, json_text)
+        # <<< FIX #2: USE A MORE ROBUST REGEX TO HANDLE ESCAPED QUOTES (\") >>>
+        json_text = re.sub(r'"((?:\\"|[^"])*)"', fix_latex_in_string, json_text)
         
         return json_text
-    
+        
     def parse_json_with_fallback(self, json_text: str) -> List[Dict[str, Any]]:
         """Parse JSON with multiple fallback strategies, handling text before JSON"""
         
@@ -509,7 +515,11 @@ AVOID REPETITION: You have already generated problems with the following questio
                     prompt += f"{i}. {question_text}\n"
                 prompt += "\n"
 
-        prompt += f"""
+        prompt += f""" 
+
+FINAL INSTRUCTION:
+First, complete all your internal thinking, analysis, and problem creation steps.
+After you have finished thinking, your response MUST ONLY BE the final, clean, valid JSON array containing exactly {num_to_generate} problems. Do not include any of your thought process, notes, or any other text before or after the JSON array. The response must start with `[` and end with `]`.
 
 THINKING AND OUTPUT FORMAT:
 You may think through the problem creation process before generating the JSON. Feel free to:
@@ -565,7 +575,12 @@ CRITICAL LATEX ESCAPING IN JSON:
 - Test your JSON by ensuring it can be parsed by standard JSON parsers
 
 - Do not include any text after the closing ] bracket
-- The JSON must contain exactly {num_to_generate} complete problem objects"""
+- The JSON must contain exactly {num_to_generate} complete problem objects
+
+
+FINAL INSTRUCTION:
+First, complete all your internal thinking, analysis, and problem creation steps.
+After you have finished thinking, provide your response which MUST ONLY BE the final, clean, valid JSON array containing exactly {num_to_generate} problems. Do not include any of your thought process, notes, or any other text before or after the JSON array. The response must start with `[` and end with `]`."""
         
         return prompt
     
