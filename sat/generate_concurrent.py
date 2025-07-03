@@ -4,12 +4,79 @@ import json
 import random
 import time
 import asyncio
+import logging
+from datetime import datetime
+from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 import threading
 from google import genai
 from google.genai import types
+
+
+def setup_logging(log_dir: str = "logs") -> logging.Logger:
+    """Setup comprehensive logging with file output"""
+    # Create logs directory if it doesn't exist
+    Path(log_dir).mkdir(exist_ok=True)
+    
+    # Create timestamp for log files
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+    # Setup main logger
+    logger = logging.getLogger('SAT_Generator')
+    logger.setLevel(logging.DEBUG)
+    
+    # Clear any existing handlers
+    logger.handlers.clear()
+    
+    # Create formatters
+    detailed_formatter = logging.Formatter(
+        '%(asctime)s | %(levelname)-8s | %(name)s | %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    
+    simple_formatter = logging.Formatter(
+        '%(asctime)s | %(levelname)-8s | %(message)s',
+        datefmt='%H:%M:%S'
+    )
+    
+    # File handler for detailed logs (DEBUG and above)
+    detailed_log_file = Path(log_dir) / f"generation_detailed_{timestamp}.log"
+    file_handler = logging.FileHandler(detailed_log_file, encoding='utf-8')
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(detailed_formatter)
+    logger.addHandler(file_handler)
+    
+    # File handler for errors only
+    error_log_file = Path(log_dir) / f"generation_errors_{timestamp}.log"
+    error_handler = logging.FileHandler(error_log_file, encoding='utf-8')
+    error_handler.setLevel(logging.ERROR)
+    error_handler.setFormatter(detailed_formatter)
+    logger.addHandler(error_handler)
+    
+    # File handler for progress tracking (INFO and above)
+    progress_log_file = Path(log_dir) / f"generation_progress_{timestamp}.log"
+    progress_handler = logging.FileHandler(progress_log_file, encoding='utf-8')
+    progress_handler.setLevel(logging.INFO)
+    progress_handler.setFormatter(simple_formatter)
+    logger.addHandler(progress_handler)
+    
+    # Console handler (WARNING and above to reduce console noise)
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.WARNING)
+    console_handler.setFormatter(simple_formatter)
+    logger.addHandler(console_handler)
+    
+    # Log the setup
+    logger.info("="*80)
+    logger.info("SAT Math Task Generator - Logging Initialized")
+    logger.info(f"Detailed logs: {detailed_log_file}")
+    logger.info(f"Error logs: {error_log_file}")
+    logger.info(f"Progress logs: {progress_log_file}")
+    logger.info("="*80)
+    
+    return logger
 
 
 class ConcurrentMathTaskGenerator:
@@ -19,6 +86,13 @@ class ConcurrentMathTaskGenerator:
         self.location = "global"
         self.model = "gemini-2.5-pro"
         self.max_workers = max_workers
+        
+        # Setup logging
+        self.logger = setup_logging()
+        self.logger.info(f"Initializing SAT Math Task Generator")
+        self.logger.info(f"Project ID: {project_id}")
+        self.logger.info(f"Model: {self.model}")
+        self.logger.info(f"Max workers: {max_workers}")
         
         # Thread-local storage for API clients (since Gemini client might not be thread-safe)
         self._local = threading.local()
@@ -44,6 +118,7 @@ class ConcurrentMathTaskGenerator:
     
     def read_tasks_by_skill(self, csv_file: str) -> Dict[str, List[Dict[str, Any]]]:
         """Read tasks from CSV and group them by skill, keeping only needed columns"""
+        self.logger.info(f"Reading tasks from CSV file: {csv_file}")
         tasks_by_skill = defaultdict(list)
         
         # Define the columns we actually need for generation
@@ -63,10 +138,12 @@ class ConcurrentMathTaskGenerator:
                 unused_columns = available_columns - needed_columns
                 
                 if missing_columns:
-                    print(f"⚠️ Warning: Missing expected columns: {sorted(missing_columns)}")
+                    warning_msg = f"Missing expected columns: {sorted(missing_columns)}"
+                    self.logger.warning(warning_msg)
                 
                 if unused_columns:
-                    print(f"📊 Filtering out unused columns: {sorted(unused_columns)}")
+                    info_msg = f"Filtering out unused columns: {sorted(unused_columns)}"
+                    self.logger.info(info_msg)
                 
                 for row in reader:
                     skill = row.get('skill', '').strip()
@@ -75,14 +152,19 @@ class ConcurrentMathTaskGenerator:
                         filtered_row = {col: row.get(col, '') for col in needed_columns if col in available_columns}
                         tasks_by_skill[skill].append(filtered_row)
             
-            print(f"Successfully read tasks from {csv_file}")
+            success_msg = f"Successfully read tasks from {csv_file}"
+            self.logger.info(success_msg)
+            
             for skill, tasks in tasks_by_skill.items():
-                print(f"  - {skill}: {len(tasks)} tasks")
+                skill_info = f"Skill loaded - {skill}: {len(tasks)} tasks"
+                self.logger.info(skill_info)
                 
         except FileNotFoundError:
-            print(f"CSV file {csv_file} not found.")
+            error_msg = f"CSV file {csv_file} not found"
+            self.logger.error(error_msg)
         except Exception as e:
-            print(f"Error reading CSV file: {e}")
+            error_msg = f"Error reading CSV file: {e}"
+            self.logger.error(error_msg)
         
         return dict(tasks_by_skill)
     
@@ -200,8 +282,8 @@ class ConcurrentMathTaskGenerator:
         try:
             return json.loads(json_text)
         except json.JSONDecodeError as e:
-            print(f"  Direct JSON parsing failed: {str(e)[:100]}")
-            print(f"  JSON text: {json_text}")
+            self.logger.debug(f"Direct JSON parsing failed: {str(e)[:100]}")
+            self.logger.debug(f"JSON text: {json_text}")
         
         # Try 2: Extract JSON array from mixed content (improved regex)
         try:
@@ -213,103 +295,105 @@ class ConcurrentMathTaskGenerator:
                 # Pattern 1: Find complete JSON array (greedy match)
                 r'\[\s*\{.*?\}\s*\]',
                 # Pattern 2: Find JSON array with proper nesting
-                r'\[(?:[^[\]{}]*\{[^{}]*\}[^[\]{}]*)*\]',
-                # Pattern 3: Simple array pattern (fallback)
-                r'\[.*?\]'
+                r'\[(?:[^[\]{}]|\{[^{}]*\}|\[[^\]]*\])*\]',
+                # Pattern 3: Find JSON starting with [ and ending with ] (non-greedy)
+                r'\[.*?\]',
+                # Pattern 4: More specific pattern for task arrays
+                r'\[\s*\{\s*"test".*?\}\s*\]',
             ]
             
             for pattern in patterns:
                 matches = re.findall(pattern, json_text, re.DOTALL)
-                for match in matches:
-                    try:
-                        # Clean up the match
-                        cleaned_match = match.strip()
-                        
-                        # Try to parse this potential JSON
-                        result = json.loads(cleaned_match)
-                        if isinstance(result, list) and len(result) > 0:
-                            print(f"  Successfully extracted JSON using pattern: {pattern}")
-                            return result
-                    except json.JSONDecodeError:
-                        continue
-                        
+                if matches:
+                    # Try to parse the first match
+                    for match in matches:
+                        try:
+                            parsed = json.loads(match)
+                            if isinstance(parsed, list) and len(parsed) > 0:
+                                self.logger.debug(f"Successfully extracted JSON using pattern: {pattern}")
+                                return parsed
+                        except json.JSONDecodeError:
+                            continue
+            
         except Exception as e:
-            print(f"  Regex extraction failed: {str(e)[:100]}")
+            self.logger.debug(f"Regex extraction failed: {str(e)[:100]}")
         
-        # Try 3: Additional escaping fixes on the full text
+        # Try 3: Apply LaTeX escaping fixes and try again
         try:
-            fixed_text = json_text
-            latex_fixes = {
-                '\\$': '\\\\$',
-                '\\%': '\\\\%',
-                '\\&': '\\\\&',
-                '\\#': '\\\\#',
-                '\\^': '\\\\^',
-                '\\_': '\\\\_',
-                '\\{': '\\\\{',
-                '\\}': '\\\\}',
-            }
+            fixed_json = self.fix_json_escaping(json_text)
             
-            for old, new in latex_fixes.items():
-                fixed_text = fixed_text.replace(old, new)
+            # Try direct parsing of fixed JSON
+            try:
+                return json.loads(fixed_json)
+            except json.JSONDecodeError:
+                pass
             
-            return json.loads(fixed_text)
-        except json.JSONDecodeError as e:
-            print(f"  Fallback JSON parsing failed: {str(e)[:100]}")
-        
-        # Try 4: Extract JSON array and apply fixes
-        try:
+            # Try regex extraction on fixed JSON
             import re
+            patterns = [
+                r'\[\s*\{.*?\}\s*\]',
+                r'\[(?:[^[\]{}]|\{[^{}]*\}|\[[^\]]*\])*\]',
+            ]
             
-            # More aggressive JSON extraction
-            # Look for content between first [ and last ]
+            for pattern in patterns:
+                matches = re.findall(pattern, fixed_json, re.DOTALL)
+                if matches:
+                    for match in matches:
+                        try:
+                            parsed = json.loads(match)
+                            if isinstance(parsed, list) and len(parsed) > 0:
+                                return parsed
+                        except json.JSONDecodeError:
+                            continue
+            
+        except Exception as e:
+            self.logger.debug(f"Fallback JSON parsing failed: {str(e)[:100]}")
+        
+        # Try 4: Index-based extraction (find first [ and last ])
+        try:
             start_idx = json_text.find('[')
             end_idx = json_text.rfind(']')
             
             if start_idx != -1 and end_idx != -1 and end_idx > start_idx:
-                potential_json = json_text[start_idx:end_idx + 1]
+                extracted = json_text[start_idx:end_idx + 1]
                 
-                # Apply LaTeX fixes
-                for old, new in latex_fixes.items():
-                    potential_json = potential_json.replace(old, new)
+                # Apply escaping fixes
+                extracted = self.fix_json_escaping(extracted)
                 
-                result = json.loads(potential_json)
-                if isinstance(result, list):
-                    print(f"  Successfully extracted JSON using index-based extraction")
-                    return result
-                    
-        except (json.JSONDecodeError, ValueError) as e:
-            print(f"  Index-based extraction failed: {str(e)[:100]}")
+                parsed = json.loads(extracted)
+                if isinstance(parsed, list):
+                    self.logger.debug(f"Successfully extracted JSON using index-based extraction")
+                    return parsed
+            
+        except Exception as e:
+            self.logger.debug(f"Index-based extraction failed: {str(e)[:100]}")
         
-        # Try 5: Line-by-line search for JSON
+        # Try 5: Line-by-line parsing to handle malformed JSON
         try:
             lines = json_text.split('\n')
             json_lines = []
             in_json = False
-            brace_count = 0
             
             for line in lines:
-                stripped = line.strip()
-                if not in_json and stripped.startswith('['):
+                if '[' in line and not in_json:
                     in_json = True
-                    json_lines = [line]
-                    brace_count = stripped.count('[') - stripped.count(']')
-                elif in_json:
+                if in_json:
                     json_lines.append(line)
-                    brace_count += stripped.count('[') - stripped.count(']')
-                    if brace_count <= 0 and stripped.endswith(']'):
-                        break
+                if ']' in line and in_json:
+                    break
             
             if json_lines:
-                potential_json = '\n'.join(json_lines)
-                result = json.loads(potential_json)
-                if isinstance(result, list):
-                    print(f"  Successfully extracted JSON using line-by-line parsing")
-                    return result
-                    
-        except (json.JSONDecodeError, ValueError) as e:
-            print(f"  Line-by-line extraction failed: {str(e)[:100]}")
+                extracted = '\n'.join(json_lines)
+                extracted = self.fix_json_escaping(extracted)
+                parsed = json.loads(extracted)
+                if isinstance(parsed, list):
+                    self.logger.debug(f"Successfully extracted JSON using line-by-line parsing")
+                    return parsed
+            
+        except Exception as e:
+            self.logger.debug(f"Line-by-line extraction failed: {str(e)[:100]}")
         
+        # If all methods fail, raise an exception
         raise json.JSONDecodeError("All JSON parsing methods failed", json_text, 0)
     
     def prepare_examples_for_prompt(self, tasks: List[Dict[str, Any]], num_examples: int = 25) -> List[Dict[str, Any]]:
@@ -475,6 +559,7 @@ CRITICAL LATEX ESCAPING IN JSON:
     async def generate_batch_with_backoff(self, prompt: str, skill: str, max_retries: int = 5, 
                                         base_delay: float = 1.0) -> Tuple[Optional[List[Dict[str, Any]]], int, int, int]:
         """Generate a batch of tasks with exponential backoff and rate limiting"""
+        self.logger.info(f"Starting batch generation for skill: {skill}")
         
         async with self.rate_limiter:
             # Add delay between requests
@@ -485,7 +570,8 @@ CRITICAL LATEX ESCAPING IN JSON:
             
             for attempt in range(max_retries):
                 try:
-                    print(f"  [{skill}] Generating batch (attempt {attempt + 1}/{max_retries})...")
+                    attempt_msg = f"Generating batch (attempt {attempt + 1}/{max_retries}) for skill: {skill}"
+                    self.logger.debug(attempt_msg)
                     
                     # Get thread-local client
                     client = self.get_client()
@@ -541,19 +627,20 @@ CRITICAL LATEX ESCAPING IN JSON:
                                     if hasattr(chunk.usage_metadata, 'total_token_count'):
                                         total_tokens = chunk.usage_metadata.total_token_count
                         except Exception as stream_error:
-                            print(f"  API Stream Error: {type(stream_error).__name__}: {stream_error}")
+                            error_msg = f"API Stream Error: {type(stream_error).__name__}: {stream_error}"
+                            self.logger.error(f"[{skill}] {error_msg}")
                             
                             # Detailed analysis of streaming errors
                             if "RetryError" in str(type(stream_error).__name__):
-                                print(f"  🔍 RetryError Details:")
+                                self.logger.error(f"[{skill}] RetryError Details detected")
                                 if hasattr(stream_error, 'last_attempt') and stream_error.last_attempt:
                                     if hasattr(stream_error.last_attempt, 'exception'):
                                         underlying = stream_error.last_attempt.exception
-                                        print(f"    - Stream underlying error: {type(underlying).__name__}: {underlying}")
+                                        self.logger.error(f"[{skill}] Stream underlying error: {type(underlying).__name__}: {underlying}")
                                         if hasattr(underlying, 'code'):
-                                            print(f"    - Stream error code: {underlying.code}")
+                                            self.logger.error(f"[{skill}] Stream error code: {underlying.code}")
                                         if hasattr(underlying, 'message'):
-                                            print(f"    - Stream error message: {underlying.message}")
+                                            self.logger.error(f"[{skill}] Stream error message: {underlying.message}")
                             
                             # Re-raise to be caught by the outer exception handler
                             raise
@@ -563,11 +650,12 @@ CRITICAL LATEX ESCAPING IN JSON:
                     
                     response_text = response_text.strip()
                     
-                    # Print token usage information
+                    # Log token usage information
                     if total_tokens > 0:
-                        print(f"  [{skill}] Token usage - Input: {input_tokens}, Output: {output_tokens}, Total: {total_tokens}")
+                        token_msg = f"Token usage - Input: {input_tokens}, Output: {output_tokens}, Total: {total_tokens}"
+                        self.logger.info(f"[{skill}] {token_msg}")
                     else:
-                        print(f"  [{skill}] Token usage information not available")
+                        self.logger.warning(f"[{skill}] Token usage information not available")
                     
                     # Clean up response
                     if response_text.startswith('```json'):
@@ -590,158 +678,30 @@ CRITICAL LATEX ESCAPING IN JSON:
                     # Process and clean generated tasks
                     processed_tasks = self.process_generated_tasks(new_tasks)
                     
-                    print(f"  [{skill}] Successfully generated {len(processed_tasks)} tasks")
+                    success_msg = f"Successfully generated {len(processed_tasks)} tasks"
+                    self.logger.info(f"[{skill}] {success_msg}")
                     return processed_tasks, input_tokens, output_tokens, total_tokens
                     
                 except json.JSONDecodeError as e:
-                    print(f"  [{skill}] JSON parsing error (attempt {attempt + 1}): {e}")
-                    print(f"  [{skill}] Raw response (first 500 chars): {response_text[:500]}...")
+                    error_msg = f"JSON parsing error (attempt {attempt + 1}): {e}"
+                    self.logger.error(f"[{skill}] {error_msg}")
+                    self.logger.debug(f"[{skill}] Raw response (first 500 chars): {response_text[:500]}...")
                     if len(response_text) > 500:
-                        print(f"  [{skill}] Response length: {len(response_text)} characters")
+                        self.logger.debug(f"[{skill}] Response length: {len(response_text)} characters")
                 except Exception as e:
                     error_name = type(e).__name__
                     error_message = str(e)
                     
-                    print(f"  [{skill}] API execution error: {error_name}: {error_message}")
-                    
-                    # Detailed error analysis for RetryError and other common API errors
-                    if "RetryError" in error_name:
-                        print(f"  [{skill}] 🔍 RetryError Details:")
-                        
-                        # Try to extract the underlying error from RetryError
-                        try:
-                            print(f"    - RetryError type: {type(e)}")
-                            print(f"    - RetryError attributes: {[attr for attr in dir(e) if not attr.startswith('_')]}")
-                            
-                            if hasattr(e, 'last_attempt') and e.last_attempt:
-                                print(f"    - Last attempt type: {type(e.last_attempt)}")
-                                print(f"    - Last attempt attributes: {[attr for attr in dir(e.last_attempt) if not attr.startswith('_')]}")
-                                
-                                if hasattr(e.last_attempt, 'exception'):
-                                    underlying_error = e.last_attempt.exception
-                                    print(f"    - Underlying error type: {type(underlying_error).__name__}")
-                                    print(f"    - Underlying error: {underlying_error}")
-                                    
-                                    # If it's a callable (like Future.exception), try to call it
-                                    if callable(underlying_error):
-                                        try:
-                                            actual_exception = underlying_error()
-                                            print(f"    - Actual exception: {type(actual_exception).__name__}: {actual_exception}")
-                                            
-                                            # Now check for specific error attributes
-                                            if hasattr(actual_exception, 'code'):
-                                                print(f"    - Error code: {actual_exception.code}")
-                                            if hasattr(actual_exception, 'message'):
-                                                print(f"    - Error message: {actual_exception.message}")
-                                            if hasattr(actual_exception, 'details'):
-                                                print(f"    - Error details: {actual_exception.details}")
-                                            if hasattr(actual_exception, 'status_code'):
-                                                print(f"    - Status code: {actual_exception.status_code}")
-                                            if hasattr(actual_exception, 'response'):
-                                                print(f"    - Response: {actual_exception.response}")
-                                                
-                                            # Show all attributes of the actual exception
-                                            exception_attrs = [attr for attr in dir(actual_exception) if not attr.startswith('_') and not callable(getattr(actual_exception, attr))]
-                                            print(f"    - Exception attributes: {exception_attrs}")
-                                            
-                                        except Exception as call_e:
-                                            print(f"    - Could not call exception method: {call_e}")
-                                    else:
-                                        # Check for specific error types on the underlying error
-                                        if hasattr(underlying_error, 'code'):
-                                            print(f"    - Error code: {underlying_error.code}")
-                                        if hasattr(underlying_error, 'message'):
-                                            print(f"    - Error message: {underlying_error.message}")
-                                        if hasattr(underlying_error, 'details'):
-                                            print(f"    - Error details: {underlying_error.details}")
-                                        
-                                        # Show all attributes
-                                        underlying_attrs = [attr for attr in dir(underlying_error) if not attr.startswith('_') and not callable(getattr(underlying_error, attr))]
-                                        print(f"    - Underlying error attributes: {underlying_attrs}")
-                                        
-                                if hasattr(e.last_attempt, 'outcome'):
-                                    print(f"    - Outcome: {e.last_attempt.outcome}")
-                                    
-                            # Try to extract request details
-                            if hasattr(e, 'request') and e.request:
-                                print(f"    - Request method: {getattr(e.request, 'method', 'N/A')}")
-                                print(f"    - Request URL: {getattr(e.request, 'url', 'N/A')}")
-                            
-                            # Try to access the Future directly if it's in the error message
-                            error_str = str(e)
-                            if 'Future at' in error_str:
-                                print(f"    - Future detected in error string: {error_str}")
-                                # Try to extract more info about what went wrong
-                                import re
-                                future_match = re.search(r'Future at (0x[0-9a-f]+)', error_str)
-                                if future_match:
-                                    print(f"    - Future address: {future_match.group(1)}")
-                                
-                        except Exception as inner_e:
-                            print(f"    - Could not extract detailed error info: {inner_e}")
-                            import traceback
-                            print(f"    - Traceback: {traceback.format_exc()}")
-                    
-                    elif "ClientError" in error_name:
-                        print(f"  [{skill}] 🔍 ClientError Details:")
-                        if hasattr(e, 'response') and e.response:
-                            print(f"    - Status code: {getattr(e.response, 'status_code', 'N/A')}")
-                            print(f"    - Response headers: {getattr(e.response, 'headers', 'N/A')}")
-                            try:
-                                response_text = e.response.text if hasattr(e.response, 'text') else 'N/A'
-                                print(f"    - Response text: {response_text[:200]}...")
-                            except:
-                                print(f"    - Response text: Could not extract")
-                        
-                        if hasattr(e, 'request') and e.request:
-                            print(f"    - Request URL: {getattr(e.request, 'url', 'N/A')}")
-                            print(f"    - Request method: {getattr(e.request, 'method', 'N/A')}")
-                    
-                    elif "TimeoutError" in error_name or "Timeout" in error_name:
-                        print(f"  [{skill}] 🔍 Timeout Details:")
-                        print(f"    - This might be due to network latency or server overload")
-                        print(f"    - Consider increasing request timeout or reducing batch size")
-                        
-                    elif "PermissionDenied" in error_name or "Forbidden" in error_name:
-                        print(f"  [{skill}] 🔍 Permission Details:")
-                        print(f"    - Check if your API credentials are valid")
-                        print(f"    - Verify project permissions for Vertex AI")
-                        print(f"    - Ensure the service account has proper roles")
-                        
-                    elif "ResourceExhausted" in error_name or "QuotaExceeded" in error_name:
-                        print(f"  [{skill}] 🔍 Quota Details:")
-                        print(f"    - API quota may be exceeded")
-                        print(f"    - Consider reducing concurrent requests or batch size")
-                        print(f"    - Check quota limits in Google Cloud Console")
-                    
-                    # Try to extract additional error attributes
-                    error_attrs = [attr for attr in dir(e) if not attr.startswith('_') and attr not in ['args', 'with_traceback']]
-                    if error_attrs:
-                        print(f"  [{skill}] 🔍 Additional error attributes: {error_attrs}")
-                        for attr in error_attrs[:5]:  # Limit to first 5 attributes
-                            try:
-                                value = getattr(e, attr)
-                                if not callable(value):
-                                    print(f"    - {attr}: {value}")
-                            except:
-                                pass
-                    
-                    print(f"  [{skill}] Generation error (attempt {attempt + 1}): {error_name}: {error_message}")
-                    
-                    # Track error for summary
-                    if error_name not in error_counts:
-                        error_counts[error_name] = 0
-                    error_counts[error_name] += 1
+                    error_msg = f"API execution error: {error_name}: {error_message}"
+                    self.logger.error(f"[{skill}] {error_msg}")
                 
                 if attempt < max_retries - 1:
                     delay = base_delay * (2 ** attempt) + random.uniform(0, 1)
-                    print(f"  [{skill}] Waiting {delay:.1f} seconds before retry...")
+                    self.logger.info(f"[{skill}] Waiting {delay:.1f} seconds before retry...")
                     await asyncio.sleep(delay)
             
-            print(f"  [{skill}] Error summary after {max_retries} attempts:")
-            for error_type, count in error_counts.items():
-                print(f"    - {error_type}: {count} occurrences")
-            
+            # If we get here, all attempts failed
+            self.logger.error(f"[{skill}] All {max_retries} attempts failed")
             return None, 0, 0, 0
     
     async def generate_tasks_for_skill(self, skill: str, examples: List[Dict[str, Any]], 
@@ -753,8 +713,8 @@ CRITICAL LATEX ESCAPING IN JSON:
         total_output_tokens = 0
         total_tokens_used = 0
         
-        print(f"\n[{skill}] Starting generation of {total_tasks} tasks")
-        print(f"[{skill}] Available examples: {len(examples)}, Using: {len(examples_for_prompt)} examples")
+        self.logger.info(f"[{skill}] Starting generation of {total_tasks} tasks")
+        self.logger.info(f"[{skill}] Available examples: {len(examples)}, Using: {len(examples_for_prompt)} examples")
         
         num_batches = (total_tasks + batch_size - 1) // batch_size
         
@@ -762,7 +722,7 @@ CRITICAL LATEX ESCAPING IN JSON:
             remaining_tasks = total_tasks - len(all_generated)
             current_batch_size = min(batch_size, remaining_tasks)
             
-            print(f"[{skill}] Batch {batch_num + 1}/{num_batches}: Generating {current_batch_size} tasks...")
+            self.logger.debug(f"[{skill}] Batch {batch_num + 1}/{num_batches}: Generating {current_batch_size} tasks...")
             
             prompt = self.create_generation_prompt(
                 examples_for_prompt, 
@@ -779,22 +739,22 @@ CRITICAL LATEX ESCAPING IN JSON:
                 total_input_tokens += input_tokens
                 total_output_tokens += output_tokens
                 total_tokens_used += total_tokens
-                print(f"  [{skill}] Total generated so far: {len(all_generated)}/{total_tasks}")
+                self.logger.info(f"[{skill}] Total generated so far: {len(all_generated)}/{total_tasks}")
             else:
-                print(f"  [{skill}] Failed to generate batch {batch_num + 1}")
+                self.logger.error(f"[{skill}] Failed to generate batch {batch_num + 1}")
                 break
             
             # Small delay between batches
             if batch_num < num_batches - 1:
                 await asyncio.sleep(2)
         
-        print(f"\n[{skill}] Completed generation: {len(all_generated)} tasks")
-        print(f"[{skill}] Total token usage: Input: {total_input_tokens}, Output: {total_output_tokens}, Total: {total_tokens_used}")
+        self.logger.info(f"[{skill}] Completed generation: {len(all_generated)} tasks")
+        self.logger.info(f"[{skill}] Total token usage: Input: {total_input_tokens}, Output: {total_output_tokens}, Total: {total_tokens_used}")
         
         # Update progress
         with self.lock:
             self.completed_skills += 1
-            print(f"\n📊 Progress: {self.completed_skills}/{self.total_skills} skills completed")
+            self.logger.info(f"Progress: {self.completed_skills}/{self.total_skills} skills completed")
         
         return all_generated
     
@@ -811,10 +771,10 @@ CRITICAL LATEX ESCAPING IN JSON:
                     examples_by_difficulty[difficulty] = []
                 examples_by_difficulty[difficulty].append(example)
         
-        print(f"\n[{skill}] Starting generation of {tasks_per_difficulty} tasks per difficulty level")
-        print(f"[{skill}] Available difficulties: {list(examples_by_difficulty.keys())}")
+        self.logger.info(f"[{skill}] Starting generation of {tasks_per_difficulty} tasks per difficulty level")
+        self.logger.info(f"[{skill}] Available difficulties: {list(examples_by_difficulty.keys())}")
         for difficulty, examples_list in examples_by_difficulty.items():
-            print(f"[{skill}] {difficulty}: {len(examples_list)} examples")
+            self.logger.info(f"[{skill}] {difficulty}: {len(examples_list)} examples")
         
         all_generated = []
         total_input_tokens = 0
@@ -826,10 +786,10 @@ CRITICAL LATEX ESCAPING IN JSON:
             difficulty_examples = examples_by_difficulty[difficulty]
             
             if len(difficulty_examples) < 3:  # Need minimum examples for this difficulty
-                print(f"⚠️  [{skill}] Skipping {difficulty}: only {len(difficulty_examples)} examples (need at least 3)")
+                self.logger.warning(f"[{skill}] Skipping {difficulty}: only {len(difficulty_examples)} examples (need at least 3)")
                 continue
             
-            print(f"\n[{skill}] Generating {tasks_per_difficulty} tasks for difficulty: {difficulty}")
+            self.logger.info(f"[{skill}] Generating {tasks_per_difficulty} tasks for difficulty: {difficulty}")
             
             # Prepare examples for this difficulty
             examples_for_prompt = self.prepare_examples_for_prompt(difficulty_examples, min(15, len(difficulty_examples)))
@@ -842,7 +802,7 @@ CRITICAL LATEX ESCAPING IN JSON:
                 remaining_tasks = tasks_per_difficulty - len(difficulty_generated)
                 current_batch_size = min(batch_size, remaining_tasks)
                 
-                print(f"[{skill}] {difficulty} - Batch {batch_num + 1}/{num_batches}: Generating {current_batch_size} tasks...")
+                self.logger.debug(f"[{skill}] {difficulty} - Batch {batch_num + 1}/{num_batches}: Generating {current_batch_size} tasks...")
                 
                 prompt = self.create_difficulty_specific_prompt(
                     examples_for_prompt, 
@@ -865,9 +825,9 @@ CRITICAL LATEX ESCAPING IN JSON:
                     total_input_tokens += input_tokens
                     total_output_tokens += output_tokens
                     total_tokens_used += total_tokens
-                    print(f"  [{skill}] {difficulty} - Generated so far: {len(difficulty_generated)}/{tasks_per_difficulty}")
+                    self.logger.info(f"[{skill}] {difficulty} - Generated so far: {len(difficulty_generated)}/{tasks_per_difficulty}")
                 else:
-                    print(f"  [{skill}] {difficulty} - Failed to generate batch {batch_num + 1}")
+                    self.logger.error(f"[{skill}] {difficulty} - Failed to generate batch {batch_num + 1}")
                     break
                 
                 # Small delay between batches
@@ -875,15 +835,15 @@ CRITICAL LATEX ESCAPING IN JSON:
                     await asyncio.sleep(2)
             
             all_generated.extend(difficulty_generated)
-            print(f"[{skill}] {difficulty} - Completed: {len(difficulty_generated)} tasks")
+            self.logger.info(f"[{skill}] {difficulty} - Completed: {len(difficulty_generated)} tasks")
         
-        print(f"\n[{skill}] TOTAL COMPLETED: {len(all_generated)} tasks across all difficulties")
-        print(f"[{skill}] Total token usage: Input: {total_input_tokens}, Output: {total_output_tokens}, Total: {total_tokens_used}")
+        self.logger.info(f"[{skill}] TOTAL COMPLETED: {len(all_generated)} tasks across all difficulties")
+        self.logger.info(f"[{skill}] Total token usage: Input: {total_input_tokens}, Output: {total_output_tokens}, Total: {total_tokens_used}")
         
         # Update progress
         with self.lock:
             self.completed_skills += 1
-            print(f"\n📊 Progress: {self.completed_skills}/{self.total_skills} skills completed")
+            self.logger.info(f"Progress: {self.completed_skills}/{self.total_skills} skills completed")
         
         return all_generated
 
@@ -978,18 +938,18 @@ CRITICAL REQUIREMENTS:
         # Generate tasks only for difficulties that need more tasks
         for difficulty, target_count in tasks_to_generate.items():
             if target_count <= 0:  # Skip if no additional tasks needed
-                print(f"[{skill}] No additional {difficulty} tasks needed")
+                self.logger.info(f"[{skill}] No additional {difficulty} tasks needed")
                 continue
                 
             if difficulty not in examples_by_difficulty:
-                print(f"⚠️ [{skill}] No examples for {difficulty} difficulty, skipping")
+                self.logger.warning(f"[{skill}] No examples for {difficulty} difficulty, skipping")
                 continue
                 
             if len(examples_by_difficulty[difficulty]) < 3:  # Need minimum examples
-                print(f"⚠️ [{skill}] Not enough examples for {difficulty} difficulty, skipping")
+                self.logger.warning(f"[{skill}] Not enough examples for {difficulty} difficulty, skipping")
                 continue
             
-            print(f"\n[{skill}] Generating {target_count} additional tasks for difficulty: {difficulty}")
+            self.logger.info(f"[{skill}] Generating {target_count} additional tasks for difficulty: {difficulty}")
             
             # Prepare examples for this difficulty
             examples_for_prompt = self.prepare_examples_for_prompt(
@@ -1005,7 +965,7 @@ CRITICAL REQUIREMENTS:
                 remaining_tasks = target_count - len(difficulty_generated)
                 current_batch_size = min(batch_size, remaining_tasks)
                 
-                print(f"[{skill}] {difficulty} - Batch {batch_num + 1}/{num_batches}: Generating {current_batch_size} tasks...")
+                self.logger.debug(f"[{skill}] {difficulty} - Batch {batch_num + 1}/{num_batches}: Generating {current_batch_size} tasks...")
                 
                 prompt = self.create_difficulty_specific_prompt(
                     examples_for_prompt, 
@@ -1028,9 +988,9 @@ CRITICAL REQUIREMENTS:
                     total_input_tokens += input_tokens
                     total_output_tokens += output_tokens
                     total_tokens_used += total_tokens
-                    print(f"  [{skill}] {difficulty} - Generated so far: {len(difficulty_generated)}/{target_count}")
+                    self.logger.info(f"[{skill}] {difficulty} - Generated so far: {len(difficulty_generated)}/{target_count}")
                 else:
-                    print(f"  [{skill}] {difficulty} - Failed to generate batch {batch_num + 1}")
+                    self.logger.error(f"[{skill}] {difficulty} - Failed to generate batch {batch_num + 1}")
                     break
                 
                 # Small delay between batches
@@ -1038,21 +998,24 @@ CRITICAL REQUIREMENTS:
                     await asyncio.sleep(2)
             
             all_generated.extend(difficulty_generated)
-            print(f"[{skill}] {difficulty} - Completed: {len(difficulty_generated)} additional tasks")
+            self.logger.info(f"[{skill}] {difficulty} - Completed: {len(difficulty_generated)} additional tasks")
         
         if all_generated:
-            print(f"\n[{skill}] TOTAL ADDITIONAL TASKS: {len(all_generated)}")
-            print(f"[{skill}] Total token usage: Input: {total_input_tokens}, Output: {total_output_tokens}, Total: {total_tokens_used}")
+            self.logger.info(f"[{skill}] TOTAL ADDITIONAL TASKS: {len(all_generated)}")
+            self.logger.info(f"[{skill}] Total token usage: Input: {total_input_tokens}, Output: {total_output_tokens}, Total: {total_tokens_used}")
         else:
-            print(f"\n[{skill}] No additional tasks were needed")
+            self.logger.info(f"[{skill}] No additional tasks were needed")
         
         return all_generated
 
     def save_tasks_to_csv(self, tasks: List[Dict[str, Any]], filename: str):
         """Save tasks to CSV file"""
         if not tasks:
-            print(f"No tasks to save for {filename}")
+            warning_msg = f"No tasks to save for {filename}"
+            self.logger.warning(warning_msg)
             return
+        
+        self.logger.info(f"Saving {len(tasks)} tasks to {filename}")
         
         # Define the column order
         columns = [
@@ -1068,13 +1031,14 @@ CRITICAL REQUIREMENTS:
                     writer = csv.DictWriter(file, fieldnames=columns)
                     writer.writeheader()
                     writer.writerows(tasks)
-            print(f"✅ Saved {len(tasks)} tasks to {filename}")
+            success_msg = f"Saved {len(tasks)} tasks to {filename}"
+            self.logger.info(success_msg)
         except ValueError as e:
             if "fields not in fieldnames" in str(e):
-                print(f"❌ CSV Writing Error: Extra fields detected in tasks for {filename}")
-                print(f"Error message: {e}")
-                print("\n🔍 DEBUGGING: Full content of problematic tasks:")
-                print("=" * 80)
+                error_msg = f"CSV Writing Error: Extra fields detected in tasks for {filename}"
+                self.logger.error(error_msg)
+                self.logger.error(f"ValueError details: {e}")
+                self.logger.debug("Full content of problematic tasks:")
                 
                 # Find and print the complete content of tasks with extra fields
                 problematic_count = 0
@@ -1082,10 +1046,9 @@ CRITICAL REQUIREMENTS:
                     extra_fields = set(task.keys()) - set(columns)
                     if extra_fields:
                         problematic_count += 1
-                        print(f"\n📋 PROBLEMATIC TASK #{i + 1}:")
-                        print(f"   Extra fields detected: {sorted(extra_fields)}")
-                        print(f"   FULL TASK CONTENT:")
-                        print("-" * 60)
+                        task_info = f"PROBLEMATIC TASK #{i + 1}: Extra fields: {sorted(extra_fields)}"
+                        self.logger.error(task_info)
+                        self.logger.debug(f"FULL TASK CONTENT:")
                         
                         # Print all fields in the task for complete debugging info
                         for key, value in task.items():
@@ -1096,17 +1059,18 @@ CRITICAL REQUIREMENTS:
                                 truncated_value = value
                             
                             # Highlight extra fields
-                            marker = "🚨 EXTRA → " if key in extra_fields else "         "
-                            print(f"   {marker}{key}: {repr(truncated_value)}")
-                        
-                        print("-" * 60)
+                            marker = "EXTRA → " if key in extra_fields else "       "
+                            self.logger.debug(f"{marker}{key}: {repr(truncated_value)}")
                 
-                print(f"\n📊 Summary: Found {problematic_count} tasks with extra fields out of {len(tasks)} total tasks")
-                print("❌ This error should not occur after validation - please check the validation logic")
+                summary_msg = f"Found {problematic_count} tasks with extra fields out of {len(tasks)} total tasks"
+                self.logger.error(summary_msg)
+                self.logger.error("This error should not occur after validation - please check the validation logic")
             else:
-                print(f"❌ ValueError saving to {filename}: {e}")
+                error_msg = f"ValueError saving to {filename}: {e}"
+                self.logger.error(error_msg)
         except Exception as e:
-            print(f"❌ General error saving to {filename}: {e}")
+            error_msg = f"General error saving to {filename}: {e}"
+            self.logger.error(error_msg)
     
     def get_already_generated_skills(self) -> set:
         """Get list of skills that have already been generated"""
@@ -1140,17 +1104,15 @@ CRITICAL REQUIREMENTS:
                     # Otherwise mark it as "incomplete" so we can generate more questions
                     if all(tasks_by_difficulty.get(diff, 0) >= 90 for diff in ["Easy", "Medium", "Hard"]):
                         generated_skills.add(skill_name)
-                        print(f"  ✅ Complete: {skill_name} ({dict(tasks_by_difficulty)})")
+                        self.logger.info(f"Complete skill: {skill_name} ({dict(tasks_by_difficulty)})")
                     else:
                         incomplete_skills.add(skill_name)
-                        print(f"  ⚠️ Incomplete: {skill_name} ({dict(tasks_by_difficulty)})")
+                        self.logger.info(f"Incomplete skill: {skill_name} ({dict(tasks_by_difficulty)})")
             except Exception as e:
-                print(f"Warning: Could not read {file}: {e}")
+                self.logger.warning(f"Could not read {file}: {e}")
         
         # For backwards compatibility, return just the complete skills
         # The incomplete skills will be handled by check_existing_tasks_by_difficulty
-        return generated_skills
-        
         return generated_skills
     
     async def process_skill_batch(self, skill_batch: List[Tuple[str, List[Dict[str, Any]]]], 
@@ -1175,7 +1137,7 @@ CRITICAL REQUIREMENTS:
                     
                     # If all difficulties have enough tasks, no need to generate more
                     if all(count <= 0 for count in tasks_to_generate.values()):
-                        print(f"[{skill}] All difficulties have sufficient tasks (≥90), skipping generation")
+                        self.logger.info(f"[{skill}] All difficulties have sufficient tasks (≥90), skipping generation")
                         return skill, 0
                     
                     # Generate new tasks only for difficulties that need more
@@ -1196,9 +1158,9 @@ CRITICAL REQUIREMENTS:
                             with open(filename, 'r', encoding='utf-8') as f:
                                 reader = csv.DictReader(f)
                                 existing_tasks = list(reader)
-                            print(f"[{skill}] Read {len(existing_tasks)} existing tasks from {filename}")
+                            self.logger.info(f"[{skill}] Read {len(existing_tasks)} existing tasks from {filename}")
                         except Exception as e:
-                            print(f"⚠️ Error reading existing file {filename}: {e}")
+                            self.logger.warning(f"Error reading existing file {filename}: {e}")
                     
                     # Combine existing and new tasks
                     combined_tasks = existing_tasks + generated_tasks
@@ -1209,7 +1171,7 @@ CRITICAL REQUIREMENTS:
                 else:
                     return skill, 0
             except Exception as e:
-                print(f"❌ Error processing skill '{skill}': {e}")
+                self.logger.error(f"Error processing skill '{skill}': {e}")
                 return skill, 0
         
         # Process all skills in the batch concurrently
@@ -1222,58 +1184,57 @@ CRITICAL REQUIREMENTS:
                                test_mode: bool = False, test_tasks: int = 10, 
                                only_remaining: bool = True, batch_size: int = None):
         """Process all skills from the input CSV concurrently using difficulty-based generation"""
-        print("=== Concurrent Math Task Generator ===")
-        print(f"Input file: {input_csv}")
-        print(f"Tasks per difficulty level: {tasks_per_difficulty}")
-        print(f"Total tasks per skill: {tasks_per_difficulty * 3} (assuming Easy, Medium, Hard)")
-        print(f"Test mode: {test_mode} ({test_tasks} total tasks per skill in test mode)" if test_mode else "Test mode: {test_mode}")
-        print(f"Test mode: {test_mode}")
-        print(f"Only remaining skills: {only_remaining}")
-        print(f"Max concurrent workers: {self.max_workers}")
-        print()
+        self.logger.info("=== Concurrent Math Task Generator ===")
+        self.logger.info(f"Input file: {input_csv}")
+        self.logger.info(f"Tasks per difficulty level: {tasks_per_difficulty}")
+        self.logger.info(f"Total tasks per skill: {tasks_per_difficulty * 3} (assuming Easy, Medium, Hard)")
+        if test_mode:
+            self.logger.info(f"Test mode: {test_mode} ({test_tasks} total tasks per skill)")
+        else:
+            self.logger.info(f"Test mode: {test_mode}")
+        self.logger.info(f"Only remaining skills: {only_remaining}")
+        self.logger.info(f"Max concurrent workers: {self.max_workers}")
         
         # Read tasks by skill
         tasks_by_skill = self.read_tasks_by_skill(input_csv)
         
         if not tasks_by_skill:
-            print("No tasks found in input file")
+            self.logger.error("No tasks found in input file")
             return
         
         # Get already generated skills if requested
         already_generated = set()
         if only_remaining:
             already_generated = self.get_already_generated_skills()
-            print(f"📊 Found {len(already_generated)} already generated skills")
+            self.logger.info(f"Found {len(already_generated)} already generated skills")
             if already_generated:
-                print("✅ Already generated:")
+                self.logger.info("Already generated skills:")
                 for skill in sorted(already_generated):
-                    print(f"  ✓ {skill}")
-                print()
+                    self.logger.info(f"  ✓ {skill}")
         
         # Filter skills to process
         skills_to_process = []
         for skill, examples in tasks_by_skill.items():
             if only_remaining and skill in already_generated:
-                print(f"⏭️  Skipping {skill}: already generated")
+                self.logger.info(f"Skipping {skill}: already generated")
                 continue
             
             if len(examples) < 5:  # Need minimum examples
-                print(f"⚠️  Skipping {skill}: only {len(examples)} examples (need at least 5)")
+                self.logger.warning(f"Skipping {skill}: only {len(examples)} examples (need at least 5)")
                 continue
             
             skills_to_process.append((skill, examples))
         
         if not skills_to_process:
-            print("🎉 No remaining skills to generate! All skills are already done.")
+            self.logger.info("No remaining skills to generate! All skills are already done.")
             return
         
         self.total_skills = len(skills_to_process)
         self.completed_skills = 0
         
-        print(f"\n⏳ Will generate tasks for {len(skills_to_process)} skill(s) using {self.max_workers} concurrent workers:")
+        self.logger.info(f"Will generate tasks for {len(skills_to_process)} skill(s) using {self.max_workers} concurrent workers:")
         for skill, _ in skills_to_process:
-            print(f"  🔄 {skill}")
-        print()
+            self.logger.info(f"  🔄 {skill}")
         
         # If batch_size is not specified, use max_workers
         if batch_size is None:
@@ -1288,8 +1249,8 @@ CRITICAL REQUIREMENTS:
             batch_num = (i // batch_size) + 1
             total_batches = (len(skills_to_process) + batch_size - 1) // batch_size
             
-            print(f"\n🚀 Processing batch {batch_num}/{total_batches} ({len(batch)} skills)")
-            print(f"   Skills: {', '.join([skill for skill, _ in batch])}")
+            batch_info = f"Processing batch {batch_num}/{total_batches} ({len(batch)} skills): {', '.join([skill for skill, _ in batch])}"
+            self.logger.info(batch_info)
             
             batch_start = time.time()
             results = await self.process_skill_batch(batch, tasks_per_difficulty, test_mode, test_tasks)
@@ -1299,21 +1260,30 @@ CRITICAL REQUIREMENTS:
             batch_generated = sum(count for skill, count in results if isinstance(count, int))
             total_generated += batch_generated
             
-            print(f"✅ Batch {batch_num} completed in {batch_time:.1f}s, generated {batch_generated} tasks")
+            batch_result = f"Batch {batch_num} completed in {batch_time:.1f}s, generated {batch_generated} tasks"
+            self.logger.info(batch_result)
         
         total_time = time.time() - start_time
         
-        print(f"\n🎉 All skills processed!")
-        print(f"📊 Total time: {total_time:.1f}s")
-        print(f"📊 Total tasks generated: {total_generated}")
-        print(f"📊 Average time per skill: {total_time / len(skills_to_process):.1f}s")
-        print(f"📊 Skills processed: {self.completed_skills}/{self.total_skills}")
+        # Final summary
+        self.logger.info("All skills processed!")
+        self.logger.info(f"Total time: {total_time:.1f}s")
+        self.logger.info(f"Total tasks generated: {total_generated}")
+        self.logger.info(f"Average time per skill: {total_time / len(skills_to_process):.1f}s")
+        self.logger.info(f"Skills processed: {self.completed_skills}/{self.total_skills}")
     
     def process_generated_tasks(self, tasks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Process and clean generated tasks before saving"""
+        self.logger.debug(f"Processing {len(tasks)} generated tasks")
         processed_tasks = []
         
-        for task in tasks:
+        for i, task in enumerate(tasks):
+            # Skip non-dictionary items (sometimes Gemini returns malformed JSON with integers, strings, etc.)
+            if not isinstance(task, dict):
+                warning_msg = f"Skipping non-dictionary item #{i+1}: {type(task).__name__}: {task}"
+                self.logger.warning(warning_msg)
+                continue
+                
             # Clean up all string values
             cleaned_task = {}
             for key, value in task.items():
@@ -1329,7 +1299,8 @@ CRITICAL REQUIREMENTS:
             missing_fields = [field for field in required_fields if not cleaned_task.get(field)]
             
             if missing_fields:
-                print(f"  Warning: Task missing required fields: {', '.join(missing_fields)}. Adding defaults.")
+                warning_msg = f"Task #{i+1} missing required fields: {', '.join(missing_fields)}. Adding defaults."
+                self.logger.warning(warning_msg)
                 # Add default values for missing fields
                 for field in missing_fields:
                     if field == "skill":
@@ -1351,6 +1322,7 @@ CRITICAL REQUIREMENTS:
             
             processed_tasks.append(cleaned_task)
         
+        self.logger.info(f"Successfully processed {len(processed_tasks)} tasks from {len(tasks)} raw tasks")
         return processed_tasks
 
     def check_existing_tasks_by_difficulty(self, skill: str) -> Dict[str, int]:
@@ -1381,7 +1353,7 @@ CRITICAL REQUIREMENTS:
                     if difficulty:
                         tasks_by_difficulty[difficulty] += 1
         except Exception as e:
-            print(f"Warning: Error reading {matching_files[0]}: {e}")
+            self.logger.warning(f"Error reading {matching_files[0]}: {e}")
             return {"Easy": 100, "Medium": 100, "Hard": 100}
         
         # Calculate how many more tasks needed per difficulty
@@ -1393,8 +1365,8 @@ CRITICAL REQUIREMENTS:
             else:
                 tasks_to_generate[difficulty] = 0
                 
-        print(f"[{skill}] Existing tasks by difficulty: {dict(tasks_by_difficulty)}")
-        print(f"[{skill}] Additional tasks to generate: {tasks_to_generate}")
+        self.logger.info(f"[{skill}] Existing tasks by difficulty: {dict(tasks_by_difficulty)}")
+        self.logger.info(f"[{skill}] Additional tasks to generate: {tasks_to_generate}")
         
         return tasks_to_generate
     
@@ -1410,11 +1382,13 @@ async def main():
     # Initialize generator
     try:
         generator = ConcurrentMathTaskGenerator(project_id=PROJECT_ID, max_workers=MAX_WORKERS)
-        print("Successfully initialized Concurrent Gemini API with Vertex AI")
+        generator.logger.info("Successfully initialized Concurrent Gemini API with Vertex AI")
     except Exception as e:
-        print(f"Error initializing Gemini API: {e}")
-        print("Make sure you have run 'gcloud auth application-default login'")
-        print("And ensure your project has Vertex AI API enabled")
+        # Create a temporary logger for initialization errors
+        temp_logger = setup_logging()
+        temp_logger.error(f"Error initializing Gemini API: {e}")
+        temp_logger.error("Make sure you have run 'gcloud auth application-default login'")
+        temp_logger.error("And ensure your project has Vertex AI API enabled")
         return
     
     # Process all skills concurrently (only remaining ones by default)
@@ -1427,7 +1401,7 @@ async def main():
         batch_size=MAX_WORKERS  # Process this many skills concurrently
     )
     
-    print("\n=== Concurrent Generation Complete ===")
+    generator.logger.info("=== Concurrent Generation Complete ===")
 
 
 if __name__ == "__main__":
