@@ -2,6 +2,7 @@ import csv
 import os
 import json
 import random
+import re
 import time
 import asyncio
 import logging
@@ -417,6 +418,15 @@ class ConcurrentMathTaskGenerator:
     
     def prepare_examples_for_prompt(self, tasks: List[Dict[str, Any]], num_examples: int = 25) -> List[Dict[str, Any]]:
         """Prepare example tasks for the prompt, cleaning math content"""
+        # Group tasks by difficulty
+        difficulties = {}
+        for task in tasks:
+            difficulty = task.get('difficulty', '').strip()
+            if difficulty:
+                if difficulty not in difficulties:
+                    difficulties[difficulty] = []
+                difficulties[difficulty].append(task)
+        
         if len(difficulties) > 1:
             examples_per_difficulty = num_examples // len(difficulties)
             selected = []
@@ -1098,6 +1108,10 @@ CRITICAL REQUIREMENTS:
         total_input_tokens = 0
         total_output_tokens = 0
         total_tokens_used = 0
+        
+        # Counter for incremental saving
+        total_saved_count = 0
+        incremental_batch_count = 0
         
         # Generate tasks only for difficulties that need more tasks
         for difficulty, target_count in tasks_to_generate.items():
