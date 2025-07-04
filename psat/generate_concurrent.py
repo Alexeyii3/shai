@@ -201,12 +201,12 @@ class ConcurrentMathTaskGenerator:
         # Apply fixes only within JSON string values (between quotes)
         def fix_in_string(match):
             # The content of the string, without the quotes
-            content = match.group(1) 
+            content = match.group(1)
             for pattern, replacement in critical_fixes:
                 content = re.sub(pattern, replacement, content)
             # Return the fixed content, re-wrapped in quotes
             return f'"{content}"'
-
+        
         # This regex is a bit simple and can fail on escaped quotes. A better one is below.
         # We will fix the one in the more comprehensive function.
         # This function is now redundant, but let's fix it for completeness.
@@ -420,22 +420,18 @@ class ConcurrentMathTaskGenerator:
                 difficulties[diff] = []
             difficulties[diff].append(task)
         
-        # If we have multiple difficulties, try to get examples from each
         if len(difficulties) > 1:
             examples_per_difficulty = num_examples // len(difficulties)
             selected = []
             for diff_tasks in difficulties.values():
                 selected.extend(random.sample(diff_tasks, min(examples_per_difficulty, len(diff_tasks))))
-            
             # Fill remaining slots randomly
             remaining = num_examples - len(selected)
             if remaining > 0:
                 available = [t for t in tasks if t not in selected]
                 selected.extend(random.sample(available, min(remaining, len(available))))
-            
             return selected[:num_examples]
-        else:
-            return random.sample(tasks, num_examples)
+        return random.sample(tasks, num_examples)
 
     def extract_question_texts_only(self, tasks: List[Dict[str, Any]]) -> List[str]:
         """Extract only the question text from tasks for prompt optimization"""
@@ -546,7 +542,7 @@ After you have finished thinking, provide your response which MUST ONLY BE the f
             
             # Track errors for summary
             error_counts = {}
-            
+                
             for attempt in range(max_retries):
                 try:
                     attempt_msg = f"Generating batch (attempt {attempt + 1}/{max_retries}) for skill: {skill}"
@@ -811,6 +807,51 @@ After you have finished thinking, provide your response which MUST ONLY BE the f
         
         return all_generated
     
+    def save_tasks_incrementally(self, tasks: List[Dict[str, Any]], skill: str, batch_count: int):
+        """Save tasks incrementally every 10 tasks to avoid losing progress"""
+        if not tasks:
+            return
+            
+        # Create filename
+        safe_skill_name = "".join(c for c in skill if c.isalnum() or c in (' ', '-', '_')).strip()
+        safe_skill_name = safe_skill_name.replace(' ', '_')
+        filename = f"generated_{safe_skill_name}.csv"
+        
+        # Check if file exists to determine if we need headers
+        file_exists = os.path.exists(filename)
+        
+        try:
+            # Process tasks before saving
+            processed_tasks = self.process_generated_tasks(tasks)
+            
+            if not processed_tasks:
+                self.logger.warning(f"No valid tasks to save incrementally for {skill}")
+                return
+            
+            # Define expected fieldnames
+            fieldnames = [
+                'test', 'domain', 'skill', 'difficulty', 'question_text_latex',
+                'option_A_latex', 'option_B_latex', 'option_C_latex', 'option_D_latex',
+                'correct_answer', 'correct_answer_spr_latex',
+                'step_1', 'step_2', 'step_3', 'step_4', 'step_5', 'step_6'
+            ]
+            
+            # Append to existing file or create new one
+            mode = 'a' if file_exists else 'w'
+            with open(filename, mode, newline='', encoding='utf-8') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames, extrasaction='ignore')
+                
+                # Write header only if file is new
+                if not file_exists:
+                    writer.writeheader()
+                
+                writer.writerows(processed_tasks)
+            
+            self.logger.info(f"💾 Incrementally saved {len(processed_tasks)} tasks to {filename} (batch #{batch_count})")
+            
+        except Exception as e:
+            self.logger.error(f"❌ Error saving incremental tasks for {skill}: {e}")
+    
     async def generate_tasks_for_skill_by_difficulty(self, skill: str, examples: List[Dict[str, Any]], 
                                                    tasks_per_difficulty: int = 100, batch_size: int = 10) -> List[Dict[str, Any]]:
         """Generate tasks for a specific skill with equal distribution across difficulty levels"""
@@ -834,12 +875,16 @@ After you have finished thinking, provide your response which MUST ONLY BE the f
         total_output_tokens = 0
         total_tokens_used = 0
         
+        # Counter for incremental saving
+        total_saved_count = 0
+        incremental_batch_count = 0
+        
         # Generate tasks for each difficulty level
         for difficulty in sorted(examples_by_difficulty.keys()):
             difficulty_examples = examples_by_difficulty[difficulty]
             
             if len(difficulty_examples) < 3:  # Need minimum examples for this difficulty
-                self.logger.warning(f"[{skill}] Skipping {difficulty}: only {len(difficulty_examples)} examples (need at least 3)")
+                self.logger.warning(f"️ [{skill}] Skipping {difficulty}: only {len(difficulty_examples)} examples (need at least 3)")
                 continue
             
             self.logger.info(f"n[{skill}] Generating {tasks_per_difficulty} tasks for difficulty: {difficulty}")
@@ -875,10 +920,21 @@ After you have finished thinking, provide your response which MUST ONLY BE the f
                         task['difficulty'] = difficulty
                     
                     difficulty_generated.extend(batch_tasks)
+                    all_generated.extend(batch_tasks)
+                    
                     total_input_tokens += input_tokens
                     total_output_tokens += output_tokens
                     total_tokens_used += total_tokens
+                    
                     self.logger.info(f" [{skill}] {difficulty} - Generated so far: {len(difficulty_generated)}/{tasks_per_difficulty}")
+                    
+                    # Check if we should save incrementally (every 10 tasks)
+                    if len(all_generated) - total_saved_count >= 10:
+                        incremental_batch_count += 1
+                        tasks_to_save = all_generated[total_saved_count:]
+                        self.save_tasks_incrementally(tasks_to_save, skill, incremental_batch_count)
+                        total_saved_count = len(all_generated)
+                    
                 else:
                     self.logger.error(f" [{skill}] {difficulty} - Failed to generate batch {batch_num + 1}")
                     break
@@ -887,11 +943,18 @@ After you have finished thinking, provide your response which MUST ONLY BE the f
                 if batch_num < num_batches - 1:
                     await asyncio.sleep(2)
             
-            all_generated.extend(difficulty_generated)
             self.logger.info(f"{skill}] {difficulty} - Completed: {len(difficulty_generated)} tasks")
+        
+        # Save any remaining tasks that haven't been saved incrementally
+        if len(all_generated) > total_saved_count:
+            incremental_batch_count += 1
+            remaining_tasks = all_generated[total_saved_count:]
+            self.save_tasks_incrementally(remaining_tasks, skill, incremental_batch_count)
+            self.logger.info(f"💾 Saved final {len(remaining_tasks)} remaining tasks for {skill}")
         
         self.logger.info(f"n[{skill}] TOTAL COMPLETED: {len(all_generated)} tasks across all difficulties")
         self.logger.info(f"[{skill}] Total token usage: Input: {total_input_tokens}, Output: {total_output_tokens}, Total: {total_tokens_used}")
+        self.logger.info(f"💾 Total incremental saves: {incremental_batch_count} batches")
         
         # Update progress
         with self.lock:
@@ -984,16 +1047,20 @@ CRITICAL REQUIREMENTS:
         total_output_tokens = 0
         total_tokens_used = 0
         
+        # Counter for incremental saving
+        total_saved_count = 0
+        incremental_batch_count = 0
+        
         # Generate tasks only for difficulties that need more tasks
         for difficulty, target_count in tasks_to_generate.items():
             if target_count <= 0:  # Skip if no additional tasks needed
                 self.logger.info(f"{skill}] No additional {difficulty} tasks needed")
                 continue
-                
+            
             if difficulty not in examples_by_difficulty:
                 self.logger.warning(f"️ [{skill}] No examples for {difficulty} difficulty, skipping")
                 continue
-                
+            
             if len(examples_by_difficulty[difficulty]) < 3:  # Need minimum examples
                 self.logger.warning(f"️ [{skill}] Not enough examples for {difficulty} difficulty, skipping")
                 continue
@@ -1034,10 +1101,21 @@ CRITICAL REQUIREMENTS:
                         task['difficulty'] = difficulty
                     
                     difficulty_generated.extend(batch_tasks)
+                    all_generated.extend(batch_tasks)
+                    
                     total_input_tokens += input_tokens
                     total_output_tokens += output_tokens
                     total_tokens_used += total_tokens
+                    
                     self.logger.info(f" [{skill}] {difficulty} - Generated so far: {len(difficulty_generated)}/{target_count}")
+                    
+                    # Check if we should save incrementally (every 10 tasks)
+                    if len(all_generated) - total_saved_count >= 10:
+                        incremental_batch_count += 1
+                        tasks_to_save = all_generated[total_saved_count:]
+                        self.save_tasks_incrementally(tasks_to_save, skill, incremental_batch_count)
+                        total_saved_count = len(all_generated)
+                    
                 else:
                     self.logger.error(f" [{skill}] {difficulty} - Failed to generate batch {batch_num + 1}")
                     break
@@ -1046,12 +1124,19 @@ CRITICAL REQUIREMENTS:
                 if batch_num < num_batches - 1:
                     await asyncio.sleep(2)
             
-            all_generated.extend(difficulty_generated)
             self.logger.info(f"{skill}] {difficulty} - Completed: {len(difficulty_generated)} additional tasks")
+        
+        # Save any remaining tasks that haven't been saved incrementally
+        if len(all_generated) > total_saved_count:
+            incremental_batch_count += 1
+            remaining_tasks = all_generated[total_saved_count:]
+            self.save_tasks_incrementally(remaining_tasks, skill, incremental_batch_count)
+            self.logger.info(f"💾 Saved final {len(remaining_tasks)} remaining tasks for {skill}")
         
         if all_generated:
             self.logger.info(f"n[{skill}] TOTAL ADDITIONAL TASKS: {len(all_generated)}")
             self.logger.info(f"[{skill}] Total token usage: Input: {total_input_tokens}, Output: {total_output_tokens}, Total: {total_tokens_used}")
+            self.logger.info(f"💾 Total incremental saves: {incremental_batch_count} batches")
         else:
             self.logger.info(f"n[{skill}] No additional tasks were needed")
         
@@ -1193,27 +1278,8 @@ CRITICAL REQUIREMENTS:
                     )
                 
                 if generated_tasks:
-                    # Create filename
-                    safe_skill_name = "".join(c for c in skill if c.isalnum() or c in (' ', '-', '_')).strip()
-                    safe_skill_name = safe_skill_name.replace(' ', '_')
-                    filename = f"generated_{safe_skill_name}.csv"
-                    
-                    # Check if the file already exists
-                    existing_tasks = []
-                    if os.path.exists(filename) and not test_mode:
-                        try:
-                            with open(filename, 'r', encoding='utf-8') as f:
-                                reader = csv.DictReader(f)
-                                existing_tasks = list(reader)
-                            self.logger.info(f"{skill}] Read {len(existing_tasks)} existing tasks from {filename}")
-                        except Exception as e:
-                            self.logger.error(f"️ Error reading existing file {filename}: {e}")
-                    
-                    # Combine existing and new tasks
-                    combined_tasks = existing_tasks + generated_tasks
-                    
-                    # Save combined tasks to CSV
-                    self.save_tasks_to_csv(combined_tasks, filename)
+                    # Tasks are already saved incrementally during generation
+                    self.logger.info(f"✅ Completed generation for skill '{skill}' with {len(generated_tasks)} tasks (saved incrementally)")
                     return skill, len(generated_tasks)
                 else:
                     return skill, 0
