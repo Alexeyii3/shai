@@ -1,0 +1,41 @@
+2025-07-03 11:55:18 | INFO     | SAT_Generator | ================================================================================
+2025-07-03 11:55:18 | INFO     | SAT_Generator | SAT Math Task Generator - Logging Initialized
+2025-07-03 11:55:18 | INFO     | SAT_Generator | Detailed logs: logs/generation_detailed_20250703_115518.log
+2025-07-03 11:55:18 | INFO     | SAT_Generator | Error logs: logs/generation_errors_20250703_115518.log
+2025-07-03 11:55:18 | INFO     | SAT_Generator | Progress logs: logs/generation_progress_20250703_115518.log
+2025-07-03 11:55:18 | INFO     | SAT_Generator | ================================================================================
+2025-07-03 11:55:18 | INFO     | SAT_Generator | Initializing SAT Math Task Generator
+2025-07-03 11:55:18 | INFO     | SAT_Generator | Project ID: studyhall-dev-383420
+2025-07-03 11:55:18 | INFO     | SAT_Generator | Model: gemini-2.5-pro
+2025-07-03 11:55:18 | INFO     | SAT_Generator | Max workers: 1
+2025-07-03 11:55:18 | DEBUG    | SAT_Generator | Direct JSON parsing failed: Expecting value: line 1 column 1 (char 0)
+2025-07-03 11:55:18 | DEBUG    | SAT_Generator | JSON text: This is not valid JSON at all!
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | === PARSE JSON FALLBACK FAILURE ===
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | All JSON parsing methods failed for response:
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Response length: 30 characters
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Full response content:
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------------------------------------
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | This is not valid JSON at all!
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------------------------------------
+2025-07-03 11:55:18 | DEBUG    | SAT_Generator | Processing 3 generated tasks
+2025-07-03 11:55:18 | WARNING  | SAT_Generator | Task #1 missing required fields: difficulty, question_text_latex, correct_answer. Adding defaults.
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | === TASK WITH MISSING FIELDS #1 ===
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Missing fields: ['difficulty', 'question_text_latex', 'correct_answer']
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Available fields: ['skill']
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Full task data:
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------
+2025-07-03 11:55:18 | ERROR    | SAT_Generator |   skill: 'test'
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------
+2025-07-03 11:55:18 | WARNING  | SAT_Generator | Skipping non-dictionary item #2: int: 42
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | === PROBLEMATIC TASK ITEM #2 ===
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Type: int
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Content: 42
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Full item data: 42
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------
+2025-07-03 11:55:18 | WARNING  | SAT_Generator | Skipping non-dictionary item #3: str: string_instead_of_dict
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | === PROBLEMATIC TASK ITEM #3 ===
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Type: str
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Content: 'string_instead_of_dict'
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Full item data: string_instead_of_dict
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------
+2025-07-03 11:55:18 | INFO     | SAT_Generator | Successfully processed 1 tasks from 3 raw tasks

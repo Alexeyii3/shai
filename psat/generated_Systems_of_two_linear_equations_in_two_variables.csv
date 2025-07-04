@@ -99,3 +99,701 @@ Math,Algebra,Systems of two linear equations in two variables,Easy,"$y = 3x - 2$
 Math,Algebra,Systems of two linear equations in two variables,Easy,"At a movie theater, adult tickets cost $\$12 and student tickets cost $\$8. A group of 50 people bought tickets for a total of $\$480. Let $a$ be the number of adult tickets and $s$ be the number of student tickets. Which system of equations represents this situation?",$a + s = 50$ \\ $12a + 8s = 480$,$a + s = 480$ \\ $12a + 8s = 50$,$a + s = 50$ \\ $8a + 12s = 480$,$12a + 8s = 50+480$ \\ $a+s=50$,A,,"The first equation represents the total number of tickets bought. The number of adult tickets is $a$ and the number of student tickets is $s$. Since 50 tickets were bought, the equation is $a + s = 50$.",The second equation represents the total cost of the tickets. The revenue from adult tickets is $12a$ and the revenue from student tickets is $8s$.,"The total cost was $\$480, so the equation is $12a + 8s = 480$.","The correct system of equations is $a + s = 50$ and $12a + 8s = 480$, which matches choice A.",Choice B swaps the totals. Choice C swaps the ticket prices.,
 Math,Algebra,Systems of two linear equations in two variables,Easy,"$-x + 3y = 13$ \\ $x + y = 7$ \\ What is the solution $(x, y)$ to the given system of equations?","$(5, 2)$","$(3, 4)$","$(2, 5)$","$(4, 3)$",C,,The system is set up for elimination. The coefficients of the $x$ terms are $-1$ and $1$.,Add the two equations together: $(-x + 3y) + (x + y) = 13 + 7$.,Combine like terms: $-x + x + 3y + y = 20$. This simplifies to $4y = 20$.,Divide both sides by 4 to solve for $y$: $y = 5$.,Substitute $y=5$ into the second equation to find $x$: $x + 5 = 7$.,"Subtracting 5 from both sides gives $x=2$. The solution is $(2, 5)$."
 Math,Algebra,Systems of two linear equations in two variables,Easy,"$x = 20$ \\ $y = \frac{1}{2}x + 5$ \\ If $(x, y)$ is the solution to the given system of equations, what is the value of $y$?",5,10,15,25,C,,The first equation gives the value of $x$ as 20.,Substitute $x=20$ into the second equation: $y = \frac{1}{2}(20) + 5$.,Perform the multiplication: $y = 10 + 5$.,Perform the addition to find the value of $y$.,The result is $y = 15$.,
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x + 2y = 19$
+$x - y = 3$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",$2$,$3$,$7$,$5$,D,,"We are given a system of two linear equations:
+1) $3x + 2y = 19$
+2) $x - y = 3$
+We can solve this system using the elimination method.","To eliminate the variable $y$, we can multiply the second equation by 2.
+$2(x - y) = 2(3)$
+$2x - 2y = 6$","Now we add the modified second equation to the first equation:
+$(3x + 2y) + (2x - 2y) = 19 + 6$
+$5x = 25$","Solve for $x$ by dividing both sides by 5:
+$x = \rac{25}{5}$
+$x = 5$","The question asks for the value of $x$, which we found to be 5.",
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$y = 2x - 5$
+$4x + 3y = 15$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $y$?",$1$,$3$,$4$,$-1$,A,,"We are given a system of equations:
+1) $y = 2x - 5$
+2) $4x + 3y = 15$
+Since the first equation is already solved for $y$, we can use the substitution method.","Substitute the expression for $y$ from the first equation into the second equation:
+$4x + 3(2x - 5) = 15$","Now, solve for $x$. First, distribute the 3:
+$4x + 6x - 15 = 15$
+Combine like terms:
+$10x - 15 = 15$
+Add 15 to both sides:
+$10x = 30$
+Divide by 10:
+$x = 3$","The question asks for the value of $y$. Substitute the value of $x$ back into the first equation ($y = 2x - 5$):
+$y = 2(3) - 5$
+$y = 6 - 5$
+$y = 1$","The solution to the system is $(3, 1)$. The value of $y$ is 1.",
+Math,Algebra,Systems of two linear equations in two variables,Medium,"A coffee shop sells two types of coffee beans: arabica and robusta. A pound of arabica beans costs $12, and a pound of robusta beans costs $8. A customer buys a total of 5 pounds of coffee beans for a total cost of $48. How many pounds of arabica beans did the customer buy?",$5$,$2$,$3$,$4$,B,,Let $a$ be the number of pounds of arabica beans and $r$ be the number of pounds of robusta beans. We need to set up a system of two linear equations based on the given information.,"The first equation is for the total amount of coffee beans: The customer buys a total of 5 pounds.
+$a + r = 5$","The second equation is for the total cost: Arabica beans cost $12 per pound and robusta beans cost $8 per pound, for a total cost of $48.
+$12a + 8r = 48$","Now we solve the system. From the first equation, we can express $r$ in terms of $a$: $r = 5 - a$.","Substitute this expression for $r$ into the second equation:
+$12a + 8(5 - a) = 48$
+$12a + 40 - 8a = 48$
+$4a + 40 = 48$
+$4a = 8$","Solve for $a$:
+$a = \rac{8}{4} = 2$
+The customer bought 2 pounds of arabica beans."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$kx + 2y = 4$
+$6x + 4y = 7$
+
+In the given system of equations, $k$ is a constant. For what value of $k$ does the system have no solution?",$-3$,$2$,$3$,$6$,C,,A system of two linear equations has no solution if the lines are parallel. Parallel lines have the same slope but different y-intercepts.,"First, let's find the slope of each equation by rewriting them in slope-intercept form ($y = mx + b$), where $m$ is the slope.
+Equation 1: $kx + 2y = 4 \implies 2y = -kx + 4 \implies y = -\rac{k}{2}x + 2$. The slope is $m_1 = -\rac{k}{2}$.
+Equation 2: $6x + 4y = 7 \implies 4y = -6x + 7 \implies y = -\rac{6}{4}x + \rac{7}{4} = -\rac{3}{2}x + \rac{7}{4}$. The slope is $m_2 = -\rac{3}{2}$.","For the lines to be parallel, their slopes must be equal. Set $m_1 = m_2$:
+$-\rac{k}{2} = -\rac{3}{2}$","Solve for $k$. We can multiply both sides by -2:
+$k = 3$","When $k=3$, the slope of the first line is $-3/2$, which is the same as the second line. The y-intercepts are 2 and $7/4$, which are different. Therefore, the system has no solution when $k=3$.",
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x + 3y = 7$
+$3x - y = 5$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x - y$?",$1$,$2$,$3$,$5$,A,,"We have the system of equations:
+1) $2x + 3y = 7$
+2) $3x - y = 5$
+We can solve this system using substitution or elimination. Let's use substitution.","From the second equation, it's easy to isolate $y$:
+$y = 3x - 5$","Substitute this expression for $y$ into the first equation:
+$2x + 3(3x - 5) = 7$","Solve for $x$:
+$2x + 9x - 15 = 7$
+$11x - 15 = 7$
+$11x = 22$
+$x = 2$","Now find the value of $y$ by substituting $x = 2$ back into the expression for $y$:
+$y = 3(2) - 5$
+$y = 6 - 5$
+$y = 1$","The solution is $(x, y) = (2, 1)$. The question asks for the value of $x - y$.
+$x - y = 2 - 1 = 1$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$\rac{1}{2}x + \rac{1}{3}y = 4$
+$x - y = 2$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $y$?",$2$,$\rac{28}{5}$,$-2$,$\rac{18}{5}$,D,,"We are given the system:
+1) $\rac{1}{2}x + \rac{1}{3}y = 4$
+2) $x - y = 2$
+To make the first equation easier to work with, we can eliminate the fractions by multiplying by the least common multiple of the denominators, which is 6.","Multiply the first equation by 6:
+$6(\rac{1}{2}x) + 6(\rac{1}{3}y) = 6(4)$
+$3x + 2y = 24$","Now we have a simpler system:
+1) $3x + 2y = 24$
+2) $x - y = 2$
+From the second equation, we can express $x$ in terms of $y$: $x = y + 2$.","Substitute this expression for $x$ into the modified first equation:
+$3(y + 2) + 2y = 24$","Solve for $y$:
+$3y + 6 + 2y = 24$
+$5y + 6 = 24$
+$5y = 18$
+$y = \rac{18}{5}$",
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$y = 2x - 8$
+$3x + 2y = 12$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",,,,,4,4,"The given system of equations is:
+1) $y = 2x - 8$
+2) $3x + 2y = 12$","The first equation is already solved for $y$, so we can use the substitution method. Substitute the expression for $y$ from the first equation into the second equation.",$3x + 2(2x - 8) = 12$,"Now, solve the equation for $x$. Distribute the 2:
+$3x + 4x - 16 = 12$
+Combine like terms:
+$7x - 16 = 12$","Add 16 to both sides:
+$7x = 28$
+Divide by 7:
+$x = 4$","The question asks for the value of $x$, which is 4."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x + 4y = -6$
+$5x + 3y = 1$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $y$?",$-3$,$2$,$-1$,$3$,A,,"We have the system of equations:
+1) $3x + 4y = -6$
+2) $5x + 3y = 1$
+We can use the elimination method to solve for one of the variables.","To eliminate $x$, we can multiply the first equation by 5 and the second equation by -3. This will make the coefficients of $x$ opposites (15 and -15).
+$5(3x + 4y = -6) \implies 15x + 20y = -30$
+$-3(5x + 3y = 1) \implies -15x - 9y = -3$","Add the two new equations together:
+$(15x + 20y) + (-15x - 9y) = -30 + (-3)$
+$11y = -33$","Solve for $y$ by dividing both sides by 11:
+$y = \rac{-33}{11}$
+$y = -3$","The question asks for the value of $y$, which is -3.",
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$4x - y = 13$
+$2x + 3y = 17$
+
+The solution to the given system is $(x, y)$. What is the value of $x + y$?",$1$,$4$,$7$,$3$,C,,"We are given the system:
+1) $4x - y = 13$
+2) $2x + 3y = 17$
+We can use the substitution method by first solving the first equation for $y$.","Rearrange the first equation to isolate $y$:
+$4x - 13 = y$, or $y = 4x - 13$.","Substitute this expression for $y$ into the second equation:
+$2x + 3(4x - 13) = 17$","Solve for $x$:
+$2x + 12x - 39 = 17$
+$14x - 39 = 17$
+$14x = 56$
+$x = \rac{56}{14} = 4$","Now find $y$ by substituting $x=4$ back into the rearranged first equation ($y = 4x - 13$):
+$y = 4(4) - 13$
+$y = 16 - 13 = 3$","The solution is $(x, y) = (4, 3)$. The question asks for the value of $x + y$, which is $4 + 3 = 7$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$4x + ay = 10$
+$2x + 3y = 5$
+
+In the given system of equations, $a$ is a constant. If the system has infinitely many solutions, what is the value of $a$?",$2$,$3$,$5$,$6$,D,,"For a system of two linear equations to have infinitely many solutions, the two equations must represent the same line. This means one equation must be a constant multiple of the other.","Let's compare the two equations:
+1) $4x + ay = 10$
+2) $2x + 3y = 5$
+We can see if there is a constant factor that relates the two equations. Let's look at the coefficients of $x$ and the constant terms.","Ratio of the $x$-coefficients: $\rac{4}{2} = 2$.
+Ratio of the constant terms: $\rac{10}{5} = 2$.
+Since these ratios are the same, the first equation should be 2 times the second equation for the system to have infinitely many solutions.","This means the ratio of the $y$-coefficients must also be 2.
+$\rac{a}{3} = 2$","Solve for $a$:
+$a = 2 \	imes 3 = 6$
+So, the value of $a$ must be 6 for the system to have infinitely many solutions.",
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x + 3y = 5$
+$3x - 4y = 16$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $y$?",$4$,$-1$,$1$,$5$,B,,"We are given a system of two linear equations:
+1) $2x + 3y = 5$
+2) $3x - 4y = 16$
+We can use the elimination method to solve this system.","To eliminate the variable $x$, we can multiply the first equation by 3 and the second equation by -2. This will make the coefficients of $x$ opposites (6 and -6).
+$3(2x + 3y) = 3(5) \implies 6x + 9y = 15$
+$-2(3x - 4y) = -2(16) \implies -6x + 8y = -32$","Now we add the two new equations together:
+$(6x + 9y) + (-6x + 8y) = 15 + (-32)$
+$17y = -17$","Solve for $y$ by dividing both sides by 17:
+$y = \rac{-17}{17}$
+$y = -1$","The question asks for the value of $y$, which we found to be -1.",
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$y = \rac{1}{2}x + 3$
+$3x - 4y = 8$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",$4$,$13$,$20$,$-4$,C,,"We are given the system of equations:
+1) $y = \rac{1}{2}x + 3$
+2) $3x - 4y = 8$
+Since the first equation is already solved for $y$, the substitution method is a good choice.","Substitute the expression for $y$ from the first equation into the second equation:
+$3x - 4(\rac{1}{2}x + 3) = 8$","Now, solve for $x$. First, distribute the -4:
+$3x - 4(\rac{1}{2}x) - 4(3) = 8$
+$3x - 2x - 12 = 8$","Combine the $x$ terms:
+$x - 12 = 8$","Add 12 to both sides of the equation to isolate $x$:
+$x = 8 + 12$
+$x = 20$","The question asks for the value of $x$, which is 20."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"A group of 15 people visited a museum. Tickets for adults cost $10 each, and tickets for children cost $6 each. If the total cost for the group's tickets was $110, how many children were in the group?",5,10,15,8,B,,Let $a$ represent the number of adults and $c$ represent the number of children. We need to create a system of two linear equations based on the information provided.,"The first equation represents the total number of people in the group:
+$a + c = 15$","The second equation represents the total cost of the tickets:
+$10a + 6c = 110$","We can use substitution to solve the system. First, solve the first equation for $a$:
+$a = 15 - c$","Substitute this expression for $a$ into the second equation:
+$10(15 - c) + 6c = 110$","Solve for $c$:
+$150 - 10c + 6c = 110$
+$150 - 4c = 110$
+$-4c = 110 - 150$
+$-4c = -40$
+$c = \rac{-40}{-4} = 10$
+There were 10 children in the group."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$5x - 3y = 9$
+$cx + 6y = 10$
+
+In the given system of equations, $c$ is a constant. For what value of $c$ does the system have no solution?",$10$,$-10$,$\rac{5}{3}$,$-\rac{5}{3}$,B,,A system of two linear equations has no solution if the lines they represent are parallel. Parallel lines have the same slope but different y-intercepts.,"Rewrite each equation in slope-intercept form ($y = mx + b$) to find their slopes.
+Equation 1: $5x - 3y = 9 \implies -3y = -5x + 9 \implies y = \rac{5}{3}x - 3$. The slope is $m_1 = \rac{5}{3}$.",Equation 2: $cx + 6y = 10 \implies 6y = -cx + 10 \implies y = -\rac{c}{6}x + \rac{10}{6}$. The slope is $m_2 = -\rac{c}{6}$.,"For the system to have no solution, the slopes must be equal: $m_1 = m_2$.
+$\rac{5}{3} = -\rac{c}{6}$","Solve for $c$. Multiply both sides by 6:
+$6(\rac{5}{3}) = -c$
+$10 = -c$
+$c = -10$","When $c = -10$, the slopes are equal, and the y-intercepts (-3 and 10/6) are different. Thus, the lines are parallel and the system has no solution."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$x + y = 4$
+$x - y = 2$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $2x + y$?",$1$,$3$,$4$,$7$,D,,"We are given the system:
+1) $x + y = 4$
+2) $x - y = 2$
+We first need to solve for $x$ and $y$. The elimination method is very efficient here.","Add the two equations together to eliminate $y$:
+$(x + y) + (x - y) = 4 + 2$
+$2x = 6$","Solve for $x$ by dividing by 2:
+$x = 3$","Substitute the value of $x$ back into the first equation ($x + y = 4$) to find $y$:
+$3 + y = 4$
+$y = 1$","The solution to the system is $(x, y) = (3, 1)$. The question asks for the value of the expression $2x + y$.","Substitute the values of $x$ and $y$ into the expression:
+$2x + y = 2(3) + 1 = 6 + 1 = 7$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$4x - y = 5$
+$x + 2y = 8$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $y$?",,,,,3,3,"The given system of equations is:
+1) $4x - y = 5$
+2) $x + 2y = 8$
+We can use either substitution or elimination. Let's use substitution.","Solve the first equation for $y$. It is easier to isolate $y$ in this equation.
+$4x - 5 = y$, or $y = 4x - 5$.","Substitute this expression for $y$ into the second equation:
+$x + 2(4x - 5) = 8$","Now, solve the equation for $x$. Distribute the 2:
+$x + 8x - 10 = 8$
+Combine like terms:
+$9x - 10 = 8$","Add 10 to both sides and then divide by 9:
+$9x = 18$
+$x = 2$","The question asks for the value of $y$. Substitute $x=2$ back into the expression we found in step 2: $y = 4x - 5$.
+$y = 4(2) - 5 = 8 - 5 = 3$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x - 2y = 7$
+$-12x + by = -28$
+
+In the given system of equations, $b$ is a constant. If the system has infinitely many solutions, what is the value of $b$?",$-4$,$4$,$8$,$-8$,C,,"For a system of two linear equations to have infinitely many solutions, the two equations must be equivalent. This means that one equation is a constant multiple of the other.","Let's compare the coefficients of the two equations:
+1) $3x - 2y = 7$
+2) $-12x + by = -28$","To find the constant multiple, we can form ratios of the corresponding coefficients and constant terms. Let's compare the $x$-coefficients:
+Ratio = $\rac{-12}{3} = -4$.","Let's check the ratio of the constant terms:
+Ratio = $\rac{-28}{7} = -4$.
+Since the ratios are the same, the second equation is -4 times the first equation.","The ratio of the $y$-coefficients must also be equal to this same constant, -4.
+$\rac{b}{-2} = -4$","Solve for $b$ by multiplying both sides by -2:
+$b = (-4)(-2) = 8$. The value of $b$ must be 8."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"In the $xy$-plane, the graph of $y = -3x + 5$ intersects the graph of $y = 2x - 10$ at the point $(x, y)$. What is the value of $y$?",$3$,$4$,$-1$,$-4$,D,,"The intersection point $(x, y)$ is the solution to the system of equations formed by the two lines. The system is:
+1) $y = -3x + 5$
+2) $y = 2x - 10$","Since both equations are already solved for $y$, we can find the $x$-coordinate of the intersection by setting the right-hand sides equal to each other.
+$-3x + 5 = 2x - 10$","Solve this equation for $x$. Add $3x$ to both sides:
+$5 = 5x - 10$
+Add 10 to both sides:
+$15 = 5x$","Divide by 5:
+$x = 3$","The question asks for the value of $y$. Substitute the value of $x=3$ into either of the original equations. Let's use the second one:
+$y = 2x - 10$
+$y = 2(3) - 10$
+$y = 6 - 10 = -4$","To check our answer, we can substitute $x=3$ into the first equation: $y = -3(3) + 5 = -9 + 5 = -4$. The value of $y$ is -4."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x + y = 7$
+$x - 3y = 7$
+
+The solution to the given system is $(x, y)$. What is the value of $x+y$?",$4$,$-1$,$5$,$3$,D,,"We have the system of equations:
+1) $2x + y = 7$
+2) $x - 3y = 7$
+We first need to find the values of $x$ and $y$.","Using the substitution method, we can solve the first equation for $y$:
+$y = 7 - 2x$","Now substitute this expression for $y$ into the second equation:
+$x - 3(7 - 2x) = 7$","Solve for $x$. Distribute the -3:
+$x - 21 + 6x = 7$
+Combine like terms:
+$7x - 21 = 7$
+Add 21 to both sides:
+$7x = 28$
+Divide by 7:
+$x = 4$","Now find $y$ by substituting $x=4$ back into the expression from step 2 ($y = 7 - 2x$):
+$y = 7 - 2(4)$
+$y = 7 - 8 = -1$","The solution is $(x, y) = (4, -1)$. The question asks for the value of $x+y$.
+$x+y = 4 + (-1) = 3$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$\rac{x}{4} + \rac{y}{2} = 3$
+$x - 2y = 4$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",$2$,$4$,$8$,$16$,C,,"We are given the system:
+1) $\rac{x}{4} + \rac{y}{2} = 3$
+2) $x - 2y = 4$
+First, we should clear the fractions in the first equation to make it easier to work with.","The least common multiple of the denominators (4 and 2) is 4. Multiply the entire first equation by 4:
+$4(\rac{x}{4}) + 4(\rac{y}{2}) = 4(3)$
+$x + 2y = 12$","Now we have a new, simpler system of equations:
+1) $x + 2y = 12$
+2) $x - 2y = 4$",This system is set up perfectly for the elimination method. The coefficients for $y$ are opposites (+2 and -2). Add the two equations together:,"$(x + 2y) + (x - 2y) = 12 + 4$
+$2x = 16$","Solve for $x$ by dividing both sides by 2:
+$x = \rac{16}{2} = 8$. The question asks for the value of $x$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$5x - 2y = 11$
+$3x + 5y = 19$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",$5$,$2$,$3$,$19$,C,,"We are given the system of equations:
+1) $5x - 2y = 11$
+2) $3x + 5y = 19$
+We can use the elimination method to solve for $x$.","To eliminate the variable $y$, we need to make the coefficients of $y$ opposites. We can multiply the first equation by 5 and the second equation by 2.",Multiply equation 1 by 5: $5(5x - 2y) = 5(11) \implies 25x - 10y = 55$.,Multiply equation 2 by 2: $2(3x + 5y) = 2(19) \implies 6x + 10y = 38$.,"Now, add the two new equations together to eliminate $y$:
+$(25x - 10y) + (6x + 10y) = 55 + 38$
+$31x = 93$","Solve for $x$ by dividing both sides by 31:
+$x = \rac{93}{31} = 3$. The value of $x$ is 3."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$x = 3y - 7$
+$2x + 3y = 1$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $y$?",$-\rac{13}{9}$,$\rac{5}{3}$,$-2$,$1$,B,,"We are given the system:
+1) $x = 3y - 7$
+2) $2x + 3y = 1$
+Since the first equation is already solved for $x$, we can use the substitution method.","Substitute the expression for $x$ from the first equation into the second equation:
+$2(3y - 7) + 3y = 1$","Now, solve the equation for $y$. Distribute the 2:
+$6y - 14 + 3y = 1$","Combine the terms with $y$:
+$9y - 14 = 1$","Add 14 to both sides of the equation:
+$9y = 15$","Divide by 9 to solve for $y$:
+$y = \rac{15}{9} = \rac{5}{3}$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"The length of a rectangle is 5 cm more than its width. If the perimeter of the rectangle is 58 cm, what is the area of the rectangle in square cm?",$17$,$58$,$12$,$204$,D,,Let $L$ be the length and $W$ be the width of the rectangle. We need to create a system of two linear equations from the given information.,The first statement says 'The length of a rectangle is 5 cm more than its width'. This translates to the equation: $L = W + 5$.,The second statement gives the perimeter: 'the perimeter of the rectangle is 58 cm'. The formula for the perimeter of a rectangle is $P = 2L + 2W$. This gives the equation: $2L + 2W = 58$.,"Now we solve the system. Substitute the expression for $L$ from the first equation into the second equation:
+$2(W + 5) + 2W = 58$",Solve for $W$: $2W + 10 + 2W = 58 \implies 4W + 10 = 58 \implies 4W = 48 \implies W = 12$.,"Find the length $L$ using $L = W + 5$: $L = 12 + 5 = 17$. The question asks for the area, which is $A = L \	imes W$. $A = 17 \	imes 12 = 204$ square cm."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$y = \rac{2}{3}x - 1$
+$ax - 6y = 12$
+
+In the given system of equations, $a$ is a constant. For what value of $a$ does the system have no solution?",$-4$,$6$,$4$,$-\rac{2}{3}$,C,,A system of two linear equations has no solution if the graphs of the equations are parallel lines. Parallel lines have the same slope and different y-intercepts.,"The first equation is already in slope-intercept form, $y = mx + b$. The slope is $m_1 = \rac{2}{3}$ and the y-intercept is $b_1 = -1$.",Rewrite the second equation in slope-intercept form to find its slope. $ax - 6y = 12 \implies -6y = -ax + 12 \implies y = \rac{-a}{-6}x + \rac{12}{-6} \implies y = \rac{a}{6}x - 2$.,The slope of the second line is $m_2 = \rac{a}{6}$ and the y-intercept is $b_2 = -2$.,"For the lines to be parallel, their slopes must be equal. Set $m_1 = m_2$: $\rac{2}{3} = \rac{a}{6}$.","Solve for $a$. Multiply both sides by 6: $6(\rac{2}{3}) = a \implies 4 = a$. Since the y-intercepts (-1 and -2) are different, the system has no solution when $a=4$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$7x + 2y = 13$
+$x + y = 2$
+
+The solution to the given system of equations is $(x, y)$. What is the value of the expression $6x + y$?",$2$,$11$,$15$,$9$,B,,"We are given the system:
+1) $7x + 2y = 13$
+2) $x + y = 2$
+We need to find the value of the expression $6x + y$.","A shortcut is to notice that if we subtract the second equation from the first, we might get a useful result. Let's try subtracting the terms on the left and the constants on the right.",($7x + 2y) - (x + y) = 13 - 2$,Simplify the expression: $7x + 2y - x - y = 11 \implies 6x + y = 11$. This directly gives the answer.,"Alternatively, we can solve the system fully. From equation (2), $y = 2 - x$. Substitute into equation (1): $7x + 2(2-x) = 13 \implies 7x + 4 - 2x = 13 \implies 5x = 9 \implies x = 9/5$.",Find y: $y = 2 - 9/5 = 10/5 - 9/5 = 1/5$. Now evaluate the expression $6x+y$: $6(\rac{9}{5}) + \rac{1}{5} = \rac{54}{5} + \rac{1}{5} = \rac{55}{5} = 11$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x - y = -1$
+$x + 2y = 22$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",,,,,4,4,"We have the system of equations:
+1) $2x - y = -1$
+2) $x + 2y = 22$
+We can use the elimination method to solve this system.","To eliminate the variable $y$, we can multiply the first equation by 2. This will make the coefficient of $y$ in the first equation -2, which is the opposite of the coefficient in the second equation.",Multiply equation 1 by 2: $2(2x - y) = 2(-1) \implies 4x - 2y = -2$.,"Now, add the new first equation to the second equation:
+$(4x - 2y) + (x + 2y) = -2 + 22$",The $y$ terms cancel out: $5x = 20$.,"Solve for $x$ by dividing both sides by 5:
+$x = \rac{20}{5} = 4$. The value of $x$ is 4."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$\rac{1}{3}x - \rac{1}{2}y = c$
+$-2x + 3y = 6$
+
+In the given system of equations, $c$ is a constant. If the system has infinitely many solutions, what is the value of $c$?",$-1$,$1$,$-6$,$3$,A,,"For a system of two linear equations to have infinitely many solutions, the two equations must be equivalent. This means one equation must be a constant multiple of the other.","Let's find the constant multiple, $k$, such that $k \	imes (\rac{1}{3}x - \rac{1}{2}y = c)$ results in $-2x + 3y = 6$.",Compare the coefficients of the $x$ terms to find $k$: $k \	imes (\rac{1}{3}) = -2$.,Solve for $k$: $k = -2 \	imes 3 = -6$.,"Now, we check if this multiple $k=-6$ also works for the $y$ terms: $k \	imes (-\rac{1}{2}) = (-6) \	imes (-\rac{1}{2}) = 3$. This matches the coefficient of $y$ in the second equation, so the multiple is correct.","Finally, the constant terms must also be related by the same multiple: $k \	imes c = 6$. Since we found $k=-6$, we have $-6 \	imes c = 6$. Solving for $c$, we get $c = \rac{6}{-6} = -1$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"At a school play, student tickets cost $5 each and adult tickets cost $8 each. The total revenue from 150 tickets sold was $1080. How many student tickets were sold?",110,80,40,70,C,,Let $s$ be the number of student tickets and $a$ be the number of adult tickets. We can set up a system of two equations based on the given information.,The first equation represents the total number of tickets sold: $s + a = 150$.,The second equation represents the total revenue from ticket sales: $5s + 8a = 1080$.,"We can solve this system using substitution. From the first equation, express $a$ in terms of $s$: $a = 150 - s$.",Substitute this expression for $a$ into the second equation: $5s + 8(150 - s) = 1080$.,"Solve for $s$: $5s + 1200 - 8s = 1080 \implies -3s + 1200 = 1080 \implies -3s = -120 \implies s = 40$. So, 40 student tickets were sold."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$x + 3y = 10$
+$3x + y = 6$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x + y$?",$2$,$16$,$8$,$4$,D,,"We are given the system:
+1) $x + 3y = 10$
+2) $3x + y = 6$
+We need to find the value of $x+y$.",A useful technique here is to add the two equations together. Notice the coefficients of $x$ and $y$ are swapped.,Add the first equation to the second equation: $(x + 3y) + (3x + y) = 10 + 6$.,Combine like terms on each side: $4x + 4y = 16$.,Factor out a 4 from the left side: $4(x + y) = 16$.,Divide both sides by 4 to find the value of $x+y$: $x+y = \rac{16}{4} = 4$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x + 3y = 4$
+$3x - y = 17$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",,,,,5,5,"We have a system of two linear equations:
+1) $2x + 3y = 4$
+2) $3x - y = 17$
+We are asked to find the value of $x$.","We can use the elimination method. It is easiest to eliminate $y$. To do this, we can multiply the second equation by 3.",Multiply the second equation by 3: $3(3x - y) = 3(17) \implies 9x - 3y = 51$.,"Now we have a new system:
+1) $2x + 3y = 4$
+2) $9x - 3y = 51$
+The coefficients of $y$ are opposites (3 and -3).","Add the two new equations together:
+$(2x + 3y) + (9x - 3y) = 4 + 51$
+$11x = 55$","Solve for $x$ by dividing both sides by 11:
+$x = \rac{55}{11} = 5$. The value of $x$ is 5."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x + 3y = 27$ 
+$4x - y = 19$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x + y$?",,,,,11,11,"We are given the system of equations:
+1) $2x + 3y = 27$
+2) $4x - y = 19$
+We can solve this system using the substitution method.","First, solve the second equation for $y$. 
+$-y = 19 - 4x$
+$y = 4x - 19$","Substitute this expression for $y$ into the first equation:
+$2x + 3(4x - 19) = 27$","Now, solve for $x$. Distribute the 3:
+$2x + 12x - 57 = 27$
+Combine like terms:
+$14x - 57 = 27$
+Add 57 to both sides:
+$14x = 84$
+Divide by 14:
+$x = 6$","Substitute the value of $x$ back into the expression for $y$:
+$y = 4(6) - 19 = 24 - 19 = 5$","The question asks for the value of $x + y$. 
+$x + y = 6 + 5 = 11$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x - ay = 9$
+$2x + 5y = -1$
+
+In the given system of equations, $a$ is a constant. For what value of $a$ does the system have no solution?",$\rac{15}{2}$,$-\rac{15}{2}$,$-\rac{6}{5}$,$\rac{6}{5}$,B,,A system of two linear equations has no solution if the lines are parallel and have different y-intercepts. Parallel lines have the same slope.,Let's find the slope of each equation by rewriting them in slope-intercept form ($y = mx + b$).,For the first equation: $3x - ay = 9 \implies -ay = -3x + 9 \implies y = \rac{3}{a}x - \rac{9}{a}$. The slope is $m_1 = \rac{3}{a}$.,For the second equation: $2x + 5y = -1 \implies 5y = -2x - 1 \implies y = -\rac{2}{5}x - \rac{1}{5}$. The slope is $m_2 = -\rac{2}{5}$.,"For the slopes to be equal, we set $m_1 = m_2$: 
+$\rac{3}{a} = -\rac{2}{5}$","Solve for $a$ by cross-multiplying: 
+$3 \	imes 5 = -2 \	imes a \implies 15 = -2a \implies a = -\rac{15}{2}$. The y-intercepts will be different, so the system will have no solution."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$ax + 9y = c$
+$2x + 3y = 5$
+
+In the given system of equations, $a$ and $c$ are constants. If the system has infinitely many solutions, what is the value of $c - a$?",3,6,9,12,C,,"For a system of linear equations to have infinitely many solutions, the two equations must be equivalent. This means one equation must be a constant multiple of the other.",Let's compare the coefficients of the $y$ terms in the two equations: $9y$ and $3y$. We can see that the coefficient in the first equation is 3 times the coefficient in the second equation ($9 = 3 \	imes 3$).,"This means the entire first equation must be 3 times the second equation. So, we multiply the second equation by 3: 
+$3(2x + 3y = 5) \implies 6x + 9y = 15$.","Now we compare this new equation, $6x + 9y = 15$, with the first given equation, $ax + 9y = c$.","By comparing the coefficients, we can see that $a$ must be 6 and $c$ must be 15.","The question asks for the value of $c - a$. 
+$c - a = 15 - 6 = 9$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"A science experiment requires a 20% acid solution. A chemist has two stock solutions, one with 10% acid and another with 30% acid. She needs to make 500 mL of the 20% solution. How many milliliters of the 10% solution does she need?",150,200,250,350,C,,Let $x$ be the volume (in mL) of the 10% acid solution and $y$ be the volume (in mL) of the 30% acid solution.,"The total volume of the mixture must be 500 mL. This gives us our first equation: 
+$x + y = 500$.","The total amount of acid in the mixture must be 20% of 500 mL. The amount of acid from the first solution is $0.10x$ and from the second is $0.30y$. The total acid needed is $0.20(500) = 100$ mL. This gives our second equation: 
+$0.10x + 0.30y = 100$.","From the first equation, we can express $y$ in terms of $x$: $y = 500 - x$.","Substitute this expression for $y$ into the second equation: 
+$0.10x + 0.30(500 - x) = 100$.","Solve for $x$: 
+$0.10x + 150 - 0.30x = 100$ 
+$-0.20x = -50$ 
+$x = \rac{-50}{-0.20} = 250$. 
+So, 250 mL of the 10% solution is needed."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$5x - 4y = -1$
+$3x + 2y = 17$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $y$?",3,4,-2,-4,B,,"We are given the system:
+1) $5x - 4y = -1$
+2) $3x + 2y = 17$
+To find the value of $y$, we can use the elimination method to eliminate $x$.",Multiply the first equation by 3 and the second equation by -5 to make the coefficients of $x$ opposites.,"$3(5x - 4y = -1) \implies 15x - 12y = -3$
+$-5(3x + 2y = 17) \implies -15x - 10y = -85$","Add the two new equations together:
+$(15x - 12y) + (-15x - 10y) = -3 + (-85)$
+$-22y = -88$","Solve for $y$ by dividing both sides by -22:
+$y = \rac{-88}{-22} = 4$.",
+Math,Algebra,Systems of two linear equations in two variables,Medium,"Line $L$ passes through the points $(0, 5)$ and $(2, 1)$. Line $M$ is given by the equation $x + y = 6$. What is the x-coordinate of the intersection of lines $L$ and $M$?",7,1,-1,-2,C,,"First, we need to find the equation of line $L$. The intersection point is the solution to the system of equations for lines $L$ and $M$.","Calculate the slope ($m$) of line $L$ using the points $(0, 5)$ and $(2, 1)$: 
+$m = \rac{y_2 - y_1}{x_2 - x_1} = \rac{1 - 5}{2 - 0} = \rac{-4}{2} = -2$.","The point $(0, 5)$ is the y-intercept, so $b = 5$. The equation of line $L$ in slope-intercept form ($y = mx + b$) is $y = -2x + 5$.","Now we have a system of two equations:
+1) $y = -2x + 5$ (Line L)
+2) $x + y = 6$ (Line M)","Use substitution. Substitute the expression for $y$ from the first equation into the second equation: 
+$x + (-2x + 5) = 6$.","Solve for $x$: 
+$-x + 5 = 6$
+$-x = 1$
+$x = -1$.
+The x-coordinate of the intersection is -1."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$4x + 3y = 2$
+$2x - y = 6$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $8x + 3y$?",,,,,10,10,"We have the system of equations:
+1) $4x + 3y = 2$
+2) $2x - y = 6$
+First, we need to solve for $x$ and $y$.","We can use the substitution method. Solve the second equation for $y$: 
+$2x - 6 = y$, or $y = 2x - 6$.","Substitute this expression for $y$ into the first equation: 
+$4x + 3(2x - 6) = 2$.","Solve for $x$: 
+$4x + 6x - 18 = 2$
+$10x = 20$
+$x = 2$.","Now find $y$ by substituting $x = 2$ into the expression from step 2: 
+$y = 2(2) - 6 = 4 - 6 = -2$.","The question asks for the value of the expression $8x + 3y$. Substitute the values $x=2$ and $y=-2$: 
+$8(2) + 3(-2) = 16 - 6 = 10$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,The sum of a larger number and a smaller number is 30. Three times the larger number is 6 more than four times the smaller number. What is the larger number?,12,15,18,30,C,,Let $L$ be the larger number and $S$ be the smaller number. We need to set up a system of two equations based on the problem description.,"The first sentence, 'The sum of a larger number and a smaller number is 30', translates to the equation: 
+$L + S = 30$.","The second sentence, 'Three times the larger number is 6 more than four times the smaller number', translates to: 
+$3L = 4S + 6$.","From the first equation, we can express $S$ in terms of $L$: $S = 30 - L$.","Substitute this expression for $S$ into the second equation: 
+$3L = 4(30 - L) + 6$.","Solve for $L$: 
+$3L = 120 - 4L + 6$ 
+$3L = 126 - 4L$ 
+$7L = 126$ 
+$L = \rac{126}{7} = 18$. 
+The larger number is 18."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$\rac{x}{3} + \rac{y}{5} = 2$
+$x - y = -2$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $y$?",3,-2,5,-20,C,,"We are given the system:
+1) $\rac{x}{3} + \rac{y}{5} = 2$
+2) $x - y = -2$
+First, we can clear the fractions in the first equation by multiplying by the least common multiple of the denominators, which is 15.","Multiply the first equation by 15: 
+$15(\rac{x}{3}) + 15(\rac{y}{5}) = 15(2)$ 
+$5x + 3y = 30$.","Now we have a simpler system:
+1) $5x + 3y = 30$
+2) $x - y = -2$
+From the second equation, solve for $x$: $x = y - 2$.","Substitute this expression for $x$ into the modified first equation: 
+$5(y - 2) + 3y = 30$.","Solve for $y$: 
+$5y - 10 + 3y = 30$
+$8y - 10 = 30$
+$8y = 40$
+$y = 5$.",
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$4x + 7y = 20$
+$4x + 3y = 12$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $y$?",2,1.5,-2,8,A,,"We are given the system of equations:
+1) $4x + 7y = 20$
+2) $4x + 3y = 12$",We can use the elimination method. Notice that the coefficient of $x$ is the same in both equations.,Subtract the second equation from the first equation to eliminate the $x$ variable.,$(4x + 7y) - (4x + 3y) = 20 - 12$,"Simplify the equation:
+$4x + 7y - 4x - 3y = 8$
+$4y = 8$","Solve for $y$ by dividing both sides by 4:
+$y = \rac{8}{4} = 2$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$5x + 3y = 21$\n$3x + 5y = 19$\n\nThe solution to the given system of equations is $(x, y)$. What is the value of $x + y$?",,,,,5,5,We are given the system of equations:\n1) $5x + 3y = 21$\n2) $3x + 5y = 19$\nWe are asked to find the value of the expression $x + y$.,Notice the symmetric coefficients for $x$ and $y$. This suggests that adding the two equations might simplify the problem.,Add the first equation to the second equation:\n$(5x + 3y) + (3x + 5y) = 21 + 19$.,Combine like terms on each side of the equation:\n$8x + 8y = 40$.,Factor out the common factor of 8 from the left side:\n$8(x + y) = 40$.,Divide both sides by 8 to solve for $x + y$:\n$x + y = \rac{40}{8} = 5$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,A store sells pens and notebooks. Each pen costs \$2 and each notebook costs \$4. A customer purchased a total of 12 items for a combined cost of \$38. What was the total cost of the notebooks the customer purchased?,\$7,\$10,\$28,\$38,C,,Let $p$ be the number of pens and $n$ be the number of notebooks purchased.,Set up a system of equations based on the given information. The first equation represents the total number of items: $p + n = 12$.,The second equation represents the total cost: $2p + 4n = 38$.,"Solve the system for $n$. From the first equation, express $p$ in terms of $n$: $p = 12 - n$.",Substitute this expression for $p$ into the second equation: $2(12 - n) + 4n = 38$.,"Solve for $n$: $24 - 2n + 4n = 38 \implies 24 + 2n = 38 \implies 2n = 14 \implies n = 7$. The customer bought 7 notebooks. The question asks for the total cost of the notebooks, which is $7 \	imes \$4 = \$28$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"Line L has the equation $y = mx - 2$. Line P is represented by the equation $4x + 3y = 9$. If the system of linear equations for lines L and P has no solution, what is the value of $m$?",$\rac{4}{3}$,$\rac{3}{4}$,$-\rac{3}{4}$,$-\rac{4}{3}$,D,,A system of linear equations has no solution if the lines they represent are parallel. Parallel lines have the same slope but different y-intercepts.,"The equation for line L is $y = mx - 2$. This is in slope-intercept form ($y=mx+b$), so its slope is $m$ and its y-intercept is -2.","Find the slope of line P by converting its equation, $4x + 3y = 9$, to slope-intercept form.",Isolate $y$ in the equation for line P: $3y = -4x + 9$.,Divide by 3: $y = -\rac{4}{3}x + 3$. The slope of line P is $-\rac{4}{3}$ and its y-intercept is 3.,"For the system to have no solution, the slopes must be equal. Therefore, $m = -\rac{4}{3}$. Since the y-intercepts (-2 and 3) are different, the lines are parallel and will not intersect."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x + 5y = 8$\n$x - 2y = 7$\n\nThe solution to the given system of equations is $(x, y)$. What is the value of $y$?",,,,,-13/11,-13/11,We are given the system of equations:\n1) $3x + 5y = 8$\n2) $x - 2y = 7$\nWe can use the substitution method to solve for $y$.,"First, solve the second equation for $x$ because its coefficient is 1, which makes it easier to isolate.\n$x = 2y + 7$.",Substitute this expression for $x$ into the first equation:\n$3(2y + 7) + 5y = 8$.,"Now, solve the resulting equation for $y$. Distribute the 3:\n$6y + 21 + 5y = 8$.",Combine the terms with $y$:\n$11y + 21 = 8$.,Subtract 21 from both sides and then divide by 11:\n$11y = 8 - 21 \implies 11y = -13 \implies y = -\rac{13}{11}$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x - y = 13$\n$x + 3y = 11$\n\nThe solution to the given system of equations is $(x, y)$. What is the value of $x - 2y$?",$1$,$2$,$5$,$7$,A,,"We are given the system:\n1) $3x - y = 13$\n2) $x + 3y = 11$\nFirst, we need to solve for the values of $x$ and $y$.","Using the substitution method, we can solve the first equation for $y$: $y = 3x - 13$.",Substitute this expression for $y$ into the second equation: $x + 3(3x - 13) = 11$.,Solve for $x$: $x + 9x - 39 = 11 \implies 10x = 50 \implies x = 5$.,Now find the value of $y$ by substituting $x=5$ back into the expression from step 2: $y = 3(5) - 13 = 15 - 13 = 2$.,The question asks for the value of the expression $x - 2y$. Substitute the values $x=5$ and $y=2$: $5 - 2(2) = 5 - 4 = 1$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"The sum of 5 times a first number and 8 times a second number is 26. The sum of 8 times the first number and 5 times the second number is 44. If the first number is $x$ and the second number is $y$, what is the value of $x-y$?",$-6$,$3$,$6$,$18$,C,,Translate the word problem into a system of linear equations. Let $x$ be the first number and $y$ be the second number.,The first sentence gives the equation: $5x + 8y = 26$.,The second sentence gives the equation: $8x + 5y = 44$.,"We need to find the value of $x-y$. Notice that we can use elimination. To get a term like $x-y$, let's try subtracting one equation from the other.",Subtract the first equation from the second equation: $(8x + 5y) - (5x + 8y) = 44 - 26$.,"Simplify the equation: $8x + 5y - 5x - 8y = 18 \implies 3x - 3y = 18$. Factoring out the 3 gives $3(x - y) = 18$, so $x - y = 6$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"A movie theater sells adult tickets for \$12.50 and child tickets for \$7.50. On a particular evening, 200 tickets were sold for a total revenue of \$2,200. How many adult tickets were sold?",$60$,$100$,$140$,$160$,C,,Let $a$ represent the number of adult tickets and $c$ represent the number of child tickets.,Create a system of two equations. The first equation represents the total number of tickets sold: $a + c = 200$.,The second equation represents the total revenue: $12.50a + 7.50c = 2200$.,"Solve the system using substitution. From the first equation, we can write $c = 200 - a$.",Substitute this expression for $c$ into the second equation: $12.50a + 7.50(200 - a) = 2200$.,"Solve for $a$: $12.50a + 1500 - 7.50a = 2200 \implies 5a + 1500 = 2200 \implies 5a = 700 \implies a = 140$. Therefore, 140 adult tickets were sold."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$\rac{1}{4}x + ay = 3$\n$x + 8y = 12$\n\nIn the given system of equations, $a$ is a constant. For what value of $a$ does the system have infinitely many solutions?",$\rac{1}{2}$,$2$,$4$,$8$,B,,"For a system of two linear equations to have infinitely many solutions, the two equations must be equivalent. This means one equation must be a constant multiple of the other.","Let's manipulate the first equation, $\rac{1}{4}x + ay = 3$, so that its $x$-coefficient matches the $x$-coefficient of the second equation, $x + 8y = 12$.","The $x$-coefficient in the second equation is 1. To make the $x$-coefficient in the first equation equal to 1, we must multiply the entire equation by 4.","Multiply the first equation by 4: $4(\rac{1}{4}x + ay) = 4(3)$, which simplifies to $x + 4ay = 12$.","Now, compare this new equation, $x + 4ay = 12$, with the second equation, $x + 8y = 12$.","For the equations to be identical, the coefficients of $y$ must be equal. So, we set $4a = 8$. Solving for $a$ gives $a = \rac{8}{4} = 2$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x + 5y = 12$\n$x - y = 9$\n\nThe solution to the given system of equations is $(x, y)$. What is the value of the expression $3x + 4y$?",,,,,21,21,"First, we must solve the system of equations for $x$ and $y$. The system is:\n1) $2x + 5y = 12$\n2) $x - y = 9$",Let's use the substitution method. Solve the second equation for $x$: $x = y + 9$.,Substitute this expression for $x$ into the first equation: $2(y + 9) + 5y = 12$.,Solve for $y$: $2y + 18 + 5y = 12 \implies 7y + 18 = 12 \implies 7y = -6 \implies y = -\rac{6}{7}$.,Now find $x$ by substituting the value of $y$ back into the expression from step 2: $x = -\rac{6}{7} + 9 = -\rac{6}{7} + \rac{63}{7} = \rac{57}{7}$.,"Finally, calculate the value of the expression $3x + 4y$: $3(\rac{57}{7}) + 4(-\rac{6}{7}) = \rac{171}{7} - \rac{24}{7} = \rac{147}{7} = 21$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"In the $xy$-plane, line $L$ passes through the points $(-1, 8)$ and $(1, 4)$. Line $M$ passes through the points $(3, 1)$ and $(0, -2)$. The two lines intersect at the point $(a, b)$. What is the value of $a+b$?",$2$,$\rac{2}{3}$,$\rac{8}{3}$,$\rac{10}{3}$,D,,"First, find the equation for line L. Calculate its slope: $m_L = \rac{4 - 8}{1 - (-1)} = \rac{-4}{2} = -2$. Using the point-slope form with point $(1,4)$: $y - 4 = -2(x - 1) \implies y = -2x + 2 + 4 \implies y = -2x + 6$.","Next, find the equation for line M. Calculate its slope: $m_M = \rac{-2 - 1}{0 - 3} = \rac{-3}{-3} = 1$. The point $(0, -2)$ is the y-intercept, so the equation for line M is $y = 1x - 2$ or $y = x - 2$.","The intersection point $(a, b)$ is the solution to the system of equations for lines L and M:\n1) $y = -2x + 6$\n2) $y = x - 2$","Since both equations are solved for $y$, set them equal to each other to solve for the x-coordinate, $a$: $-2x + 6 = x - 2.",Solve for $x$: $8 = 3x \implies x = a = \rac{8}{3}$.,"Substitute the value of $x$ back into either equation to find the y-coordinate, $b$. Using the equation for line M: $y = x - 2 \implies y = \rac{8}{3} - 2 = \rac{8}{3} - \rac{6}{3} = \rac{2}{3}$. So $b=\rac{2}{3}$. The question asks for $a+b$, which is $\rac{8}{3} + \rac{2}{3} = \rac{10}{3}$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"A boat travels 60 miles downstream in 3 hours. The return trip upstream takes 5 hours. Let $b$ be the speed of the boat in still water and $c$ be the speed of the current, both in miles per hour. The situation can be modeled by the system of equations below.\n$3(b+c) = 60$\n$5(b-c) = 60$\nWhat is the speed of the boat in still water?",$4$ mph,$12$ mph,$16$ mph,$20$ mph,C,,"We are given the system of equations:
+1) $3(b+c) = 60$
+2) $5(b-c) = 60$
+First, let's simplify both equations by dividing by the constants.","Simplify the first equation: Divide both sides by 3.
+$b+c = \rac{60}{3} \implies b+c = 20$.","Simplify the second equation: Divide both sides by 5.
+$b-c = \rac{60}{5} \implies b-c = 12$.","Now we have a simpler system:
+1) $b+c = 20$
+2) $b-c = 12$
+This system is well-suited for the elimination method.","Add the two new equations together to eliminate the variable $c$.
+$(b+c) + (b-c) = 20 + 12$
+$2b = 32$","Solve for $b$ by dividing both sides by 2.
+$b = \rac{32}{2} = 16$.
+The speed of the boat in still water is 16 mph."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x - 2y = 5$\n$ax + 4y = 7$\n\nIn the given system of equations, $a$ is a constant. For what value of $a$ does the system have no solution?",$6$,$-6$,$\rac{3}{2}$,$-\rac{3}{2}$,B,,A system of two linear equations has no solution if the lines are parallel. Parallel lines have the same slope but different y-intercepts.,"First, find the slope of each line by writing the equations in slope-intercept form ($y = mx + b$).",For the first equation: $3x - 2y = 5 \implies -2y = -3x + 5 \implies y = \rac{3}{2}x - \rac{5}{2}$. The slope is $m_1 = \rac{3}{2}$.,For the second equation: $ax + 4y = 7 \implies 4y = -ax + 7 \implies y = -\rac{a}{4}x + \rac{7}{4}$. The slope is $m_2 = -\rac{a}{4}$.,"For the lines to be parallel, their slopes must be equal. Set $m_1 = m_2$: $\rac{3}{2} = -\rac{a}{4}$.","Solve for $a$. Multiply both sides by 4: $4(\rac{3}{2}) = -a \implies 6 = -a \implies a = -6$. With $a=-6$, the y-intercepts are different, so the system has no solution."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$5x + 2y = 10$\n$2x + 5y = 4$\n\nThe solution to the given system of equations is $(x, y)$. What is the value of $x-y$?",$1$,$2$,$4$,$6$,B,,"We are given the system of equations:
+1) $5x + 2y = 10$
+2) $2x + 5y = 4$
+We need to find the value of the expression $x-y$.",Notice the symmetric coefficients. A shortcut can be used here. Let's try subtracting the second equation from the first equation.,Set up the subtraction: $(5x + 2y) - (2x + 5y) = 10 - 4$.,Distribute the negative sign and combine like terms: $5x + 2y - 2x - 5y = 6$.,$3x - 3y = 6$.,Factor out the common factor of 3 from the left side: $3(x - y) = 6$. Divide by 3 to find the value of $x-y$: $x-y = \rac{6}{3} = 2$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x+y=13$\n$x+3y=-1$\n\nThe solution to the given system of equations is $(x, y)$. What is the value of $x$?",,,,,8,8,"We are given the system:
+1) $2x+y=13$
+2) $x+3y=-1$
+We can use the substitution method to solve for $x$.","First, solve the first equation for $y$ since its coefficient is 1.
+$y = 13 - 2x$","Substitute this expression for $y$ into the second equation:
+$x + 3(13 - 2x) = -1$","Now, solve for $x$. First, distribute the 3:
+$x + 39 - 6x = -1$",Combine the $x$ terms: $-5x + 39 = -1$.,Subtract 39 from both sides and then solve for $x$: $-5x = -40 \implies x = \rac{-40}{-5} = 8$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"In the $xy$-plane, the graph of $y = 2x - 2$ intersects the graph of $x+y=7$ at the point $(a, b)$. What is the value of $b$?",$-2$,$3$,$4$,$7$,C,,"The intersection point $(a, b)$ is the solution to the system of linear equations:
+1) $y = 2x - 2$
+2) $x+y=7$","We can use the substitution method. Since the first equation is already solved for $y$, substitute the expression $2x-2$ for $y$ in the second equation.",$x + (2x - 2) = 7$,"Solve the equation for $x$, which corresponds to the value of $a$.
+$3x - 2 = 7$
+$3x = 9$
+$x = a = 3$","The question asks for the value of $b$, which is the $y$-coordinate of the intersection. Substitute $x=3$ into either of the original equations. Using the first equation is simpler.","$y = 2(3) - 2 = 6 - 2 = 4$. So, $b=4$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$4x - 3y = 23$\n$3x + 2y = -4$\n\nThe solution to the given system of equations is $(x, y)$. What is the value of $y$?",$2$,$5$,$-2$,$-5$,D,,"We are given the system:
+1) $4x - 3y = 23$
+2) $3x + 2y = -4$
+To find $y$, it's best to use the elimination method to eliminate $x$.",Find a common multiple for the coefficients of $x$ (4 and 3). The least common multiple is 12. Multiply the first equation by 3 and the second equation by -4 to make the $x$-coefficients opposites.,Multiply the first equation by 3: $3(4x - 3y) = 3(23) \implies 12x - 9y = 69$.,Multiply the second equation by -4: $-4(3x + 2y) = -4(-4) \implies -12x - 8y = 16$.,Add the two new equations together to eliminate $x$: $(12x - 9y) + (-12x - 8y) = 69 + 16$.,Simplify the equation and solve for $y$: $-17y = 85 \implies y = \rac{85}{-17} = -5$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"Sarah invested a total of \$5000 in two different accounts. One account pays 4% simple interest and the other pays 6% simple interest. After one year, she earned a total of \$260 in interest. How much did she invest at 6%?",\$2000,\$2500,\$3000,\$5000,C,,Let $x$ be the amount invested at 4% and $y$ be the amount invested at 6%. We can set up a system of two linear equations.,The first equation represents the total amount invested: $x + y = 5000$.,"The second equation represents the total interest earned. The interest from the first account is $0.04x$ and from the second is $0.06y$. So, $0.04x + 0.06y = 260$.",Use the substitution method. Solve the first equation for $x$: $x = 5000 - y$.,Substitute this expression for $x$ into the second equation: $0.04(5000 - y) + 0.06y = 260$.,Solve for $y$: $200 - 0.04y + 0.06y = 260 \implies 200 + 0.02y = 260 \implies 0.02y = 60 \implies y = \rac{60}{0.02} = 3000$. Sarah invested \$3000 at 6%.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$ax - 2y = 8$\n$9x - 6y = 24$\n\nIn the given system of equations, $a$ is a constant. If the system has infinitely many solutions, what is the value of $a$?",$\rac{1}{3}$,$3$,$9$,$24$,B,,"For a system of linear equations to have infinitely many solutions, the two equations must be equivalent, meaning one is a constant multiple of the other.",Let's find the constant multiple by comparing the coefficients of the $y$ terms and the constant terms.,Ratio of the $y$-coefficients: $\rac{-6}{-2} = 3$.,Ratio of the constant terms: $\rac{24}{8} = 3$.,"Since both ratios are 3, the second equation is 3 times the first equation. This means the ratio of the $x$-coefficients must also be 3.",Set up the ratio for the $x$-coefficients and solve for $a$: $\rac{9}{a} = 3 \implies 9 = 3a \implies a = 3$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x+3y=14$\n$4x+6y=28$\n\nIf $(x, y)$ is a solution to the given system of equations, what is the value of $6x + 9y$?",$14$,$28$,$42$,$56$,C,,"We are given the system of equations:
+1) $2x+3y=14$
+2) $4x+6y=28$
+First, let's analyze the relationship between the two equations.","If we multiply the first equation by 2, we get $2(2x+3y) = 2(14)$, which simplifies to $4x+6y=28$.","This is identical to the second equation. This means the two equations represent the same line, and there are infinitely many solutions to the system.","Any solution $(x,y)$ must satisfy the relationship $2x+3y=14$.",We need to find the value of the expression $6x+9y$. Notice that this expression is a multiple of the left side of the first equation.,"Factor out a 3 from the expression: $6x+9y = 3(2x+3y)$. Since we know that $2x+3y=14$ for any solution, we can substitute this value: $3(14) = 42$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x + 2y = 18$\n$x - y = 1$\n\nThe solution to the given system of equations is $(x, y)$. What is the value of the expression $x - 3y$?",$4$,$1$,$-1$,$-5$,D,,"First, we need to solve the system of equations for $x$ and $y$. The system is:
+1) $3x + 2y = 18$
+2) $x - y = 1$","Let's use the substitution method. From the second equation, it is easy to solve for $x$: $x = y + 1$.",Substitute this expression for $x$ into the first equation: $3(y + 1) + 2y = 18$.,Solve for $y$: $3y + 3 + 2y = 18 \implies 5y + 3 = 18 \implies 5y = 15 \implies y = 3$.,Now find the value of $x$ by substituting $y=3$ into the expression from step 2: $x = 3 + 1 = 4$.,The question asks for the value of the expression $x - 3y$. Substitute the values $x=4$ and $y=3$: $4 - 3(3) = 4 - 9 = -5$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$x - 4y = 13$
+$3x + 2y = 11$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $y$?",,,,,-2,-2,"We are given the system of equations:
+1) $x - 4y = 13$
+2) $3x + 2y = 11$
+We can use the substitution method. First, solve the first equation for $x$.","From the first equation, add $4y$ to both sides: $x = 13 + 4y$.",Substitute this expression for $x$ into the second equation: $3(13 + 4y) + 2y = 11$.,Solve for $y$. Distribute the 3: $39 + 12y + 2y = 11$.,Combine the $y$ terms: $39 + 14y = 11$.,Subtract 39 from both sides and then divide by 14: $14y = 11 - 39 \implies 14y = -28 \implies y = -2$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"A person has 25 coins, all of which are dimes and quarters. The total value of the coins is $\$4.00. How many quarters does the person have?",8,10,12,15,B,,Let $d$ be the number of dimes and $q$ be the number of quarters. We can set up a system of two linear equations.,The first equation represents the total number of coins: $d + q = 25$.,"The second equation represents the total value of the coins in dollars. A dime is worth $\$0.10 and a quarter is worth $\$0.25. So, $0.10d + 0.25q = 4.00$.","From the first equation, we can express $d$ in terms of $q$: $d = 25 - q$.",Substitute this expression for $d$ into the second equation: $0.10(25 - q) + 0.25q = 4.00$.,Solve for $q$: $2.5 - 0.10q + 0.25q = 4.00 \implies 2.5 + 0.15q = 4.00 \implies 0.15q = 1.50 \implies q = 10$. The person has 10 quarters.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$\rac{1}{2}x - \rac{1}{3}y = 2$
+$3x - ky = 5$
+
+In the given system of equations, $k$ is a constant. For what value of $k$ does the system have no solution?",-2,1,2,3,C,,A system of two linear equations has no solution if the lines are parallel. Parallel lines have the same slope but different y-intercepts.,"Find the slope of the first equation by writing it in slope-intercept form ($y=mx+b$).
+$\rac{1}{2}x - \rac{1}{3}y = 2 \implies -\rac{1}{3}y = -\rac{1}{2}x + 2 \implies y = \rac{3}{2}x - 6$. The slope is $m_1 = \rac{3}{2}$.","Find the slope of the second equation.
+$3x - ky = 5 \implies -ky = -3x + 5 \implies y = \rac{3}{k}x - \rac{5}{k}$. The slope is $m_2 = \rac{3}{k}$.","For the lines to be parallel, their slopes must be equal. Set $m_1 = m_2$: $\rac{3}{2} = \rac{3}{k}$.","Solve for $k$. By cross-multiplication or inspection, $3k = 6$, which means $k=2$.","When $k=2$, the y-intercepts are -6 and -5/2, which are different. So the system has no solution when $k=2$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$5x - 3y = 6$
+$2x + 4y = 18$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x+y$?",,,,,6,6,"We are given the system:
+1) $5x - 3y = 6$
+2) $2x + 4y = 18$
+We can use the elimination method to solve the system.","To eliminate $y$, we can multiply the first equation by 4 and the second equation by 3 to make the coefficients of $y$ opposites (-12 and 12).","$4(5x - 3y) = 4(6) \implies 20x - 12y = 24$
+$3(2x + 4y) = 3(18) \implies 6x + 12y = 54$",Add the two new equations together: $(20x - 12y) + (6x + 12y) = 24 + 54 \implies 26x = 78$.,Solve for $x$: $x = \rac{78}{26} = 3$. Substitute $x=3$ into the second original equation: $2(3) + 4y = 18 \implies 6 + 4y = 18 \implies 4y = 12 \implies y = 3$.,The question asks for the value of $x+y$. $x+y = 3+3 = 6$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$ax + by = 10$
+$3x + 4y = 5$
+
+In the given system of equations, $a$ and $b$ are constants. If the system has infinitely many solutions, what is the value of $a+b$?",-2,7,14,15,C,,"For a system of linear equations to have infinitely many solutions, the two equations must be equivalent. This means one equation is a constant multiple of the other.",Let's find the constant multiple by comparing the constant terms on the right side of the equations: $10 \div 5 = 2$.,This means the first equation must be 2 times the second equation. Let's multiply the second equation by 2: $2(3x + 4y = 5)$.,This gives $6x + 8y = 10$.,"Now, we compare this equation to the first equation, $ax + by = 10$. By matching the coefficients, we can see that $a=6$ and $b=8$.",The question asks for the value of $a+b$. $a+b = 6+8 = 14$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x+4y=20$
+$4x+3y=22$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $7x+7y$?",6,21,36,42,D,,"We are given the system of equations:
+1) $3x+4y=20$
+2) $4x+3y=22$
+We need to find the value of the expression $7x+7y$.",Notice the symmetric coefficients for $x$ and $y$. This suggests that adding the two equations together will simplify the problem.,"Add the first equation to the second equation, term by term.",$(3x+4y) + (4x+3y) = 20+22$,Combine like terms on the left side of the equation: $7x + 7y = 42$.,"The resulting equation, $7x+7y=42$, directly gives the value of the expression we need to find. The answer is 42."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"The sum of the digits of a two-digit number is 9. If the digits are reversed, the new number is 45 less than the original number. What is the original number?",,,,,72,72,"Let the two-digit number be represented by $10t + u$, where $t$ is the tens digit and $u$ is the units digit.","The first sentence, 'The sum of the digits is 9', gives the equation: $t + u = 9$.","The reversed number is $10u + t$. The second sentence, 'the new number is 45 less than the original number', gives the equation: $10u + t = (10t + u) - 45$.","Simplify the second equation: $10u + t = 10t + u - 45 \implies 9u - 9t = -45 \implies u - t = -5$, which can be rewritten as $t - u = 5$.","Now we have a system of two equations: 
+1) $t+u=9$
+2) $t-u=5$
+Add the two equations together: $(t+u) + (t-u) = 9+5 \implies 2t = 14 \implies t=7$.",Substitute $t=7$ into the first equation: $7+u=9 \implies u=2$. The original number is $10t+u = 10(7)+2 = 72$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"In the $xy$-plane, the graph of the line with equation $y - 2 = 2(x - 1)$ intersects the graph of the line with equation $3x+2y = 21$ at the point $(x, y)$. What is the value of $y$?",2,3,6,7.5,C,,"The intersection point is the solution to the system of equations. First, simplify the equation for the first line.",The first equation is $y - 2 = 2(x - 1)$. Distribute the 2: $y - 2 = 2x - 2$. Add 2 to both sides: $y = 2x$.,"Now we have the system:
+1) $y=2x$
+2) $3x+2y=21$",Use substitution. Substitute the expression for $y$ from the first equation into the second equation: $3x + 2(2x) = 21$.,Solve for $x$: $3x + 4x = 21 \implies 7x = 21 \implies x=3$.,The question asks for the value of $y$. Substitute the value of $x$ back into the simplified first equation: $y=2x \implies y=2(3)=6$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"A blend of nuts contains peanuts costing $\$2.50 per pound and cashews costing $\$6.00 per pound. If a 10-pound blend is sold for a total of $\$42.50, how many pounds of peanuts are in the blend?",,,,,5,5,Let $p$ be the number of pounds of peanuts and $c$ be the number of pounds of cashews.,"The total weight of the blend is 10 pounds, which gives the equation: $p + c = 10$.","The total cost of the blend is $\$42.50, which gives the equation: $2.50p + 6.00c = 42.50$.","From the first equation, we can express $c$ in terms of $p$: $c = 10 - p$.",Substitute this expression for $c$ into the second equation: $2.5p + 6(10 - p) = 42.5$.,Solve for $p$: $2.5p + 60 - 6p = 42.5 \implies -3.5p + 60 = 42.5 \implies -3.5p = -17.5 \implies p = \rac{-17.5}{-3.5} = 5$. There are 5 pounds of peanuts in the blend.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x - 5y = -19$
+$3x + 2y = 0$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x^2+y^2$?",1,5,13,19,C,,"We are given the system:
+1) $2x - 5y = -19$
+2) $3x + 2y = 0$
+We first need to solve for $x$ and $y$.","From the second equation, it is straightforward to express one variable in terms of the other. Let's solve for $x$: $3x = -2y \implies x = -\rac{2}{3}y$.",Substitute this expression for $x$ into the first equation: $2(-\rac{2}{3}y) - 5y = -19$.,"Solve for $y$: $-\rac{4}{3}y - 5y = -19$. To combine the terms, find a common denominator: $-\rac{4}{3}y - \rac{15}{3}y = -19 \implies -\rac{19}{3}y = -19$.",Multiply both sides by $-3/19$ to find $y$: $y = 3$. Now find $x$ using the expression from step 2: $x = -\rac{2}{3}(3) = -2$.,"The solution is $(x,y) = (-2, 3)$. The question asks for the value of $x^2+y^2$. $x^2+y^2 = (-2)^2 + (3)^2 = 4 + 9 = 13$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,Two cell phone plans offer different pricing. Plan A costs \$10 per month plus \$0.05 per text message. Plan B costs \$5 per month plus \$0.07 per text message. For what number of text messages is the monthly cost of both plans the same?,100,150,250,500,C,,Let $C$ be the monthly cost and $T$ be the number of text messages. We can write an equation for each plan.,"For Plan A, the equation is $C = 10 + 0.05T$.","For Plan B, the equation is $C = 5 + 0.07T$.","To find when the costs are the same, we set the two expressions for $C$ equal to each other: $10 + 0.05T = 5 + 0.07T$.","Now, we solve for $T$. Subtract $5$ from both sides: $5 + 0.05T = 0.07T$.",Subtract $0.05T$ from both sides: $5 = 0.02T$. Divide both sides by $0.02$: $T = \rac{5}{0.02} = 250$. The cost is the same for 250 text messages.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$y = \rac{2}{3}x - 4$ 
+$ax - 3y = b$ 
+In the given system of equations, $a$ and $b$ are constants. If the system has infinitely many solutions, what is the value of $a+b$?",$-10$,2,12,14,D,,"For a system to have infinitely many solutions, the two equations must represent the same line. Let's rewrite the first equation in the same form as the second, $Ax + By = C$.",Start with the first equation: $y = \rac{2}{3}x - 4$.,Multiply the entire equation by 3 to eliminate the fraction: $3y = 2x - 12$.,"Rearrange the terms to match the form $ax - 3y = b$: $12 = 2x - 3y$, which is the same as $2x - 3y = 12$.","Now compare this equation, $2x - 3y = 12$, with the second given equation, $ax - 3y = b$. For them to be the same, the coefficients must match. So, $a=2$ and $b=12$.",The question asks for the value of $a+b$. $a+b = 2+12=14$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$5x - 2y = 4$ 
+$2x + y = 10$ 
+The solution to the given system of equations is $(x, y)$. What is the value of $x-y$?",$-2$,$6$,$\rac{22}{3}$,$18$,A,,"We are given the system:
+1) $5x - 2y = 4$
+2) $2x + y = 10$
+We can use substitution. First, solve the second equation for $y$.","From the second equation, $y = 10 - 2x$.",Substitute this expression for $y$ into the first equation: $5x - 2(10 - 2x) = 4$.,Solve for $x$: $5x - 20 + 4x = 4 \implies 9x - 20 = 4 \implies 9x = 24 \implies x = \rac{24}{9} = \rac{8}{3}$.,Now find $y$ by substituting the value of $x$ back into the expression from step 2: $y = 10 - 2(\rac{8}{3}) = 10 - \rac{16}{3} = \rac{30}{3} - \rac{16}{3} = \rac{14}{3}$.,The question asks for the value of $x-y$: $x-y = \rac{8}{3} - \rac{14}{3} = -\rac{6}{3} = -2$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x + y = 17$ 
+$x - 4y = -3$ 
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",,,,,5,5,"We are given the system of equations:
+1) $3x + y = 17$
+2) $x - 4y = -3$
+We can use the substitution method to find the value of $x$.","First, solve the first equation for $y$: $y = 17 - 3x$.",Substitute this expression for $y$ into the second equation: $x - 4(17 - 3x) = -3$.,"Now, solve for $x$. First, distribute the -4: $x - 68 + 12x = -3$.",Combine the $x$ terms: $13x - 68 = -3$.,Add 68 to both sides and then divide by 13: $13x = 65 \implies x = 5$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"In the $xy$-plane, line L passes through the points $(1, -1)$ and $(3, 3)$. Line M is given by the equation $3x + y = 9$. What is the y-coordinate of the intersection of lines L and M?",$\rac{12}{5}$,$\rac{9}{5}$,3,5,B,,"First, we must find the equation for line L. Calculate the slope $m$ using the two given points: $m = \rac{y_2 - y_1}{x_2 - x_1} = \rac{3 - (-1)}{3 - 1} = \rac{4}{2} = 2$.","Use the point-slope form $y - y_1 = m(x - x_1)$ with the point $(3,3)$: $y - 3 = 2(x - 3)$.",Simplify to get the slope-intercept form: $y - 3 = 2x - 6 \implies y = 2x - 3$.,"Now we have a system of two equations for lines L and M: 
+1) $y = 2x - 3$ 
+2) $3x + y = 9$.",Use substitution. Substitute the expression for $y$ from the first equation into the second: $3x + (2x - 3) = 9$.,Solve for $x$: $5x - 3 = 9 \implies 5x = 12 \implies x = \rac{12}{5}$. The question asks for the y-coordinate. Substitute $x$ back into the equation for line L: $y = 2(\rac{12}{5}) - 3 = \rac{24}{5} - \rac{15}{5} = \rac{9}{5}$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$ax + 3y = 7$ 
+$4x + 6y = 9$ 
+In the given system of equations, $a$ is a constant. For what value of $a$ does the system have no solution?",$-2$,2,3,4,B,,A system of two linear equations has no solution if the lines are parallel. Parallel lines have the same slope but different y-intercepts.,"Find the slope of each line by writing the equations in slope-intercept form, $y = mx + b$.",For the first equation: $ax + 3y = 7 \implies 3y = -ax + 7 \implies y = -\rac{a}{3}x + \rac{7}{3}$. The slope is $m_1 = -\rac{a}{3}$.,For the second equation: $4x + 6y = 9 \implies 6y = -4x + 9 \implies y = -\rac{4}{6}x + \rac{9}{6} = -\rac{2}{3}x + \rac{3}{2}$. The slope is $m_2 = -\rac{2}{3}$.,"For the lines to be parallel, their slopes must be equal. Set $m_1 = m_2$: $-\rac{a}{3} = -\rac{2}{3}$.","Solving for $a$, we can multiply both sides by -3 to get $a=2$. The y-intercepts (7/3 and 3/2) are different, so the system has no solution when $a=2$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$4x + 5y = 23$ 
+$5x + 4y = 22$ 
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",2,3,4.5,5,A,,"We are given the system:
+1) $4x + 5y = 23$
+2) $5x + 4y = 22$
+Notice the symmetric coefficients. We can add and subtract the equations to form a simpler system.",Add equation 1 and equation 2: $(4x + 5y) + (5x + 4y) = 23 + 22 \implies 9x + 9y = 45$.,"Divide the resulting equation by 9 to get a new, simpler equation: $x + y = 5$.",Subtract equation 2 from equation 1: $(4x + 5y) - (5x + 4y) = 23 - 22 \implies -x + y = 1$.,"Now we have a new system: 
+3) $x + y = 5$ 
+4) $-x + y = 1$ 
+Add these two new equations to eliminate $x$: $(x+y) + (-x+y) = 5+1 \implies 2y = 6 \implies y = 3$.",Substitute $y=3$ into equation 3: $x + 3 = 5 \implies x = 2$. The question asks for the value of $x$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,A chemist needs to create 300 mL of a 25% alcohol solution by mixing a 15% alcohol solution and a 40% alcohol solution. How many milliliters of the 40% alcohol solution are needed?,100,120,150,180,B,,Let $x$ be the volume (in mL) of the 15% solution and $y$ be the volume of the 40% solution.,The total volume of the mixture is 300 mL. This gives the first equation: $x + y = 300$.,"The total amount of alcohol in the mixture is 25% of 300 mL, which is $0.25 \	imes 300 = 75$ mL. This gives the second equation: $0.15x + 0.40y = 75$.","From the first equation, we can express $x$ in terms of $y$: $x = 300 - y$.",Substitute this expression for $x$ into the second equation: $0.15(300 - y) + 0.40y = 75$.,"Solve for $y$: $45 - 0.15y + 0.40y = 75 \implies 45 + 0.25y = 75 \implies 0.25y = 30 \implies y = \rac{30}{0.25} = 120$. So, 120 mL of the 40% solution are needed."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$y = \rac{3}{2}x - 1$ 
+$y = -\rac{1}{4}x + 6$ 
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",,,,,4,4,"The solution to the system is the point $(x, y)$ where the two lines intersect. Since both equations are solved for $y$, we can set the right-hand sides equal to each other.",Set the expressions for $y$ equal: $\rac{3}{2}x - 1 = -\rac{1}{4}x + 6$.,"To eliminate the fractions, we can multiply the entire equation by the least common multiple of the denominators (2 and 4), which is 4.",$4(\rac{3}{2}x) - 4(1) = 4(-\rac{1}{4}x) + 4(6)$.,Simplify the equation: $6x - 4 = -x + 24$.,Solve for $x$. Add $x$ to both sides: $7x - 4 = 24$. Add 4 to both sides: $7x = 28$. Divide by 7: $x = 4$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$4x + 3y = 27$ 
+$5x - 2y = 5$ 
+The solution to the given system of equations is $(x, y)$. What is the value of $x+y$?",5,8,11,32,B,,"We are given the system:
+1) $4x + 3y = 27$
+2) $5x - 2y = 5$
+We can use the elimination method to solve for $x$ and $y$.","To eliminate the $y$ variable, we can multiply the first equation by 2 and the second equation by 3. This will make the coefficients of $y$ opposites (6 and -6).",$2(4x + 3y = 27) \implies 8x + 6y = 54$.,$3(5x - 2y = 5) \implies 15x - 6y = 15$.,Add the two new equations together: $(8x + 6y) + (15x - 6y) = 54 + 15 \implies 23x = 69 \implies x = 3$.,Substitute $x=3$ into the first original equation: $4(3) + 3y = 27 \implies 12 + 3y = 27 \implies 3y = 15 \implies y = 5$. The value of $x+y$ is $3+5=8$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x - 5y = -1$
+$4x + 2y = 16$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x - y$?",,,,,1,1,"We are given the system of equations:
+1) $3x - 5y = -1$
+2) $4x + 2y = 16$
+We can use the elimination method to solve for $x$ and $y$.","To eliminate the $y$ variable, we can multiply the first equation by 2 and the second equation by 5. This makes the coefficients of $y$ opposites (-10 and 10).
+$2(3x - 5y = -1) \implies 6x - 10y = -2$
+$5(4x + 2y = 16) \implies 20x + 10y = 80$","Add the two new equations together:
+$(6x - 10y) + (20x + 10y) = -2 + 80$
+$26x = 78$","Solve for $x$ by dividing both sides by 26:
+$x = \rac{78}{26} = 3$.","Substitute $x=3$ into the second original equation to find $y$:
+$4(3) + 2y = 16 \implies 12 + 2y = 16 \implies 2y = 4 \implies y = 2$.","The question asks for the value of $x - y$. So, $x - y = 3 - 2 = 1$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,A test has 30 questions. A student receives 4 points for each correct answer and loses 1 point for each incorrect answer. A student answered all questions and scored a total of 70 points. How many questions did the student answer correctly?,15,20,22,25,B,,Let $c$ be the number of questions answered correctly and $w$ be the number of questions answered incorrectly.,"We can create two linear equations from the given information. The total number of questions is 30, so our first equation is:
+$c + w = 30$.","The scoring system gives the second equation. The total score is 70, so:
+$4c - 1w = 70$.","We now have a system of two equations:
+1) $c + w = 30$
+2) $4c - w = 70$
+This system is well-suited for the elimination method. Adding the two equations will eliminate $w$.",Add the two equations: $(c + w) + (4c - w) = 30 + 70$.,Simplify and solve for $c$: $5c = 100 \implies c = \rac{100}{5} = 20$. The student answered 20 questions correctly.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$y = \rac{a}{3}x + 2$
+$\rac{1}{2}x - \rac{3}{4}y = 1$
+
+In the given system of equations, $a$ is a constant. For what value of $a$ does the system have no solution?",$-2$,$\rac{3}{2}$,2,4,C,,A system of linear equations has no solution if the lines are parallel. Parallel lines have the same slope but different y-intercepts.,"The first equation, $y = \rac{a}{3}x + 2$, is already in slope-intercept form ($y=mx+b$). Its slope is $m_1 = \rac{a}{3}$ and its y-intercept is 2.",We need to find the slope of the second equation by rewriting it in slope-intercept form. Start with $\rac{1}{2}x - \rac{3}{4}y = 1$.,Isolate the $y$ term: $-\rac{3}{4}y = -\rac{1}{2}x + 1$.,Multiply both sides by $-\rac{4}{3}$ to solve for $y$: $y = (-\rac{4}{3})(-\rac{1}{2}x) + (-\rac{4}{3})(1) \implies y = \rac{2}{3}x - \rac{4}{3}$. The slope is $m_2 = \rac{2}{3}$ and the y-intercept is $-\rac{4}{3}$.,"For the lines to be parallel, their slopes must be equal. Set $m_1 = m_2$: $\rac{a}{3} = \rac{2}{3}$. Solving for $a$ gives $a=2$. Since the y-intercepts (2 and -4/3) are different, the system has no solution when $a=2$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$5x - 2y = 11$
+$y - 5 = -3(x - 2)$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",,,,,3,3,We are given a system of two equations. The first is in standard form and the second is in point-slope form. Let's first simplify the second equation into slope-intercept form ($y=mx+b$).,Second equation: $y - 5 = -3(x - 2)$. Distribute the -3: $y - 5 = -3x + 6$.,Add 5 to both sides to isolate $y$: $y = -3x + 11$.,"Now we have a system that is ideal for substitution:
+1) $5x - 2y = 11$
+2) $y = -3x + 11$
+Substitute the expression for $y$ from the second equation into the first equation.",$5x - 2(-3x + 11) = 11$. Distribute the -2: $5x + 6x - 22 = 11$.,Combine like terms and solve for $x$: $11x - 22 = 11 \implies 11x = 33 \implies x = 3$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x - 12 = ay$
+$9x - 6y = 36$
+
+In the given system of equations, $a$ is a constant. If the system has infinitely many solutions, what is the value of $a$?",$-3$,$-2$,2,3,C,,"For a system of linear equations to have infinitely many solutions, the two equations must be equivalent. This means one equation is a constant multiple of the other.","First, let's rearrange the first equation to match the standard form ($Ax+By=C$) of the second equation. Start with $3x - 12 = ay$.",Subtract $ay$ from both sides and add 12 to both sides to get: $3x - ay = 12$.,"Now compare the two equations:
+1) $3x - ay = 12$
+2) $9x - 6y = 36$
+Let's find the constant multiple relating the two equations by comparing the coefficients of $x$ and the constant terms.",Ratio of $x$-coefficients: $\rac{9}{3} = 3$. Ratio of constant terms: $\rac{36}{12} = 3$. The second equation is 3 times the first equation.,"The coefficients of $y$ must also have the same ratio. The coefficient in the second equation is -6, and in the first it is $-a$. So, $\rac{-6}{-a} = 3 \implies \rac{6}{a} = 3 \implies 3a = 6 \implies a = 2$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$3x + 2y = 10$
+$x - 3y = 7$
+
+The solution to the given system of equations is $(x, y)$. What is the value of the expression $2x + y$?",3,5,7,9,C,,"We are given the system:
+1) $3x + 2y = 10$
+2) $x - 3y = 7$
+First, we need to solve for $x$ and $y$. We can use the substitution method.","From the second equation, solve for $x$: $x = 3y + 7$.",Substitute this expression for $x$ into the first equation: $3(3y + 7) + 2y = 10$.,Solve for $y$: $9y + 21 + 2y = 10 \implies 11y + 21 = 10 \implies 11y = -11 \implies y = -1$.,Now find $x$ by substituting $y=-1$ back into the expression from step 2: $x = 3(-1) + 7 = -3 + 7 = 4$.,The question asks for the value of $2x + y$. Substitute the found values of $x$ and $y$: $2(4) + (-1) = 8 - 1 = 7$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"In an isosceles triangle, the measure of the vertex angle is 30 degrees larger than the measure of each of the base angles. What is the measure, in degrees, of the vertex angle?",,,,,80,80,Let $b$ be the measure of each of the two equal base angles and let $v$ be the measure of the vertex angle.,"The sum of the angles in a triangle is 180 degrees. This gives our first equation: $b + b + v = 180$, which simplifies to $2b + v = 180$.",We are told that the vertex angle is 30 degrees larger than a base angle. This gives our second equation: $v = b + 30$.,Now we have a system of two equations. We can use substitution. Substitute the expression for $v$ from the second equation into the first equation: $2b + (b + 30) = 180$.,Solve for $b$: $3b + 30 = 180 \implies 3b = 150 \implies b = 50$. The measure of each base angle is 50 degrees.,"The question asks for the measure of the vertex angle, $v$. Use the second equation: $v = b + 30 = 50 + 30 = 80$. The vertex angle is 80 degrees."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"Two cars start 400 miles apart and drive towards each other on a highway. They meet in 4 hours. If they drive in the same direction, with the faster car starting behind the slower car, the faster car overtakes the slower one in 20 hours. What is the speed of the faster car in miles per hour?",40,50,60,80,C,,Let $f$ be the speed of the faster car and $s$ be the speed of the slower car.,"When the cars travel towards each other, their combined speed is $f+s$. The distance covered is the sum of their individual distances, which is 400 miles. Using Distance = Rate × Time, we get: $(f+s) \	imes 4 = 400$.",Dividing the first equation by 4 gives a simpler equation: $f+s = 100$.,"When they travel in the same direction, the faster car gains on the slower car at a relative speed of $f-s$. The faster car needs to gain 400 miles to overtake the slower one. Using Distance = Rate × Time, we get: $(f-s) \	imes 20 = 400$.",Dividing the second equation by 20 gives another simpler equation: $f-s = 20$.,"We now have a simple system to solve: 
+1) $f+s = 100$ 
+2) $f-s = 20$. 
+Adding the two equations together eliminates $s$: $2f = 120 \implies f = 60$. The speed of the faster car is 60 mph."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$y = 3x - 5$
+$6x - 2y = 10$
+How many solutions does the given system of equations have?",Zero,Exactly one,Exactly two,Infinitely many,D,,"We are given a system of two linear equations. To determine the number of solutions, we can compare the equations. One way is to put both equations into the same form, like slope-intercept form ($y=mx+b$).",The first equation is already in slope-intercept form: $y = 3x - 5$. The slope is 3 and the y-intercept is -5.,"Let's convert the second equation, $6x - 2y = 10$, into slope-intercept form. First, subtract $6x$ from both sides: $-2y = -6x + 10$.","Now, divide both sides by -2 to solve for $y$: $y = \rac{-6x}{-2} + \rac{10}{-2} \implies y = 3x - 5$.",The slope-intercept form of the second equation is $y = 3x - 5$. This is identical to the first equation.,"Since both equations represent the exact same line, every point on the line is a solution to the system. Therefore, the system has infinitely many solutions."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$7x + 3y = 1$
+$5x + 2y = 0$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",,,,,-2,-2,"We are given the system of equations:
+1) $7x + 3y = 1$
+2) $5x + 2y = 0$
+We want to find the value of $x$. The elimination method is a good approach here.","To eliminate the variable $y$, we need to find a common multiple for its coefficients (3 and 2). The least common multiple is 6. We can multiply the first equation by 2 and the second equation by -3 to make the coefficients of $y$ opposites (6 and -6).",Multiply the first equation by 2: $2(7x + 3y) = 2(1) \implies 14x + 6y = 2$.,Multiply the second equation by -3: $-3(5x + 2y) = -3(0) \implies -15x - 6y = 0$.,"Now, add the two new equations together to eliminate $y$:
+$(14x + 6y) + (-15x - 6y) = 2 + 0$.",Simplify the equation to solve for $x$: $-x = 2 \implies x = -2$. The value of $x$ is -2.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x + 5y = -1$
+$3x - 2y = 27$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",$-3$,$3$,$-7$,$7$,D,,"We are given the system of equations:
+1) $2x + 5y = -1$
+2) $3x - 2y = 27$
+We can use the elimination method to solve for $x$. To do this, we need to eliminate the $y$ variable.","Multiply the first equation by 2 and the second equation by 5. This will make the coefficients of $y$ opposites (10 and -10).
+$2(2x + 5y) = 2(-1) \implies 4x + 10y = -2$
+$5(3x - 2y) = 5(27) \implies 15x - 10y = 135$","Now, add the two new equations together:
+$(4x + 10y) + (15x - 10y) = -2 + 135$","The $y$ terms cancel out, leaving: $19x = 133$.","Solve for $x$ by dividing both sides by 19:
+$x = \rac{133}{19} = 7$.",
+Math,Algebra,Systems of two linear equations in two variables,Medium,"A rectangular garden has a perimeter of 100 feet. The length of the garden is 10 feet more than its width. What is the length of the garden, in feet?",$20$,$30$,$40$,$50$,B,,Let $L$ be the length and $W$ be the width of the garden. We can set up a system of two linear equations based on the given information.,"The formula for the perimeter of a rectangle is $P = 2L + 2W$. We are given that the perimeter is 100 feet. So, our first equation is: $2L + 2W = 100$. This can be simplified by dividing by 2 to get $L + W = 50$.",The second piece of information is 'The length of the garden is 10 feet more than its width'. This translates to the second equation: $L = W + 10$.,Now we can solve the system by substituting the expression for $L$ from the second equation into the simplified first equation: $(W + 10) + W = 50$.,Solve for $W$: $2W + 10 = 50 \implies 2W = 40 \implies W = 20$. The width is 20 feet.,The question asks for the length. Substitute the value of $W$ back into the second equation: $L = 20 + 10 = 30$. The length is 30 feet.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$y = \rac{3}{4}x - 2$
+$kx + 8y = 12$
+
+In the given system of equations, $k$ is a constant. For what value of $k$ does the system have no solution?",$6$,$-6$,$\rac{3}{4}$,$-8$,B,,A system of linear equations has no solution if the lines represented by the equations are parallel. Parallel lines have the same slope but different y-intercepts.,"The first equation, $y = \rac{3}{4}x - 2$, is already in slope-intercept form ($y=mx+b$). Its slope is $m_1 = \rac{3}{4}$ and its y-intercept is -2.","We need to find the slope of the second equation, $kx + 8y = 12$, by converting it to slope-intercept form.",Isolate the $y$ term: $8y = -kx + 12$.,Divide by 8 to solve for $y$: $y = -\rac{k}{8}x + \rac{12}{8}$. The slope of the second line is $m_2 = -\rac{k}{8}$. Its y-intercept is $\rac{12}{8} = \rac{3}{2}$.,"For the lines to be parallel, their slopes must be equal. So, we set $m_1 = m_2$: $\rac{3}{4} = -\rac{k}{8}$. To solve for $k$, multiply both sides by 8: $8(\rac{3}{4}) = -k \implies 6 = -k \implies k = -6$. Since the y-intercepts (-2 and 3/2) are different, the system has no solution when $k=-6$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$x - 2y = 1$
+$\rac{1}{5}x + y = 3$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",$1$,$2$,$3$,$5$,D,,"We are given the system:
+1) $x - 2y = 1$
+2) $\rac{1}{5}x + y = 3$
+To make the second equation easier to work with, we can eliminate the fraction by multiplying the entire equation by 5.","Multiply the second equation by 5: $5(\rac{1}{5}x + y) = 5(3)$, which simplifies to $x + 5y = 15$.","Now we have a simpler system:
+1) $x - 2y = 1$
+2) $x + 5y = 15$
+We can use the elimination method by subtracting the first equation from the second equation to eliminate $x$.",$(x + 5y) - (x - 2y) = 15 - 1$,Simplify the equation: $x + 5y - x + 2y = 14 \implies 7y = 14 \implies y = 2$.,Substitute $y=2$ back into the first original equation to find $x$: $x - 2(2) = 1 \implies x - 4 = 1 \implies x = 5$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$4x - 3y = 10$
+$3x - 4y = 4$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x+y$?",,,,,6,6,"We are given the system of equations:
+1) $4x - 3y = 10$
+2) $3x - 4y = 4$
+We need to find the value of the expression $x+y$.",Notice the symmetric coefficients of $x$ and $y$. This suggests that adding or subtracting the equations might be a useful shortcut.,Let's subtract the second equation from the first equation: $(4x - 3y) - (3x - 4y) = 10 - 4$.,Be careful with the signs when distributing the negative: $4x - 3y - 3x + 4y = 6$.,"Combine like terms: $(4x - 3x) + (-3y + 4y) = 6$, which simplifies to $x + y = 6$.","The question asks for the value of $x+y$, which we found to be 6."
+Math,Algebra,Systems of two linear equations in two variables,Medium,Tickets for a concert were sold for $15 for floor seats and $10 for balcony seats. The theater sold a total of 500 tickets for a total revenue of $6000. How many floor seats were sold?,100,200,300,400,B,,Let $f$ be the number of floor seats sold and $b$ be the number of balcony seats sold. We will set up a system of two linear equations.,The first equation represents the total number of tickets sold: $f + b = 500$.,The second equation represents the total revenue from the ticket sales: $15f + 10b = 6000$.,"We want to find $f$. We can use the substitution method. From the first equation, express $b$ in terms of $f$: $b = 500 - f$.",Substitute this expression for $b$ into the second equation: $15f + 10(500 - f) = 6000$.,"Solve for $f$: $15f + 5000 - 10f = 6000 \implies 5f + 5000 = 6000 \implies 5f = 1000 \implies f = 200$. So, 200 floor seats were sold."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$ax - 5y = c$
+$6x - 10y = 14$
+
+In the given system of equations, $a$ and $c$ are constants. If the system has infinitely many solutions, what is the value of $a+c$?",3,7,10,21,C,,"For a system of linear equations to have infinitely many solutions, the two equations must be equivalent. This means one equation is a constant multiple of the other.","Let's find the constant factor that relates the two equations. We can compare the coefficients of the $y$ terms, which are -5 and -10.",The ratio of the $y$-coefficients is $\rac{-10}{-5} = 2$. This means the second equation should be 2 times the first equation.,"Alternatively, we can say the first equation is $\rac{1}{2}$ times the second equation. Let's multiply the second equation by $\rac{1}{2}$: $\rac{1}{2}(6x - 10y = 14) \implies 3x - 5y = 7$.","Now we compare this new equation, $3x - 5y = 7$, with the first equation from the problem, $ax - 5y = c$. For the equations to be identical, the coefficients must match.","By comparing coefficients, we find that $a = 3$ and $c = 7$. The question asks for the value of $a+c$, which is $3 + 7 = 10$."
+Math,Algebra,Systems of two linear equations in two variables,Medium,"Line $k$ passes through the points $(-1, -1)$ and $(1, 3)$. Line $m$ has the equation $y = -x + 4$. The lines intersect at point $(x, y)$. What is the value of the $y$-coordinate of the intersection point?",$1$,$3$,$4$,$5$,B,,"To find the intersection point, we first need to find the equation of line $k$. We can start by finding its slope using the points $(-1, -1)$ and $(1, 3)$.",The slope of line $k$ is $m = \rac{y_2 - y_1}{x_2 - x_1} = \rac{3 - (-1)}{1 - (-1)} = \rac{4}{2} = 2$.,"Using the point-slope form, $y - y_1 = m(x - x_1)$, with the point $(1, 3)$: $y - 3 = 2(x - 1)$.",Simplify the equation for line $k$ into slope-intercept form: $y - 3 = 2x - 2 \implies y = 2x + 1$.,"Now we have a system of two equations:
+1) $y = 2x + 1$ (Line k)
+2) $y = -x + 4$ (Line m)
+To find the intersection, set the expressions for $y$ equal to each other: $2x + 1 = -x + 4$.",Solve for $x$: $3x = 3 \implies x = 1$. The question asks for the $y$-coordinate. Substitute $x=1$ into either equation. Using line m's equation: $y = -(1) + 4 = 3$. The y-coordinate is 3.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$x + 5y = -7$
+$4x - y = 14$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x$?",,,,,3,3,"We are given the system of equations:
+1) $x + 5y = -7$
+2) $4x - y = 14$
+We can solve this system using the substitution method.","It is easiest to solve the second equation for $y$. Rearranging the second equation gives: $-y = 14 - 4x$, which is equivalent to $y = 4x - 14$.",Substitute this expression for $y$ into the first equation: $x + 5(4x - 14) = -7$.,"Now, solve the equation for $x$. Distribute the 5: $x + 20x - 70 = -7$.",Combine the $x$ terms: $21x - 70 = -7$.,Add 70 to both sides and then divide by 21 to find $x$: $21x = 63 \implies x = \rac{63}{21} = 3$.
+Math,Algebra,Systems of two linear equations in two variables,Medium,"$2x + 9y = 35$
+$9x + 2y = 42$
+
+The solution to the given system of equations is $(x, y)$. What is the value of $x+y$?",$3$,$4$,$7$,$11$,C,,"We are given the system of equations:
+1) $2x + 9y = 35$
+2) $9x + 2y = 42$
+We are asked to find the value of the expression $x+y$.",Notice that the coefficients of $x$ and $y$ are swapped between the two equations. This is a special structure that suggests adding or subtracting the equations can simplify the problem.,"Let's add the two equations together, term by term.",$(2x + 9y) + (9x + 2y) = 35 + 42$,Combine like terms on both sides of the equation: $11x + 11y = 77$.,Factor out the common factor of 11 from the left side: $11(x + y) = 77$. Divide both sides by 11 to solve for $x+y$: $x+y = \rac{77}{11} = 7$.

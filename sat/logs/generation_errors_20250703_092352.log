@@ -1,0 +1,5 @@
+2025-07-03 09:31:22 | ERROR    | SAT_Generator | [Linear functions-Easy] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+2025-07-03 09:34:09 | ERROR    | SAT_Generator | [Linear functions-Easy] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+2025-07-03 09:38:01 | ERROR    | SAT_Generator | [Linear functions-Easy] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+2025-07-03 09:43:31 | ERROR    | SAT_Generator | [Linear functions-Medium] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+2025-07-03 09:46:42 | ERROR    | SAT_Generator | [Linear functions-Medium] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)

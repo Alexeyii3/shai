@@ -1,0 +1,38 @@
+11:55:18 | INFO     | ================================================================================
+11:55:18 | INFO     | SAT Math Task Generator - Logging Initialized
+11:55:18 | INFO     | Detailed logs: logs/generation_detailed_20250703_115518.log
+11:55:18 | INFO     | Error logs: logs/generation_errors_20250703_115518.log
+11:55:18 | INFO     | Progress logs: logs/generation_progress_20250703_115518.log
+11:55:18 | INFO     | ================================================================================
+11:55:18 | INFO     | Initializing SAT Math Task Generator
+11:55:18 | INFO     | Project ID: studyhall-dev-383420
+11:55:18 | INFO     | Model: gemini-2.5-pro
+11:55:18 | INFO     | Max workers: 1
+11:55:18 | ERROR    | === PARSE JSON FALLBACK FAILURE ===
+11:55:18 | ERROR    | All JSON parsing methods failed for response:
+11:55:18 | ERROR    | Response length: 30 characters
+11:55:18 | ERROR    | Full response content:
+11:55:18 | ERROR    | --------------------------------------------------------------------------------
+11:55:18 | ERROR    | This is not valid JSON at all!
+11:55:18 | ERROR    | --------------------------------------------------------------------------------
+11:55:18 | WARNING  | Task #1 missing required fields: difficulty, question_text_latex, correct_answer. Adding defaults.
+11:55:18 | ERROR    | === TASK WITH MISSING FIELDS #1 ===
+11:55:18 | ERROR    | Missing fields: ['difficulty', 'question_text_latex', 'correct_answer']
+11:55:18 | ERROR    | Available fields: ['skill']
+11:55:18 | ERROR    | Full task data:
+11:55:18 | ERROR    | --------------------------------------------------
+11:55:18 | ERROR    |   skill: 'test'
+11:55:18 | ERROR    | --------------------------------------------------
+11:55:18 | WARNING  | Skipping non-dictionary item #2: int: 42
+11:55:18 | ERROR    | === PROBLEMATIC TASK ITEM #2 ===
+11:55:18 | ERROR    | Type: int
+11:55:18 | ERROR    | Content: 42
+11:55:18 | ERROR    | Full item data: 42
+11:55:18 | ERROR    | --------------------------------------------------
+11:55:18 | WARNING  | Skipping non-dictionary item #3: str: string_instead_of_dict
+11:55:18 | ERROR    | === PROBLEMATIC TASK ITEM #3 ===
+11:55:18 | ERROR    | Type: str
+11:55:18 | ERROR    | Content: 'string_instead_of_dict'
+11:55:18 | ERROR    | Full item data: string_instead_of_dict
+11:55:18 | ERROR    | --------------------------------------------------
+11:55:18 | INFO     | Successfully processed 1 tasks from 3 raw tasks

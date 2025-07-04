@@ -1,0 +1,24 @@
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | === PARSE JSON FALLBACK FAILURE ===
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | All JSON parsing methods failed for response:
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Response length: 30 characters
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Full response content:
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------------------------------------
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | This is not valid JSON at all!
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------------------------------------
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | === TASK WITH MISSING FIELDS #1 ===
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Missing fields: ['difficulty', 'question_text_latex', 'correct_answer']
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Available fields: ['skill']
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Full task data:
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------
+2025-07-03 11:55:18 | ERROR    | SAT_Generator |   skill: 'test'
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | === PROBLEMATIC TASK ITEM #2 ===
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Type: int
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Content: 42
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Full item data: 42
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | === PROBLEMATIC TASK ITEM #3 ===
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Type: str
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Content: 'string_instead_of_dict'
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | Full item data: string_instead_of_dict
+2025-07-03 11:55:18 | ERROR    | SAT_Generator | --------------------------------------------------

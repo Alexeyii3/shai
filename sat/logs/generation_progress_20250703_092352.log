@@ -1,0 +1,68 @@
+09:23:52 | INFO     | ================================================================================
+09:23:52 | INFO     | SAT Math Task Generator - Logging Initialized
+09:23:52 | INFO     | Detailed logs: logs/generation_detailed_20250703_092352.log
+09:23:52 | INFO     | Error logs: logs/generation_errors_20250703_092352.log
+09:23:52 | INFO     | Progress logs: logs/generation_progress_20250703_092352.log
+09:23:52 | INFO     | ================================================================================
+09:23:52 | INFO     | Initializing SAT Math Task Generator
+09:23:52 | INFO     | Project ID: studyhall-dev-383420
+09:23:52 | INFO     | Model: gemini-2.5-pro
+09:23:52 | INFO     | Max workers: 1
+09:23:52 | INFO     | Reading tasks from CSV file: SAT Questions - SAT_Math_No_Graph.csv
+09:23:52 | INFO     | Filtering out unused columns: ['explanation_latex', 'option_A', 'option_B', 'option_C', 'option_D', 'question_text_plain']
+09:23:53 | INFO     | Successfully read tasks from SAT Questions - SAT_Math_No_Graph.csv
+09:23:53 | INFO     | Starting batch generation for skill: Linear functions-Easy
+09:25:22 | INFO     | [Linear functions-Easy] Token usage - Input: 3580, Output: 3973, Total: 13958
+09:25:22 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:25:22 | INFO     | [Linear functions-Easy] Successfully generated 10 tasks
+09:25:24 | INFO     | Starting batch generation for skill: Linear functions-Easy
+09:26:39 | INFO     | [Linear functions-Easy] Token usage - Input: 4128, Output: 4233, Total: 12444
+09:26:39 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:26:39 | INFO     | [Linear functions-Easy] Successfully generated 10 tasks
+09:26:41 | INFO     | Starting batch generation for skill: Linear functions-Easy
+09:28:36 | INFO     | [Linear functions-Easy] Token usage - Input: 4636, Output: 4332, Total: 17683
+09:28:36 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:28:36 | INFO     | [Linear functions-Easy] Successfully generated 10 tasks
+09:28:38 | INFO     | Starting batch generation for skill: Linear functions-Easy
+09:30:20 | INFO     | [Linear functions-Easy] Token usage - Input: 5179, Output: 4093, Total: 16228
+09:30:20 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:30:20 | INFO     | [Linear functions-Easy] Successfully generated 10 tasks
+09:30:22 | INFO     | Starting batch generation for skill: Linear functions-Easy
+09:31:22 | INFO     | [Linear functions-Easy] Token usage - Input: 5649, Output: 4035, Total: 12265
+09:31:22 | ERROR    | [Linear functions-Easy] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+09:32:40 | INFO     | [Linear functions-Easy] Token usage - Input: 5649, Output: 4113, Total: 14175
+09:32:40 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:32:40 | INFO     | [Linear functions-Easy] Successfully generated 10 tasks
+09:32:42 | INFO     | Starting batch generation for skill: Linear functions-Easy
+09:34:09 | INFO     | [Linear functions-Easy] Token usage - Input: 6158, Output: 3952, Total: 15802
+09:34:09 | ERROR    | [Linear functions-Easy] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+09:35:27 | INFO     | [Linear functions-Easy] Token usage - Input: 6158, Output: 3666, Total: 15120
+09:35:27 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:35:27 | INFO     | [Linear functions-Easy] Successfully generated 10 tasks
+09:35:29 | INFO     | Starting batch generation for skill: Linear functions-Easy
+09:36:40 | INFO     | [Linear functions-Easy] Token usage - Input: 6748, Output: 3902, Total: 14792
+09:36:40 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:36:40 | INFO     | [Linear functions-Easy] Successfully generated 10 tasks
+09:36:42 | INFO     | Starting batch generation for skill: Linear functions-Easy
+09:38:01 | INFO     | [Linear functions-Easy] Token usage - Input: 7210, Output: 4404, Total: 16197
+09:38:01 | ERROR    | [Linear functions-Easy] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+09:39:25 | INFO     | [Linear functions-Easy] Token usage - Input: 7210, Output: 3874, Total: 16627
+09:39:25 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:39:25 | INFO     | [Linear functions-Easy] Successfully generated 10 tasks
+09:39:27 | INFO     | Starting batch generation for skill: Linear functions-Easy
+09:40:40 | INFO     | [Linear functions-Easy] Token usage - Input: 7708, Output: 4058, Total: 15500
+09:40:40 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:40:40 | INFO     | [Linear functions-Easy] Successfully generated 10 tasks
+09:40:42 | INFO     | Starting batch generation for skill: Linear functions-Easy
+09:42:14 | INFO     | [Linear functions-Easy] Token usage - Input: 8202, Output: 4521, Total: 18338
+09:42:14 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:42:14 | INFO     | [Linear functions-Easy] Successfully generated 10 tasks
+09:42:14 | INFO     | Starting batch generation for skill: Linear functions-Medium
+09:43:31 | INFO     | [Linear functions-Medium] Token usage - Input: 3603, Output: 4910, Total: 12234
+09:43:31 | ERROR    | [Linear functions-Medium] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+09:45:08 | INFO     | [Linear functions-Medium] Token usage - Input: 3603, Output: 5494, Total: 13944
+09:45:08 | INFO     | Successfully processed 10 tasks from 10 raw tasks
+09:45:08 | INFO     | [Linear functions-Medium] Successfully generated 10 tasks
+09:45:10 | INFO     | Starting batch generation for skill: Linear functions-Medium
+09:46:42 | INFO     | [Linear functions-Medium] Token usage - Input: 4246, Output: 5232, Total: 14480
+09:46:42 | ERROR    | [Linear functions-Medium] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)

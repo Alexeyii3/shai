@@ -1,0 +1,115 @@
+2025-07-03 09:23:52 | INFO     | SAT_Generator | ================================================================================
+2025-07-03 09:23:52 | INFO     | SAT_Generator | SAT Math Task Generator - Logging Initialized
+2025-07-03 09:23:52 | INFO     | SAT_Generator | Detailed logs: logs/generation_detailed_20250703_092352.log
+2025-07-03 09:23:52 | INFO     | SAT_Generator | Error logs: logs/generation_errors_20250703_092352.log
+2025-07-03 09:23:52 | INFO     | SAT_Generator | Progress logs: logs/generation_progress_20250703_092352.log
+2025-07-03 09:23:52 | INFO     | SAT_Generator | ================================================================================
+2025-07-03 09:23:52 | INFO     | SAT_Generator | Initializing SAT Math Task Generator
+2025-07-03 09:23:52 | INFO     | SAT_Generator | Project ID: studyhall-dev-383420
+2025-07-03 09:23:52 | INFO     | SAT_Generator | Model: gemini-2.5-pro
+2025-07-03 09:23:52 | INFO     | SAT_Generator | Max workers: 1
+2025-07-03 09:23:52 | INFO     | SAT_Generator | Reading tasks from CSV file: SAT Questions - SAT_Math_No_Graph.csv
+2025-07-03 09:23:52 | INFO     | SAT_Generator | Filtering out unused columns: ['explanation_latex', 'option_A', 'option_B', 'option_C', 'option_D', 'question_text_plain']
+2025-07-03 09:23:53 | INFO     | SAT_Generator | Successfully read tasks from SAT Questions - SAT_Math_No_Graph.csv
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Linear functions: 121 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Linear equations in two variables: 96 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Systems of two linear equations in two variables: 96 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Linear inequalities in one or two variables: 60 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Linear equations in one variable: 96 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Nonlinear functions: 170 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Nonlinear equations in one variable and systems of equations in two variables: 132 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Equivalent expressions: 98 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Inference from sample statistics and margin of error: 23 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Ratios, rates, proportional relationships, and units: 82 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Probability and conditional probability: 34 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Percentages: 73 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - One-variable data: Distributions and measures of center and spread: 45 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Two-variable data: Models and scatterplots: 31 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Evaluating statistical claims: Observational studies and experiments: 9 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Lines, angles, and triangles: 47 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Area and volume: 61 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Right triangles and trigonometry: 34 tasks
+2025-07-03 09:23:53 | DEBUG    | SAT_Generator | Skill loaded - Circles: 37 tasks
+2025-07-03 09:23:53 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Easy
+2025-07-03 09:23:54 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Easy
+2025-07-03 09:25:22 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 3580, Output: 3973, Total: 13958
+2025-07-03 09:25:22 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:25:22 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:25:22 | INFO     | SAT_Generator | [Linear functions-Easy] Successfully generated 10 tasks
+2025-07-03 09:25:24 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Easy
+2025-07-03 09:25:25 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Easy
+2025-07-03 09:26:39 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 4128, Output: 4233, Total: 12444
+2025-07-03 09:26:39 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:26:39 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:26:39 | INFO     | SAT_Generator | [Linear functions-Easy] Successfully generated 10 tasks
+2025-07-03 09:26:41 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Easy
+2025-07-03 09:26:42 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Easy
+2025-07-03 09:28:36 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 4636, Output: 4332, Total: 17683
+2025-07-03 09:28:36 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:28:36 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:28:36 | INFO     | SAT_Generator | [Linear functions-Easy] Successfully generated 10 tasks
+2025-07-03 09:28:38 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Easy
+2025-07-03 09:28:39 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Easy
+2025-07-03 09:30:20 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 5179, Output: 4093, Total: 16228
+2025-07-03 09:30:20 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:30:20 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:30:20 | INFO     | SAT_Generator | [Linear functions-Easy] Successfully generated 10 tasks
+2025-07-03 09:30:22 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Easy
+2025-07-03 09:30:23 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Easy
+2025-07-03 09:31:22 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 5649, Output: 4035, Total: 12265
+2025-07-03 09:31:22 | ERROR    | SAT_Generator | [Linear functions-Easy] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+2025-07-03 09:31:22 | DEBUG    | SAT_Generator | Generating batch (attempt 2/5) for skill: Linear functions-Easy
+2025-07-03 09:32:40 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 5649, Output: 4113, Total: 14175
+2025-07-03 09:32:40 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:32:40 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:32:40 | INFO     | SAT_Generator | [Linear functions-Easy] Successfully generated 10 tasks
+2025-07-03 09:32:42 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Easy
+2025-07-03 09:32:43 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Easy
+2025-07-03 09:34:09 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 6158, Output: 3952, Total: 15802
+2025-07-03 09:34:09 | ERROR    | SAT_Generator | [Linear functions-Easy] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+2025-07-03 09:34:09 | DEBUG    | SAT_Generator | Generating batch (attempt 2/5) for skill: Linear functions-Easy
+2025-07-03 09:35:27 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 6158, Output: 3666, Total: 15120
+2025-07-03 09:35:27 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:35:27 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:35:27 | INFO     | SAT_Generator | [Linear functions-Easy] Successfully generated 10 tasks
+2025-07-03 09:35:29 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Easy
+2025-07-03 09:35:30 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Easy
+2025-07-03 09:36:40 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 6748, Output: 3902, Total: 14792
+2025-07-03 09:36:40 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:36:40 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:36:40 | INFO     | SAT_Generator | [Linear functions-Easy] Successfully generated 10 tasks
+2025-07-03 09:36:42 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Easy
+2025-07-03 09:36:43 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Easy
+2025-07-03 09:38:01 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 7210, Output: 4404, Total: 16197
+2025-07-03 09:38:01 | ERROR    | SAT_Generator | [Linear functions-Easy] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+2025-07-03 09:38:01 | DEBUG    | SAT_Generator | Generating batch (attempt 2/5) for skill: Linear functions-Easy
+2025-07-03 09:39:25 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 7210, Output: 3874, Total: 16627
+2025-07-03 09:39:25 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:39:25 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:39:25 | INFO     | SAT_Generator | [Linear functions-Easy] Successfully generated 10 tasks
+2025-07-03 09:39:27 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Easy
+2025-07-03 09:39:28 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Easy
+2025-07-03 09:40:40 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 7708, Output: 4058, Total: 15500
+2025-07-03 09:40:40 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:40:40 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:40:40 | INFO     | SAT_Generator | [Linear functions-Easy] Successfully generated 10 tasks
+2025-07-03 09:40:42 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Easy
+2025-07-03 09:40:43 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Easy
+2025-07-03 09:42:14 | INFO     | SAT_Generator | [Linear functions-Easy] Token usage - Input: 8202, Output: 4521, Total: 18338
+2025-07-03 09:42:14 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:42:14 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:42:14 | INFO     | SAT_Generator | [Linear functions-Easy] Successfully generated 10 tasks
+2025-07-03 09:42:14 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Medium
+2025-07-03 09:42:15 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Medium
+2025-07-03 09:43:31 | INFO     | SAT_Generator | [Linear functions-Medium] Token usage - Input: 3603, Output: 4910, Total: 12234
+2025-07-03 09:43:31 | ERROR    | SAT_Generator | [Linear functions-Medium] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+2025-07-03 09:43:31 | DEBUG    | SAT_Generator | Generating batch (attempt 2/5) for skill: Linear functions-Medium
+2025-07-03 09:45:08 | INFO     | SAT_Generator | [Linear functions-Medium] Token usage - Input: 3603, Output: 5494, Total: 13944
+2025-07-03 09:45:08 | DEBUG    | SAT_Generator | Processing 10 generated tasks
+2025-07-03 09:45:08 | INFO     | SAT_Generator | Successfully processed 10 tasks from 10 raw tasks
+2025-07-03 09:45:08 | INFO     | SAT_Generator | [Linear functions-Medium] Successfully generated 10 tasks
+2025-07-03 09:45:10 | INFO     | SAT_Generator | Starting batch generation for skill: Linear functions-Medium
+2025-07-03 09:45:11 | DEBUG    | SAT_Generator | Generating batch (attempt 1/5) for skill: Linear functions-Medium
+2025-07-03 09:46:42 | INFO     | SAT_Generator | [Linear functions-Medium] Token usage - Input: 4246, Output: 5232, Total: 14480
+2025-07-03 09:46:42 | ERROR    | SAT_Generator | [Linear functions-Medium] JSON parsing error (attempt 1): All JSON parsing methods failed: line 1 column 1 (char 0)
+2025-07-03 09:46:42 | DEBUG    | SAT_Generator | Generating batch (attempt 2/5) for skill: Linear functions-Medium

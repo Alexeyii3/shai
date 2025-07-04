@@ -1,0 +1,14 @@
+2025-07-03 09:55:31 | INFO     | SAT_Generator | ================================================================================
+2025-07-03 09:55:31 | INFO     | SAT_Generator | SAT Math Task Generator - Logging Initialized
+2025-07-03 09:55:31 | INFO     | SAT_Generator | Detailed logs: logs/generation_detailed_20250703_095531.log
+2025-07-03 09:55:31 | INFO     | SAT_Generator | Error logs: logs/generation_errors_20250703_095531.log
+2025-07-03 09:55:31 | INFO     | SAT_Generator | Progress logs: logs/generation_progress_20250703_095531.log
+2025-07-03 09:55:31 | INFO     | SAT_Generator | ================================================================================
+2025-07-03 09:55:31 | INFO     | SAT_Generator | Initializing SAT Math Task Generator
+2025-07-03 09:55:31 | INFO     | SAT_Generator | Project ID: studyhall-dev-383420
+2025-07-03 09:55:31 | INFO     | SAT_Generator | Model: gemini-2.5-pro
+2025-07-03 09:55:31 | INFO     | SAT_Generator | Max workers: 1
+2025-07-03 09:55:31 | INFO     | SAT_Generator | Test logging functionality
+2025-07-03 09:55:31 | WARNING  | SAT_Generator | Test warning message
+2025-07-03 09:55:31 | ERROR    | SAT_Generator | Test error message
+2025-07-03 09:55:31 | DEBUG    | SAT_Generator | Test debug message
