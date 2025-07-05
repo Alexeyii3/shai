@@ -97,11 +97,11 @@ def setup_logging(log_dir: str = "logs") -> logging.Logger:
 
 
 class ConcurrentMathTaskGenerator:
-    def __init__(self, project_id: str = "studyhall-dev-383420", max_workers: int = 3):
+    def __init__(self, project_id: str = "studyhall-dev-383420", max_workers: int = 2):
         """Initialize the Gemini API client with Vertex AI and concurrency settings"""
         self.project_id = project_id
-        self.location = "us-central1"
-        self.model = "gemini-2.5-pro"
+        self.location = "global"
+        self.model = "gemini-2.5-flash"
         self.max_workers = max_workers  # Default reduced to 3 to avoid rate limits
         
         # Setup logging
@@ -1466,7 +1466,7 @@ async def main():
     TEST_MODE = False             # Set to True to generate only 10 tasks for testing
     TEST_TASKS = 10              # Number of tasks in test mode
     PROJECT_ID = "studyhall-dev-383420"  # Your Google Cloud project ID
-    MAX_WORKERS = 1              # Reduced concurrent workers to avoid API rate limits
+    MAX_WORKERS = 2              # Reduced concurrent workers to avoid API rate limits
     BATCH_SIZE = 5               # Number of skills to process concurrently (reduced to avoid rate limits)
     
     self.logger.info("=== SAT Math Task Generator with Figures (Difficulty-Based) ===")

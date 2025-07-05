@@ -80,11 +80,11 @@ def setup_logging(log_dir: str = "logs") -> logging.Logger:
 
 
 class ConcurrentMathTaskGenerator:
-    def __init__(self, project_id: str = "studyhall-dev-383420", max_workers: int = 1):
+    def __init__(self, project_id: str = "studyhall-dev-383420", max_workers: int = 2):
         """Initialize the Gemini API client with Vertex AI and concurrency settings"""
         self.project_id = project_id
         self.location = "global"
-        self.model = "gemini-2.5-pro"
+        self.model = "gemini-2.5-flash"  # Updated to use the latest model
         self.max_workers = max_workers
         
         # Setup logging

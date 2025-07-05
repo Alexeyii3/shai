@@ -81,11 +81,11 @@ def setup_logging(log_dir: str = "logs") -> logging.Logger:
 
 
 class ConcurrentMathTaskGenerator:
-    def __init__(self, project_id: str = "studyhall-dev-383420", max_workers: int = 1):
+    def __init__(self, project_id: str = "studyhall-dev-383420", max_workers: int = 2):
         """Initialize the Gemini API client with Vertex AI and concurrency settings"""
         self.project_id = project_id
         self.location = "global"
-        self.model = "gemini-2.5-pro"
+        self.model = "gemini-2.5-flash"
         self.max_workers = max_workers
         
         # Setup logging
@@ -1579,7 +1579,7 @@ async def main():
     TEST_MODE = False              # Set to True to generate only 10 tasks for testing
     TEST_TASKS = 10               # Number of tasks in test mode
     PROJECT_ID = "studyhall-dev-383420"  # Your Google Cloud project ID
-    MAX_WORKERS = 1               # Number of concurrent workers (adjust based on API limits)
+    MAX_WORKERS = 2               # Number of concurrent workers (adjust based on API limits)
     
     # Initialize generator
     try:
