@@ -13,22 +13,23 @@ from typing import List, Dict, Any, Optional, Tuple
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 import threading
+import glob
 
 # Ensure proper error handling for imports
 try:
     from google import genai
     from google.genai import types
 except ImportError:
-    self.logger.info("\n" + "="*80)
-    self.logger.info("❌ Error: Required Google AI packages not found.")
-    self.logger.info("\nPlease install the required packages using:")
-    self.logger.info("\n    pip install google-generativeai")
-    self.logger.info("\nIf you continue to see this error after installation, ensure you have:")
-    self.logger.info("1. Properly set up Google Cloud credentials")
-    self.logger.info("2. Run 'gcloud auth application-default login'")
-    self.logger.info("3. Enabled the Vertex AI API in your Google Cloud project")
-    self.logger.info("\nFor more information, visit: https://cloud.google.com/vertex-ai/docs/start/client-libraries")
-    self.logger.info("="*80 + "\n")
+    print("\n" + "="*80)
+    print("❌ Error: Required Google AI packages not found.")
+    print("\nPlease install the required packages using:")
+    print("\n    pip install google-cloud-aiplatform")
+    print("\nIf you continue to see this error after installation, ensure you have:")
+    print("1. Properly set up Google Cloud credentials")
+    print("2. Run 'gcloud auth application-default login'")
+    print("3. Enabled the Vertex AI API in your Google Cloud project")
+    print("\nFor more information, visit: https://cloud.google.com/vertex-ai/docs/start/client-libraries")
+    print("="*80 + "\n")
     sys.exit(1)
 
 
@@ -1160,19 +1161,32 @@ CRITICAL REQUIREMENTS:
         
         return prompt
 
-    def get_already_generated_skills(self) -> set:
-        """Get list of skills that have already been generated"""
-        generated_skills = set()
+    def get_generated_skill_counts(self) -> Dict[str, int]:
+        """Get a dictionary of skill names and their generated task counts."""
+        skill_counts = defaultdict(int)
+        pattern = "generated_*.csv"
+        csv_files = glob.glob(pattern)
         
-        # Look for generated CSV files in current directory
-        for filename in os.listdir('.'):
-            if filename.startswith('generated_') and filename.endswith('.csv'):
-                # Extract skill name from filename
-                skill_name = filename[10:-4]  # Remove 'generated_' prefix and '.csv' suffix
-                skill_name = skill_name.replace('_', ' ')  # Convert underscores back to spaces
-                generated_skills.add(skill_name)
+        self.logger.info(f"Checking for existing skill files with pattern: '{pattern}'")
+
+        for filepath in csv_files:
+            try:
+                filename = os.path.basename(filepath)
+                skill_name = filename[len("generated_"):-len(".csv")]
+                
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    reader = csv.DictReader(f)
+                    count = len(list(reader))
+                skill_counts[skill_name] = count
+            except Exception as e:
+                self.logger.warning(f"Could not count rows in {filepath}: {e}")
         
-        return generated_skills
+        if skill_counts:
+            self.logger.info(f"Found task counts for {len(skill_counts)} existing skills.")
+        else:
+            self.logger.info("No existing generated skill files found.")
+            
+        return skill_counts
     
     async def process_skill_batch(self, skill_batch: List[Tuple[str, List[Dict[str, Any]]]], 
                                 tasks_per_difficulty: int, test_mode: bool, test_tasks: int):
@@ -1247,12 +1261,12 @@ CRITICAL REQUIREMENTS:
                                only_remaining: bool = True, batch_size: int = None):
         """Process all skills from the input CSV concurrently with difficulty-based generation"""
         self.logger.info("=== Concurrent Math Task Generator (Difficulty-Based) ===")
-        self.logger.info(f"nput file: {input_csv}")
-        self.logger.info(f"asks per difficulty level: {tasks_per_difficulty} × 3 difficulties = {tasks_per_difficulty * 3} total per skill")
-        self.logger.info(f"est mode: {'Enabled - ' + str(test_tasks) + ' tasks per skill' if test_mode else 'Disabled'}")
-        self.logger.info(f"roject ID: {self.project_id}")
-        self.logger.info(f"oncurrent workers: {self.max_workers}")
-        self.logger.info(f"kills batch size: {batch_size}")
+        self.logger.info(f"Input file: {input_csv}")
+        self.logger.info(f"Tasks per difficulty level: {tasks_per_difficulty} × 3 difficulties = {tasks_per_difficulty * 3} total per skill")
+        self.logger.info(f"Test mode: {'Enabled - ' + str(test_tasks) + ' tasks per skill' if test_mode else 'Disabled'}")
+        self.logger.info(f"Project ID: {self.project_id}")
+        self.logger.info(f"Concurrent workers: {self.max_workers}")
+        self.logger.info(f"Skills batch size: {batch_size}")
         
         # Read tasks by skill
         tasks_by_skill = self.read_tasks_by_skill(input_csv)
@@ -1262,27 +1276,26 @@ CRITICAL REQUIREMENTS:
             return
         
         # Get already generated skills if requested
-        already_generated = set()
+        skill_counts = {}
         if only_remaining:
-            already_generated = self.get_already_generated_skills()
-            self.logger.info(f" Found {len(already_generated)} already generated skills")
-            if already_generated:
-                self.logger.info("✅ Already generated:")
-                for skill in sorted(already_generated):
-                    self.logger.info(f" ✓ {skill}")
-        
+            skill_counts = self.get_generated_skill_counts()
+
         # Filter skills to process
         skills_to_process = []
-        for skill, examples in tasks_by_skill.items():
-            if only_remaining and skill in already_generated:
-                self.logger.warning(f"️  Skipping {skill}: already generated")
-                continue
-            
-            if len(examples) < 5:  # Need minimum examples
-                self.logger.warning(f"️  Skipping {skill}: only {len(examples)} examples (need at least 5)")
-                continue
-            
-            skills_to_process.append((skill, examples))
+        if only_remaining and not skill_counts:
+            self.logger.info("No existing files found. Processing all skills.")
+            skills_to_process = list(tasks_by_skill.items())
+        else:
+            for skill, examples in tasks_by_skill.items():
+                if only_remaining and skill_counts.get(skill, 0) >= 90:
+                    self.logger.warning(f"️  Skipping {skill}: already has {skill_counts.get(skill, 0)} tasks (≥ 90)")
+                    continue
+                
+                if len(examples) < 5:  # Need minimum examples
+                    self.logger.warning(f"️  Skipping {skill}: only {len(examples)} examples (need at least 5)")
+                    continue
+                
+                skills_to_process.append((skill, examples))
         
         if not skills_to_process:
             self.logger.info("🎉 No remaining skills to generate! All skills are already done.")
@@ -1401,7 +1414,7 @@ CRITICAL REQUIREMENTS:
     def save_tasks_to_csv(self, tasks: List[Dict[str, Any]], filename: str):
         """Save tasks to CSV file with detailed error diagnostics"""
         if not tasks:
-            self.logger.info(f"o tasks to save for {filename}")
+            self.logger.info(f"No tasks to save for {filename}")
             return
         
         # Define the column order
@@ -1460,6 +1473,9 @@ CRITICAL REQUIREMENTS:
             self.logger.error(f" General error saving to {filename}: {e}")
 
 async def main():
+    # Setup logging for the main execution context
+    logger = setup_logging()
+
     # Configuration
     INPUT_CSV = "SAT_questions_with_figures.csv"  # Your input CSV file
     TASKS_PER_DIFFICULTY = 100    # Number of tasks to generate per difficulty level (100 each for Easy, Medium, Hard = 300 total per skill)
@@ -1469,34 +1485,35 @@ async def main():
     MAX_WORKERS = 2              # Reduced concurrent workers to avoid API rate limits
     BATCH_SIZE = 5               # Number of skills to process concurrently (reduced to avoid rate limits)
     
-    self.logger.info("=== SAT Math Task Generator with Figures (Difficulty-Based) ===")
-    self.logger.info(f"nput file: {INPUT_CSV}")
-    self.logger.info(f"asks per difficulty: {TASKS_PER_DIFFICULTY} × 3 difficulties = {TASKS_PER_DIFFICULTY * 3} total per skill")
-    self.logger.info(f"est mode: {'Enabled - ' + str(TEST_TASKS) + ' tasks per skill' if TEST_MODE else 'Disabled'}")
-    self.logger.info(f"roject ID: {PROJECT_ID}")
-    self.logger.info(f"oncurrent workers: {MAX_WORKERS}")
-    self.logger.info(f"kills batch size: {BATCH_SIZE}")
+    logger.info("=== SAT Math Task Generator with Figures (Difficulty-Based) ===")
+    logger.info(f"Input file: {INPUT_CSV}")
+    logger.info(f"Tasks per difficulty: {TASKS_PER_DIFFICULTY} × 3 difficulties = {TASKS_PER_DIFFICULTY * 3} total per skill")
+    logger.info(f"Test mode: {'Enabled - ' + str(TEST_TASKS) + ' tasks per skill' if TEST_MODE else 'Disabled'}")
+    logger.info(f"Project ID: {PROJECT_ID}")
+    logger.info(f"Concurrent workers: {MAX_WORKERS}")
+    logger.info(f"Skills batch size: {BATCH_SIZE}")
     
+    generator = None  # Initialize generator to ensure it's always defined
     # Initialize generator with robust error handling
     try:
         generator = ConcurrentMathTaskGenerator(project_id=PROJECT_ID, max_workers=MAX_WORKERS)
-        print("✅ Successfully initialized Concurrent Gemini API with Vertex AI")
+        logger.info("✅ Successfully initialized Concurrent Gemini API with Vertex AI")
     except ImportError as e:
-        self.logger.info("\n" + "="*80)
-        self.logger.info("❌ Error importing required modules: {e}")
-        self.logger.info("\nPlease install the required packages using:")
-        self.logger.info("\n    pip install google-generativeai")
-        self.logger.info("\nIf you continue to see this error after installation, ensure you have:")
-        self.logger.info("1. Properly set up Google Cloud credentials")
-        self.logger.info("2. Run 'gcloud auth application-default login'")
-        self.logger.info("3. Enabled the Vertex AI API in your Google Cloud project")
-        self.logger.info("\nFor more information, visit: https://cloud.google.com/vertex-ai/docs/start/client-libraries")
-        self.logger.info("="*80 + "\n")
+        logger.info("\n" + "="*80)
+        logger.info(f"❌ Error importing required modules: {e}")
+        logger.info("\nPlease install the required packages using:")
+        logger.info("\n    pip install google-generativeai")
+        logger.info("\nIf you continue to see this error after installation, ensure you have:")
+        logger.info("1. Properly set up Google Cloud credentials")
+        logger.info("2. Run 'gcloud auth application-default login'")
+        logger.info("3. Enabled the Vertex AI API in your Google Cloud project")
+        logger.info("\nFor more information, visit: https://cloud.google.com/vertex-ai/docs/start/client-libraries")
+        logger.info("="*80 + "\n")
         return
     except Exception as e:
-        print(f"❌ Error initializing Gemini API: {e}")
-        print("Make sure you have run 'gcloud auth application-default login'")
-        print("And ensure your project has Vertex AI API enabled")
+        logger.error(f"❌ Error initializing Gemini API: {e}")
+        logger.error("Make sure you have run 'gcloud auth application-default login'")
+        logger.error("And ensure your project has Vertex AI API enabled")
         return
     
     # Process all skills with improved robustness
@@ -1510,43 +1527,43 @@ async def main():
             only_remaining=True,   # Set to False to regenerate all skills
             batch_size=BATCH_SIZE  # Process this many skills concurrently
         )
-        self.logger.info("\n✅ Generation completed successfully!")
+        logger.info("\n✅ Generation completed successfully!")
     except KeyboardInterrupt:
-        self.logger.info("\n⚠️ Process interrupted by user. Partial results may have been saved.")
+        logger.warning("\n⚠️ Process interrupted by user. Partial results may have been saved.")
     except Exception as e:
-        self.logger.error(f"n❌ An error occurred during generation: {type(e).__name__}: {str(e)}")
+        logger.error(f"\n❌ An error occurred during regeneration: {type(e).__name__}: {str(e)}")
         import traceback
         traceback.print_exc()
     finally:
         # Print error statistics
         total_time = time.time() - start_time
-        self.logger.info("\n=== Gemini API Error Statistics ===")
-        if hasattr(generator, 'error_counters') and generator.error_counters:
+        logger.info("\n=== Gemini API Error Statistics ===")
+        if generator and hasattr(generator, 'error_counters') and generator.error_counters:
             total_errors = sum(count for err_type, count in generator.error_counters.items() if err_type != "success")
             total_success = generator.error_counters.get("success", 0)
             
-            self.logger.error(f" Total API calls: {total_errors + total_success}")
-            self.logger.info(f" Successful calls: {total_success}")
-            self.logger.error(f" Failed calls: {total_errors}")
+            logger.info(f" Total API calls: {total_errors + total_success}")
+            logger.info(f" Successful calls: {total_success}")
+            logger.error(f" Failed calls: {total_errors}")
             
             if total_errors > 0:
-                self.logger.info("\nError breakdown:")
+                logger.info("\nError breakdown:")
                 for err_type, count in sorted(generator.error_counters.items(), key=lambda x: x[1], reverse=True):
                     if err_type != "success":
-                        self.logger.info(f" • {err_type}: {count} occurrences")
+                        logger.info(f" • {err_type}: {count} occurrences")
                         
-            self.logger.info(f"nRuntime: {total_time:.1f}s")
+            logger.info(f"\nRuntime: {total_time:.1f}s")
             
             if "RetryError" in generator.error_counters or "ClientError" in generator.error_counters:
-                self.logger.info("\n⚠️ Notable API issues detected ⚠️")
-                self.logger.info("Recommendations:")
-                self.logger.info("1. Reduce MAX_WORKERS and BATCH_SIZE even further")
-                self.logger.info("2. Increase request delays (self.request_delay in the generator) to 5-10 seconds")
-                self.logger.info("3. Add longer pauses between batches")
-                self.logger.info("4. Check your Vertex AI API quotas in the Google Cloud Console")
-                self.logger.info("5. Consider running at non-peak hours or spreading generation across multiple days")
+                logger.warning("\n⚠️ Notable API issues detected ⚠️")
+                logger.warning("Recommendations:")
+                logger.warning("1. Reduce MAX_WORKERS and BATCH_SIZE even further")
+                logger.warning("2. Increase request delays (self.request_delay in the generator) to 5-10 seconds")
+                logger.warning("3. Add longer pauses between batches")
+                logger.warning("4. Check your Vertex AI API quotas in the Google Cloud Console")
+                logger.warning("5. Consider running at non-peak hours or spreading generation across multiple days")
         
-        self.logger.info("\n=== Concurrent Generation Process Finished ===")
+        logger.info("\n=== Concurrent Generation Process Finished ===")
 
 
 if __name__ == "__main__":
